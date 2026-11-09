@@ -7,140 +7,132 @@
 </div>
 
 <!-- Full-Width Fluid Hero Section with Edge-to-Edge Obsidian Horizon -->
-<div class="relative -mt-8 sm:-mt-12 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white border-b border-slate-800/80 shadow-2xl">
+<div class="relative -mt-8 sm:-mt-12 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white border-b border-slate-800/80 shadow-2xl" id="hero-interactive-zone">
     <!-- Ambient Multidimensional Aurora Glows -->
-    <div class="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/30 via-indigo-500/20 to-teal-400/20 rounded-full blur-[130px] pointer-events-none animate-float"></div>
-    <div class="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-gradient-to-bl from-teal-500/20 via-emerald-600/15 to-transparent rounded-full blur-[120px] pointer-events-none animate-float" style="animation-delay: -3s;"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.06] pointer-events-none"></div>
+    <div class="absolute -top-40 left-10 w-[550px] h-[550px] bg-gradient-to-tr from-blue-600/25 via-indigo-500/15 to-teal-400/20 rounded-full blur-[130px] pointer-events-none animate-float"></div>
+    <div class="absolute top-1/4 right-0 w-[550px] h-[550px] bg-gradient-to-bl from-teal-500/20 via-emerald-600/15 to-indigo-600/10 rounded-full blur-[130px] pointer-events-none animate-float" style="animation-delay: -3.5s;"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.05] pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28 relative z-10 space-y-12">
-        <div class="max-w-4xl mx-auto text-center space-y-7 animate-slide-up">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            <!-- Luxury Status Badge -->
-            <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.08] backdrop-blur-xl border border-white/15 text-xs font-extrabold text-teal-300 shadow-2xl hover:border-teal-400/40 transition">
-                <span class="flex h-2 w-2 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-400"></span>
-                </span>
-                <span class="tracking-wide">Kost Management Monolith • High-Performance Edition</span>
-            </div>
+            <!-- LEFT COLUMN: Left-Aligned Editorial Headlines & CTAs -->
+            <div class="lg:col-span-7 space-y-7 animate-slide-up text-left">
+                <!-- Luxury Status Badge -->
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.08] backdrop-blur-xl border border-white/15 text-xs font-extrabold text-teal-300 shadow-xl hover:border-teal-400/40 transition">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-400"></span>
+                    </span>
+                    <span class="tracking-wide">Kost Management Monolith &bull; High-Performance Edition</span>
+                </div>
 
-            <!-- Majestic Dynamic Headline -->
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-white">
-                Otomasi Penuh Kos Modern <br class="hidden sm:inline" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400 drop-shadow-sm">
-                    Tanpa Repot, Rapi, & Real-Time
-                </span>
-            </h1>
+                <!-- Majestic Dynamic Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
+                    Otomasi Penuh Kos Modern <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400 drop-shadow-sm">
+                        Tanpa Repot, Rapi, & Real-Time
+                    </span>
+                </h1>
 
-            <!-- Editorial Subtitle -->
-            <p class="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-normal">
-                Sistem pengelolaan kamar, otomatisasi penagihan WhatsApp Fonnte, pemantauan arus kas, serta portal mandiri penghuni dalam satu aplikasi terpadu.
-            </p>
+                <!-- Editorial Subtitle -->
+                <p class="text-slate-300 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed font-normal">
+                    Platform operasional kos lengkap: otomatisasi tagihan WhatsApp Fonnte, pemantauan hunian terintegrasi, pembukuan arus kas bersih, serta portal mandiri bagi seluruh penghuni.
+                </p>
 
-            <!-- Action CTA Cluster -->
-            <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
-                <?php if (auth_check()): ?>
-                    <?php $u = auth_user(); ?>
-                    <?php if (strtolower($u['role'] ?? '') === 'owner'): ?>
-                        <a href="<?= url('owner/dashboard') ?>" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2.5">
-                            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Executive Dashboard
-                        </a>
-                    <?php elseif (strtolower($u['role'] ?? '') === 'admin'): ?>
-                        <a href="<?= url('admin/dashboard') ?>" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2.5">
-                            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Admin Dashboard
-                        </a>
+                <!-- Value Props Micro-List -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs text-slate-300 font-medium">
+                    <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                            <i data-lucide="check" class="w-3 h-3"></i>
+                        </div>
+                        <span>Pengingat WhatsApp Otomatis (H-7 s/d H+1)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/40 flex items-center justify-center shrink-0">
+                            <i data-lucide="check" class="w-3 h-3"></i>
+                        </div>
+                        <span>Anti-Bentrok Jadwal Reservasi Kamar</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/40 flex items-center justify-center shrink-0">
+                            <i data-lucide="check" class="w-3 h-3"></i>
+                        </div>
+                        <span>Portal Penghuni Mandiri (Bayar & Perbaikan)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 flex items-center justify-center shrink-0">
+                            <i data-lucide="check" class="w-3 h-3"></i>
+                        </div>
+                        <span>Arus Kas & Laba Bersih Khusus Owner</span>
+                    </div>
+                </div>
+
+                <!-- Action CTA Cluster -->
+                <div class="pt-3 flex flex-wrap items-center gap-3.5">
+                    <?php if (auth_check()): ?>
+                        <?php $u = auth_user(); ?>
+                        <?php if (strtolower($u['role'] ?? '') === 'owner'): ?>
+                            <a href="<?= url('owner/dashboard') ?>" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Executive Dashboard
+                            </a>
+                        <?php elseif (strtolower($u['role'] ?? '') === 'admin'): ?>
+                            <a href="<?= url('admin/dashboard') ?>" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Admin Dashboard
+                            </a>
+                        <?php else: ?>
+                            <a href="<?= url('tenant/dashboard') ?>" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-xl shadow-teal-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                                <i data-lucide="home" class="w-4 h-4"></i> Buka Portal Penghuni
+                            </a>
+                        <?php endif; ?>
                     <?php else: ?>
-                        <a href="<?= url('tenant/dashboard') ?>" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-xl shadow-teal-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2.5">
-                            <i data-lucide="home" class="w-4 h-4"></i> Buka Portal Penghuni
+                        <a href="#kamar-kost" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-2xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center gap-2">
+                            <i data-lucide="door-closed" class="w-4 h-4 text-amber-300"></i> Jelajahi Kamar Siap Huni
+                        </a>
+                        <a href="<?= url('login') ?>" class="px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 backdrop-blur-xl border border-white/20 text-white transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-lg">
+                            <i data-lucide="log-in" class="w-4 h-4 text-slate-300"></i> Masuk ke Portal
                         </a>
                     <?php endif; ?>
-                <?php else: ?>
-                    <a href="#kamar-kost" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-2xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center gap-2.5">
-                        <i data-lucide="door-closed" class="w-4 h-4 text-amber-300"></i> Jelajahi Kamar Siap Huni
+
+                    <a href="#alur-sewa" class="px-5 py-3.5 rounded-2xl font-bold text-xs sm:text-sm bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-slate-300 hover:text-white transition-all inline-flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-teal-400"></i> Alur Sewa
                     </a>
-                    <a href="<?= url('login') ?>" class="px-7 py-4 rounded-2xl font-bold text-sm bg-white/10 hover:bg-white/15 backdrop-blur-xl border border-white/20 text-white transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-lg">
-                        <i data-lucide="log-in" class="w-4 h-4 text-slate-300"></i> Masuk ke Portal
-                    </a>
-                <?php endif; ?>
-
-                <a href="#alur-sewa" class="px-7 py-4 rounded-2xl font-bold text-sm bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-slate-300 hover:text-white transition-all inline-flex items-center gap-2">
-                    <i data-lucide="sparkles" class="w-4 h-4 text-teal-400"></i> Alur Sewa Praktis
-                </a>
+                </div>
             </div>
+
+            <!-- RIGHT COLUMN: Interactive 3D Canvas Smart Kosan Architecture -->
+            <div class="lg:col-span-5 relative flex items-center justify-center">
+                <!-- Glowing Ambient Backdrop Box -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-teal-500/10 via-indigo-500/10 to-blue-500/5 rounded-3xl blur-2xl pointer-events-none"></div>
+
+                <!-- 3D Canvas Frame -->
+                <div class="relative w-full aspect-square max-w-[460px] lg:max-w-[500px] rounded-3xl bg-slate-950/60 backdrop-blur-2xl border border-slate-800/80 shadow-2xl overflow-hidden group">
+                    
+                    <!-- 3D Interactive Canvas -->
+                    <canvas id="kosan-canvas-3d" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
+
+                    <!-- Floating Ambient HUD Cards -->
+                    <!-- HUD Top Right: Active Room -->
+                    <div class="absolute top-4 right-4 px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-[11px] font-semibold text-slate-200 shadow-xl flex items-center gap-2 pointer-events-none animate-float">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Unit 101 &bull; Smart Living Aktif</span>
+                    </div>
+
+                    <!-- HUD Bottom Left: CCTV Security -->
+                    <div class="absolute bottom-4 left-4 px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-[11px] font-semibold text-slate-200 shadow-xl flex items-center gap-2 pointer-events-none animate-float" style="animation-delay: -2s;">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-teal-400"></i>
+                        <span>CCTV & Keamanan 24 Jam</span>
+                    </div>
+
+                    <!-- HUD Micro Instruction Pill -->
+                    <div class="absolute bottom-4 right-4 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] text-slate-400 pointer-events-none flex items-center gap-1">
+                        <i data-lucide="rotate-3d" class="w-3 h-3 text-teal-400"></i>
+                        <span>Gerakkan kursor</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <!-- Floating Glassmorphic Metric Matrix (Full-Width Responsive) -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6">
-            <!-- Card 1 -->
-            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-blue-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
-                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
-                    <span>Total Kamar</span>
-                    <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="door-closed" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <div class="text-3xl sm:text-4xl font-black text-white">
-                    <?= (int)($stats['total_rooms'] ?? 8) ?> <span class="text-xs font-normal text-slate-400">Unit</span>
-                </div>
-                <div class="text-[11px] text-teal-300 mt-2 flex items-center gap-1.5 font-semibold">
-                    <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span> Siap dikelola otomatis
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-emerald-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
-                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
-                    <span>Okupansi Aktif</span>
-                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="pie-chart" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <div class="text-3xl sm:text-4xl font-black text-emerald-400">
-                    <?= $stats['occupancy_rate'] ?? 12.5 ?>%
-                </div>
-                <div class="text-[11px] text-slate-400 mt-2 flex items-center gap-1.5 font-medium">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                    <?= (int)($stats['occupied'] ?? 1) ?> Kamar Terisi
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-teal-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
-                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
-                    <span>Automasi WhatsApp</span>
-                    <div class="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="message-square" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <div class="text-3xl sm:text-4xl font-black text-white flex items-center gap-2">
-                    Fonnte
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        Aktif
-                    </span>
-                </div>
-                <div class="text-[11px] text-slate-400 mt-2 font-medium">
-                    Jadwal H-7, H-3, H-1, Hari-H, H+1
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-indigo-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
-                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
-                    <span>Laporan Arus Kas</span>
-                    <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-                    </div>
-                </div>
-                <div class="text-3xl sm:text-4xl font-black text-white">
-                    CSV <span class="text-xs font-normal text-slate-400">Export</span>
-                </div>
-                <div class="text-[11px] text-teal-300 mt-2 font-medium">
-                    BOM UTF-8 Excel Ready
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 
@@ -300,103 +292,100 @@
                         Kamar kost eksklusif siap huni dengan fasilitas lengkap, foto interior, dan harga transparan.
                     </p>
                 </div>
-                <div class="flex items-center gap-2 text-xs font-bold">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
+
+                <!-- Legend Indicator -->
+                <div class="flex items-center gap-3 text-xs font-semibold">
+                    <span class="inline-flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
                     </span>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200">
+                    <span class="inline-flex items-center gap-1.5 text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
                         <span class="w-2 h-2 rounded-full bg-blue-500"></span> Disewa
                     </span>
                 </div>
             </div>
 
-            <!-- Room Grid: High-res Card Aesthetics with Architectural Gradients & Lazy Loaded Photos -->
+            <!-- Room Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <?php foreach (array_slice($rooms, 0, 8) as $idx => $room): ?>
-                    <?php $stagger = ($idx % 4) + 1; ?>
-                    <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group reveal-on-scroll stagger-<?= $stagger ?>">
-                        <div>
-                            <!-- Visual Banner with Lazy Loaded Room Photo & Shimmer Skeleton -->
-                            <div class="h-36 relative overflow-hidden bg-slate-900 skeleton">
-                                <img src="https://images.unsplash.com/photo-<?= (((int)$room->room_number % 2) === 0) ? '1522771739844-6a9f6d5f14af' : '1595526114035-0d45ed16cfbf' ?>?auto=format&fit=crop&w=500&q=80"
-                                    loading="lazy"
-                                    alt="Kamar <?= e($room->room_number) ?>"
-                                    class="w-full h-full object-cover opacity-0 transition-all duration-500 relative z-10 group-hover:scale-105"
-                                    onload="this.parentElement.classList.remove('skeleton'); this.classList.remove('opacity-0'); this.classList.add('opacity-80');" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-20 pointer-events-none"></div>
-                                <div class="absolute inset-0 p-4 flex flex-col justify-between z-30 pointer-events-none">
-                                    <div class="flex items-center justify-between">
-                                        <span class="px-2.5 py-1 rounded-lg text-xs font-black tracking-wider bg-white/20 backdrop-blur-md text-white border border-white/25 shadow-sm">
-                                            KAMAR <?= e($room->room_number) ?>
-                                        </span>
-                                        <?php if ($room->status === 'available'): ?>
-                                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-300 bg-emerald-950/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-400/40 shadow-sm">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Siap Huni
-                                            </span>
-                                        <?php elseif ($room->status === 'occupied'): ?>
-                                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-300 bg-blue-950/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-blue-400/40 shadow-sm">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Terisi
-                                            </span>
-                                        <?php else: ?>
-                                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-300 bg-amber-950/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-400/40 shadow-sm">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Maintenance
-                                            </span>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="text-white text-xs font-semibold flex items-center gap-2 drop-shadow">
-                                        <i data-lucide="bed" class="w-4 h-4 text-teal-300"></i>
-                                        <span>Lantai <?= (int)($room->floor ?? 1) ?> • Deluxe Single</span>
-                                    </div>
+                <?php foreach ($rooms as $index => $room): ?>
+                    <?php
+                        $isAvailable = ($room->status ?? 'available') === 'available';
+                        $statusText = $isAvailable ? 'Siap Huni' : 'Terisi';
+                        $statusBadgeClass = $isAvailable 
+                            ? 'bg-emerald-500/90 text-white backdrop-blur-md border border-emerald-400' 
+                            : 'bg-blue-600/90 text-white backdrop-blur-md border border-blue-400';
+                        $borderHover = $isAvailable ? 'hover:border-emerald-400' : 'hover:border-blue-400';
+                    ?>
+                    <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl <?= $borderHover ?> transition-all duration-300 overflow-hidden flex flex-col justify-between group reveal-on-scroll stagger-<?= ($index % 4) + 1 ?>">
+                        <!-- Image Container with Shimmer Skeleton -->
+                        <div class="relative aspect-4/3 overflow-hidden bg-slate-100 skeleton">
+                            <?php if (!empty($room->photo_url)): ?>
+                                <img src="<?= e($room->photo_url) ?>" 
+                                     alt="Kamar <?= e($room->room_number) ?>" 
+                                     loading="lazy"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-0">
+                            <?php else: ?>
+                                <div class="w-full h-full flex flex-col items-center justify-center text-slate-300 bg-gradient-to-tr from-slate-100 to-slate-200">
+                                    <i data-lucide="image" class="w-10 h-10"></i>
+                                    <span class="text-[10px] uppercase font-bold tracking-wider mt-1 text-slate-400">Foto Kamar</span>
                                 </div>
+                            <?php endif; ?>
+
+                            <!-- Room Number Pill -->
+                            <div class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md border border-white/20 text-white text-xs font-black px-3 py-1 rounded-full shadow-lg">
+                                KAMAR <?= e($room->room_number) ?>
                             </div>
 
-                            <!-- Card Body -->
-                            <div class="p-5 space-y-3">
-                                <div>
-                                    <h3 class="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors">
-                                        <?= e($room->name ?? ('Kamar ' . $room->room_number)) ?>
-                                    </h3>
-                                    <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">
-                                        <?= e($room->description ?: 'Kamar nyaman dan bersih dengan sirkulasi udara baik.') ?>
-                                    </p>
-                                </div>
+                            <!-- Availability Badge -->
+                            <div class="absolute top-3 right-3 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md <?= $statusBadgeClass ?>">
+                                <span class="inline-block w-1.5 h-1.5 rounded-full bg-white mr-1"></span>
+                                <?= $statusText ?>
+                            </div>
 
-                                <!-- Amenities Chips -->
-                                <div class="flex flex-wrap gap-1.5 pt-1">
-                                    <?php if (!empty($room->facilities) && is_array($room->facilities)): ?>
-                                        <?php foreach (array_slice($room->facilities, 0, 3) as $fac): ?>
-                                            <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">
-                                                <?= e($fac->name ?? (is_array($fac) ? ($fac['name'] ?? '') : $fac)) ?>
-                                            </span>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">AC</span>
-                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">KM Dalam</span>
-                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">WiFi</span>
-                                    <?php endif; ?>
-                                </div>
+                            <!-- Price Ribbon Overlay -->
+                            <div class="absolute bottom-3 left-3 right-3 p-2.5 rounded-2xl bg-slate-950/75 backdrop-blur-md border border-white/10 text-white flex items-center justify-between">
+                                <span class="text-[10px] text-slate-300 uppercase tracking-wider font-semibold">Tarif Sewa</span>
+                                <span class="text-sm font-extrabold text-teal-300 font-mono">
+                                    <?= $room->formattedPrice() ?><span class="text-[10px] text-slate-300 font-normal">/bln</span>
+                                </span>
                             </div>
                         </div>
 
-                        <!-- Card Footer -->
-                        <div class="px-5 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <!-- Details Body -->
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
                             <div>
-                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Harga Sewa</div>
-                                <div class="text-sm font-black text-slate-900">
-                                    Rp <?= number_format((float)($room->price ?? 1500000), 0, ',', '.') ?>
-                                    <span class="text-[10px] font-normal text-slate-400">/bln</span>
+                                <div class="text-xs font-bold text-slate-800">
+                                    Lantai <?= e($room->floor ?? 1) ?> &bull; Luas <?= e($room->size ?? '3x4') ?> m&sup2;
                                 </div>
+                                <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                                    <?= e($room->description ?? 'Kamar berfasilitas lengkap, ventilasi udara optimal, dan lingkungan tenang.') ?>
+                                </p>
                             </div>
 
-                            <?php if ($room->status === 'available'): ?>
-                                <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1 group-hover:scale-105 transform">
-                                    Booking <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                                </a>
-                            <?php else: ?>
-                                <span class="px-3 py-1 rounded-xl bg-slate-200 text-slate-500 text-xs font-semibold">
-                                    Disewa
+                            <!-- Facilities Chips -->
+                            <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+                                <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200">
+                                    AC 1/2 PK
                                 </span>
-                            <?php endif; ?>
+                                <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200">
+                                    KM Dalam
+                                </span>
+                                <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200">
+                                    WiFi Fiber
+                                </span>
+                            </div>
+
+                            <!-- Booking Action -->
+                            <div>
+                                <?php if ($isAvailable): ?>
+                                    <a href="<?= url('bookings') ?>" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center block bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-sm shadow-emerald-500/20 transition transform active:scale-95">
+                                        Pesan Kamar Ini
+                                    </a>
+                                <?php else: ?>
+                                    <button type="button" disabled class="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center block bg-slate-100 text-slate-400 cursor-not-allowed">
+                                        Sedang Dihuni
+                                    </button>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -404,8 +393,8 @@
         </section>
     <?php endif; ?>
 
-    <!-- 6 CORE PILLARS CAPABILITIES -->
-    <section class="space-y-8 pt-4 reveal-on-scroll">
+    <!-- ARCHITECTURE & OPERATIONAL OVERVIEW SECTION -->
+    <section class="space-y-6 pt-4 reveal-on-scroll">
         <div class="text-center max-w-2xl mx-auto space-y-2">
             <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
                 <i data-lucide="layers" class="w-3.5 h-3.5"></i> Fitur Unggulan
@@ -538,3 +527,305 @@
         </div>
     </section>
 </div>
+
+<!-- Interactive 3D Kosan Canvas Engine with Smooth Cursor Tracking -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas = document.getElementById('kosan-canvas-3d');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const heroZone = document.getElementById('hero-interactive-zone') || canvas;
+
+    let width = 0, height = 0, dpr = 1;
+    let targetRotY = -0.45;
+    let targetRotX = 0.38;
+    let currentRotY = -0.45;
+    let currentRotX = 0.38;
+    let isHovered = false;
+
+    // Handle high DPI display
+    function resize() {
+        const rect = canvas.getBoundingClientRect();
+        dpr = window.devicePixelRatio || 1;
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Mouse Tracking over hero
+    heroZone.addEventListener('mousemove', function(e) {
+        const rect = heroZone.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1; // -1 to 1
+        const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+
+        // Interactive tilt based on cursor position
+        targetRotY = -0.45 + (nx * 0.45);
+        targetRotX = 0.38 + (ny * 0.25);
+        isHovered = true;
+    });
+
+    heroZone.addEventListener('mouseleave', function() {
+        isHovered = false;
+    });
+
+    // Touch support for mobile
+    let touchStartX = 0, touchStartY = 0;
+    canvas.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 0) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', function(e) {
+        if (e.touches.length > 0) {
+            const dx = e.touches[0].clientX - touchStartX;
+            const dy = e.touches[0].clientY - touchStartY;
+            targetRotY += dx * 0.005;
+            targetRotX += dy * 0.005;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    // 3D Geometry Utilities
+    function project(p, rotY, rotX, scale, cx, cy) {
+        // Rotate around Y
+        const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+        const x1 = p[0] * cosY - p[2] * sinY;
+        const z1 = p[0] * sinY + p[2] * cosY;
+
+        // Rotate around X
+        const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+        const y2 = p[1] * cosX - z1 * sinX;
+        const z2 = p[1] * sinX + z1 * cosX;
+
+        // Orthographic with subtle depth perspective
+        const distance = 480;
+        const fov = distance / (distance + z2 * 0.5);
+
+        return [
+            cx + x1 * scale * fov,
+            cy - y2 * scale * fov,
+            z2 // depth for sorting
+        ];
+    }
+
+    // Modern 3D Kosan Architecture Model Data
+    // Building consists of:
+    // 1. Foundation Platform
+    // 2. Ground Floor + Rooms
+    // 3. First Floor + Balcony
+    // 4. Rooftop Canopy + Solar Panels
+    // 5. Windows & Doors with Glow
+    const boxes = [
+        // Ground Foundation Slab (x, y, z, w, h, d, colors: [top, left, right, front, back])
+        { x: 0, y: -90, z: 0, w: 220, h: 14, d: 200, col: ['#1e293b', '#0f172a', '#1e293b', '#334155', '#0f172a'] },
+        // Main Ground Floor Body
+        { x: 0, y: -38, z: 0, w: 170, h: 90, d: 150, col: ['#0f172a', '#1e293b', '#334155', '#1e293b', '#0f172a'] },
+        // Ground Floor Entrance Porch Pillar
+        { x: 65, y: -45, z: 85, w: 12, h: 80, d: 12, col: ['#38bdf8', '#0284c7', '#0369a1', '#38bdf8', '#0284c7'] },
+        // Mid-floor Cantilever Balcony Slab
+        { x: 10, y: 10, z: 15, w: 195, h: 12, d: 175, col: ['#0ea5e9', '#0284c7', '#0369a1', '#38bdf8', '#0284c7'] },
+        // Upper Floor Main Body (Living Units)
+        { x: -5, y: 62, z: -5, w: 160, h: 92, d: 140, col: ['#1e293b', '#334155', '#475569', '#1e293b', '#0f172a'] },
+        // Upper Balcony Glass Railing
+        { x: 55, y: 32, z: 65, w: 85, h: 32, d: 6, col: ['rgba(56,189,248,0.7)', 'rgba(14,165,233,0.5)', 'rgba(56,189,248,0.6)', 'rgba(56,189,248,0.8)', 'rgba(56,189,248,0.5)'] },
+        // Rooftop Modern Canopy / Solar Pergola
+        { x: -5, y: 120, z: -5, w: 175, h: 10, d: 155, col: ['#14b8a6', '#0d9488', '#0f766e', '#2dd4bf', '#0d9488'] },
+        // Rooftop Solar Array Pod
+        { x: -30, y: 132, z: -20, w: 80, h: 8, d: 70, col: ['#0284c7', '#0369a1', '#075985', '#38bdf8', '#0369a1'] },
+        // Smart Antenna / Communication Node
+        { x: 60, y: 148, z: -50, w: 6, h: 48, d: 6, col: ['#10b981', '#059669', '#047857', '#34d399', '#059669'] }
+    ];
+
+    // Windows with warm/cyber ambient glows (x, y, z, w, h, facing)
+    const windows = [
+        // Ground Floor Windows
+        { x: -40, y: -35, z: 76, w: 34, h: 45, col: '#38bdf8', glow: 'rgba(56,189,248,0.45)' },
+        { x: 15, y: -35, z: 76, w: 34, h: 45, col: '#facc15', glow: 'rgba(250,204,21,0.45)' },
+        // Main Entry Door (Glass)
+        { x: 65, y: -50, z: 76, w: 26, h: 62, col: '#2dd4bf', glow: 'rgba(45,212,191,0.4)' },
+        // Upper Floor Windows (Occupied & Available Rooms)
+        { x: -45, y: 65, z: 66, w: 34, h: 42, col: '#34d399', glow: 'rgba(52,211,153,0.5)' },
+        { x: 0, y: 65, z: 66, w: 34, h: 42, col: '#38bdf8', glow: 'rgba(56,189,248,0.45)' },
+        { x: 45, y: 65, z: 66, w: 34, h: 42, col: '#f59e0b', glow: 'rgba(245,158,11,0.5)' }
+    ];
+
+    // Floating Orbiting Data Particles
+    const particles = [];
+    for (let i = 0; i < 24; i++) {
+        particles.push({
+            radius: 120 + Math.random() * 90,
+            angle: Math.random() * Math.PI * 2,
+            speed: 0.008 + Math.random() * 0.012,
+            y: (Math.random() - 0.5) * 180,
+            size: 2 + Math.random() * 2.5,
+            color: i % 3 === 0 ? '#38bdf8' : (i % 3 === 1 ? '#2dd4bf' : '#34d399')
+        });
+    }
+
+    // Animation Render Loop
+    let time = 0;
+    function render() {
+        requestAnimationFrame(render);
+        time += 0.016;
+
+        // Smooth inertia lerp for mouse rotation
+        currentRotY += (targetRotY - currentRotY) * 0.06;
+        currentRotX += (targetRotX - currentRotX) * 0.06;
+
+        // Auto gentle idle breathing sway when cursor is still
+        const idleSwayY = isHovered ? 0 : Math.sin(time * 0.8) * 0.06;
+        const idleSwayX = isHovered ? 0 : Math.cos(time * 0.6) * 0.03;
+        const rotY = currentRotY + idleSwayY;
+        const rotX = currentRotX + idleSwayX;
+
+        ctx.clearRect(0, 0, width, height);
+
+        const cx = width / 2;
+        const cy = height / 2 + 15;
+        const scale = Math.min(width, height) / 440;
+
+        // Draw Ambient Isometric Ground Grid Lines
+        ctx.save();
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+        ctx.lineWidth = 1;
+        for (let gx = -180; gx <= 180; gx += 45) {
+            const p1 = project([gx, -90, -180], rotY, rotX, scale, cx, cy);
+            const p2 = project([gx, -90, 180], rotY, rotX, scale, cx, cy);
+            ctx.beginPath();
+            ctx.moveTo(p1[0], p1[1]);
+            ctx.lineTo(p2[0], p2[1]);
+            ctx.stroke();
+        }
+        for (let gz = -180; gz <= 180; gz += 45) {
+            const p1 = project([-180, -90, gz], rotY, rotX, scale, cx, cy);
+            const p2 = project([180, -90, gz], rotY, rotX, scale, cx, cy);
+            ctx.beginPath();
+            ctx.moveTo(p1[0], p1[1]);
+            ctx.lineTo(p2[0], p2[1]);
+            ctx.stroke();
+        }
+        ctx.restore();
+
+        // Build list of all polygons for depth sorting (Painter's algorithm)
+        const renderList = [];
+
+        boxes.forEach(b => {
+            const hw = b.w / 2, hh = b.h / 2, hd = b.d / 2;
+            const x = b.x, y = b.y, z = b.z;
+
+            // 8 vertices of box
+            const v = [
+                [x - hw, y - hh, z - hd], // 0
+                [x + hw, y - hh, z - hd], // 1
+                [x + hw, y + hh, z - hd], // 2
+                [x - hw, y + hh, z - hd], // 3
+                [x - hw, y - hh, z + hd], // 4
+                [x + hw, y - hh, z + hd], // 5
+                [x + hw, y + hh, z + hd], // 6
+                [x - hw, y + hh, z + hd]  // 7
+            ].map(p => project(p, rotY, rotX, scale, cx, cy));
+
+            // Faces: [indices, color]
+            // Top (+Y): 3, 2, 6, 7
+            // Front (+Z): 4, 5, 6, 7
+            // Right (+X): 1, 2, 6, 5
+            // Left (-X): 0, 3, 7, 4
+            const faces = [
+                { pts: [v[3], v[2], v[6], v[7]], col: b.col[0], depth: (v[3][2] + v[2][2] + v[6][2] + v[7][2]) / 4 },
+                { pts: [v[4], v[5], v[6], v[7]], col: b.col[3], depth: (v[4][2] + v[5][2] + v[6][2] + v[7][2]) / 4 },
+                { pts: [v[1], v[2], v[6], v[5]], col: b.col[2], depth: (v[1][2] + v[2][2] + v[6][2] + v[5][2]) / 4 },
+                { pts: [v[0], v[3], v[7], v[4]], col: b.col[1], depth: (v[0][2] + v[3][2] + v[7][2] + v[4][2]) / 4 }
+            ];
+
+            faces.forEach(f => renderList.push(f));
+        });
+
+        // Add Windows to render list
+        windows.forEach(w => {
+            const hw = w.w / 2, hh = w.h / 2;
+            const v = [
+                [w.x - hw, w.y - hh, w.z],
+                [w.x + hw, w.y - hh, w.z],
+                [w.x + hw, w.y + hh, w.z],
+                [w.x - hw, w.y + hh, w.z]
+            ].map(p => project(p, rotY, rotX, scale, cx, cy));
+
+            renderList.push({
+                pts: v,
+                col: w.col,
+                glow: w.glow,
+                isWindow: true,
+                depth: (v[0][2] + v[1][2] + v[2][2] + v[3][2]) / 4 + 1
+            });
+        });
+
+        // Depth sort: back to front
+        renderList.sort((a, b) => a.depth - b.depth);
+
+        // Render Polygons
+        renderList.forEach(f => {
+            ctx.beginPath();
+            ctx.moveTo(f.pts[0][0], f.pts[0][1]);
+            for (let i = 1; i < f.pts.length; i++) {
+                ctx.lineTo(f.pts[i][0], f.pts[i][1]);
+            }
+            ctx.closePath();
+
+            if (f.isWindow) {
+                // Window with subtle glowing gradient fill
+                ctx.save();
+                ctx.fillStyle = f.col;
+                ctx.shadowColor = f.glow;
+                ctx.shadowBlur = 14;
+                ctx.fill();
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = '#ffffff';
+                ctx.stroke();
+
+                // Window mullions (crossbars)
+                const midX = (f.pts[0][0] + f.pts[1][0] + f.pts[2][0] + f.pts[3][0]) / 4;
+                const midY = (f.pts[0][1] + f.pts[1][1] + f.pts[2][1] + f.pts[3][1]) / 4;
+                ctx.beginPath();
+                ctx.moveTo((f.pts[0][0] + f.pts[3][0]) / 2, (f.pts[0][1] + f.pts[3][1]) / 2);
+                ctx.lineTo((f.pts[1][0] + f.pts[2][0]) / 2, (f.pts[1][1] + f.pts[2][1]) / 2);
+                ctx.strokeStyle = 'rgba(15, 23, 42, 0.6)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                ctx.restore();
+            } else {
+                ctx.fillStyle = f.col;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        });
+
+        // Orbiting Smart Data Particles
+        particles.forEach(pt => {
+            pt.angle += pt.speed;
+            const px = Math.cos(pt.angle) * pt.radius;
+            const pz = Math.sin(pt.angle) * pt.radius;
+            const pr = project([px, pt.y, pz], rotY, rotX, scale, cx, cy);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(pr[0], pr[1], pt.size * (scale * 0.9), 0, Math.PI * 2);
+            ctx.fillStyle = pt.color;
+            ctx.shadowColor = pt.color;
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.restore();
+        });
+    }
+
+    render();
+});
+</script>
