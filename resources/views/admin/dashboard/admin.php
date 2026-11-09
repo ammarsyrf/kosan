@@ -252,7 +252,7 @@
                     </div>
                     <h3 class="font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider">Kontrak Akan Berakhir (30 Hari)</h3>
                 </div>
-                <a href="<?= url('contracts') ?>" class="text-xs text-blue-600 hover:text-blue-700 font-bold inline-flex items-center gap-1">
+                <a href="<?= url('admin/contracts') ?>" class="text-xs text-blue-600 hover:text-blue-700 font-bold inline-flex items-center gap-1">
                     Semua &rarr;
                 </a>
             </div>

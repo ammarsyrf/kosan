@@ -45,9 +45,35 @@ Router::post('/logout', [AuthController::class, 'logout'], [], 'logout');
 Router::get('/activate', [TenantController::class, 'showActivationForm'], [], 'tenant.activate');
 Router::post('/activate', [TenantController::class, 'activate'], [], 'tenant.activate.post');
 
-// Convenient Aliases / Redirects
-Router::get('/bookings', fn() => \App\Core\Response::redirect('/admin/bookings'));
-Router::get('/contracts', fn() => \App\Core\Response::redirect('/admin/contracts'));
+// Convenient Root Aliases / Redirects to Admin equivalents
+$rootAliases = [
+    '/rooms' => '/admin/rooms',
+    '/rooms/create' => '/admin/rooms/create',
+    '/facilities' => '/admin/facilities',
+    '/tenants' => '/admin/tenants',
+    '/tenants/create' => '/admin/tenants/create',
+    '/bookings' => '/admin/bookings',
+    '/bookings/create' => '/admin/bookings/create',
+    '/contracts' => '/admin/contracts',
+    '/contracts/create' => '/admin/contracts/create',
+    '/invoices' => '/admin/invoices',
+    '/invoices/create' => '/admin/invoices/create',
+    '/payments' => '/admin/payments',
+    '/payments/cash' => '/admin/payments/cash',
+    '/expenses' => '/admin/expenses',
+    '/expenses/create' => '/admin/expenses/create',
+    '/expenses/categories' => '/admin/expenses/categories',
+    '/maintenance' => '/admin/maintenance',
+    '/notifications' => '/admin/notifications',
+    '/notifications/templates' => '/admin/notifications/templates',
+    '/notifications/settings' => '/admin/notifications/settings',
+];
+foreach ($rootAliases as $from => $to) {
+    Router::get($from, function (Request $req) use ($to) {
+        $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+        return Response::redirect($to . $qs);
+    });
+}
 
 // Owner Protected Routes
 Router::group([

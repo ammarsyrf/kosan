@@ -239,7 +239,7 @@
                     <span class="text-xs font-semibold text-slate-400">Invoice</span>
                 </a>
 
-                <a href="<?= url('contracts') ?>" class="p-3.5 rounded-2xl border border-slate-200/90 hover:border-blue-400 hover:bg-blue-50/40 transition flex items-center justify-between group">
+                <a href="<?= url('admin/contracts') ?>" class="p-3.5 rounded-2xl border border-slate-200/90 hover:border-blue-400 hover:bg-blue-50/40 transition flex items-center justify-between group">
                     <div>
                         <div class="text-xs text-slate-500 font-medium">Kontrak Habis (30h)</div>
                         <div class="text-xl font-black text-slate-900 mt-0.5"><?= (int)($operations['expiring_contracts_count'] ?? 0) ?></div>

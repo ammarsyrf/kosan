@@ -13,6 +13,7 @@ use App\Controllers\TenantController;
 use App\Core\Config;
 use App\Core\Database;
 use App\Core\Request;
+use App\Core\Response;
 use App\Core\Router;
 use App\Core\Session;
 use App\Middleware\AuthMiddleware;
@@ -23,11 +24,42 @@ Session::start();
 
 Router::clear();
 
-// Register All Routes
+// Public Routes
 Router::get('/', [HomeController::class, 'index'], [], 'home');
 Router::get('/login', [AuthController::class, 'showLogin'], [], 'login');
 Router::get('/activate', [TenantController::class, 'showActivationForm'], [], 'tenant.activate');
 
+// Convenient Root Aliases / Redirects
+$rootAliases = [
+    '/rooms' => '/admin/rooms',
+    '/rooms/create' => '/admin/rooms/create',
+    '/facilities' => '/admin/facilities',
+    '/tenants' => '/admin/tenants',
+    '/tenants/create' => '/admin/tenants/create',
+    '/bookings' => '/admin/bookings',
+    '/bookings/create' => '/admin/bookings/create',
+    '/contracts' => '/admin/contracts',
+    '/contracts/create' => '/admin/contracts/create',
+    '/invoices' => '/admin/invoices',
+    '/invoices/create' => '/admin/invoices/create',
+    '/payments' => '/admin/payments',
+    '/payments/cash' => '/admin/payments/cash',
+    '/expenses' => '/admin/expenses',
+    '/expenses/create' => '/admin/expenses/create',
+    '/expenses/categories' => '/admin/expenses/categories',
+    '/maintenance' => '/admin/maintenance',
+    '/notifications' => '/admin/notifications',
+    '/notifications/templates' => '/admin/notifications/templates',
+    '/notifications/settings' => '/admin/notifications/settings',
+];
+foreach ($rootAliases as $from => $to) {
+    Router::get($from, function (Request $req) use ($to) {
+        $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+        return Response::redirect($to . $qs);
+    });
+}
+
+// Owner Protected Routes
 Router::group([
     'prefix' => '/owner',
     'middleware' => [AuthMiddleware::class, new RoleMiddleware(['owner'])],
@@ -35,6 +67,7 @@ Router::group([
     Router::get('/dashboard', [\App\Controllers\DashboardController::class, 'owner'], [], 'owner.dashboard');
 });
 
+// Admin Protected Routes
 Router::group([
     'prefix' => '/admin',
     'middleware' => [AuthMiddleware::class, new RoleMiddleware(['admin', 'owner'])],
@@ -52,15 +85,11 @@ Router::group([
     Router::get('/tenants', [TenantController::class, 'index'], [], 'admin.tenants');
     Router::get('/tenants/create', [TenantController::class, 'create'], [], 'admin.tenants.create');
 
-    // Convenient Aliases
-    Router::get('/bookings', fn() => \App\Core\Response::redirect('/admin/bookings'));
-    Router::get('/contracts', fn() => \App\Core\Response::redirect('/admin/contracts'));
+    Router::get('/bookings', [\App\Controllers\BookingController::class, 'index'], [], 'admin.bookings');
+    Router::get('/bookings/create', [\App\Controllers\BookingController::class, 'create'], [], 'admin.bookings.create');
 
-    Router::get('/admin/bookings', [\App\Controllers\BookingController::class, 'index'], [], 'admin.bookings');
-    Router::get('/admin/bookings/create', [\App\Controllers\BookingController::class, 'create'], [], 'admin.bookings.create');
-
-    Router::get('/admin/contracts', [\App\Controllers\ContractController::class, 'index'], [], 'admin.contracts');
-    Router::get('/admin/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
+    Router::get('/contracts', [\App\Controllers\ContractController::class, 'index'], [], 'admin.contracts');
+    Router::get('/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
 
     Router::get('/invoices', [\App\Controllers\InvoiceController::class, 'index'], [], 'admin.invoices');
     Router::get('/invoices/create', [\App\Controllers\InvoiceController::class, 'create'], [], 'admin.invoices.create');
@@ -103,88 +132,96 @@ $tenantSession = $tenantUser ? ['id' => $tenantUser->id, 'name' => $tenantUser->
 
 $routesToTest = [
     // Guest
-    ['uri' => '/', 'role' => null, 'user' => null],
-    ['uri' => '/login', 'role' => null, 'user' => null],
+    ['uri' => '/', 'role' => null, 'user' => null, 'expected' => 200],
+    ['uri' => '/login', 'role' => null, 'user' => null, 'expected' => 200],
     
     // Owner
-    ['uri' => '/owner/dashboard', 'role' => 'owner', 'user' => $ownerSession],
-    ['uri' => '/admin/reports/financial', 'role' => 'owner', 'user' => $ownerSession],
+    ['uri' => '/owner/dashboard', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],
+    ['uri' => '/admin/reports/financial', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],
 
     // Admin
-    ['uri' => '/admin/dashboard', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/rooms', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/rooms/create', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/facilities', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/tenants', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/tenants/create', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/bookings', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/bookings', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/bookings/create', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/contracts', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/contracts', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/contracts/create', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/invoices', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/invoices/create', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/payments', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/payments/cash', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/notifications', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/notifications/templates', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/notifications/settings', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/expenses', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/expenses/create', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/expenses/categories', 'role' => 'admin', 'user' => $adminSession],
-    ['uri' => '/admin/maintenance', 'role' => 'admin', 'user' => $adminSession],
+    ['uri' => '/admin/dashboard', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/rooms', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/rooms/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/facilities', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/tenants', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/tenants/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/bookings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/bookings/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/admin/bookings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/bookings/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/contracts', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/contracts/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/admin/contracts', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/contracts/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/invoices', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/payments', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/expenses', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/maintenance', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/admin/invoices', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/invoices/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/payments', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/payments/cash', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/notifications', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/notifications/templates', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/notifications/settings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/expenses', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/expenses/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/expenses/categories', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/maintenance', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
 
     // Tenant
-    ['uri' => '/tenant/dashboard', 'role' => 'tenant', 'user' => $tenantSession],
-    ['uri' => '/tenant/extension', 'role' => 'tenant', 'user' => $tenantSession],
-    ['uri' => '/tenant/early-checkout', 'role' => 'tenant', 'user' => $tenantSession],
-    ['uri' => '/tenant/payment', 'role' => 'tenant', 'user' => $tenantSession],
-    ['uri' => '/tenant/maintenance', 'role' => 'tenant', 'user' => $tenantSession],
-    ['uri' => '/tenant/maintenance/create', 'role' => 'tenant', 'user' => $tenantSession],
+    ['uri' => '/tenant/dashboard', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/extension', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/early-checkout', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/payment', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/maintenance', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/maintenance/create', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
 ];
 
 echo "=========================================================\n";
 echo "       COMPREHENSIVE HTTP ROUTE VERIFICATION TEST        \n";
 echo "=========================================================\n\n";
 
-$errors = 0;
-$success = 0;
+$passed = 0;
+$failed = 0;
 
-foreach ($routesToTest as $test) {
-    $uri = $test['uri'];
-    $role = $test['role'] ?? 'GUEST';
-    
-    if ($test['user']) {
-        Session::set('user', $test['user']);
-    } else {
-        Session::remove('user');
+foreach ($routesToTest as $item) {
+    $uri = $item['uri'];
+    $roleName = $item['role'] ?? 'GUEST';
+    $user = $item['user'];
+    $expected = $item['expected'] ?? 200;
+
+    // Set Session
+    $_SESSION = [];
+    if ($user) {
+        $_SESSION['user'] = $user;
     }
 
+    $request = new Request([], [], ['REQUEST_METHOD' => 'GET', 'REQUEST_URI' => $uri]);
+
     try {
-        $req = new Request([], [], [
-            'REQUEST_METHOD' => 'GET',
-            'REQUEST_URI' => $uri,
-        ]);
-        
-        $res = Router::dispatch($req);
-        $code = $res->getStatusCode();
-        
-        if ($code >= 500) {
-            echo "  [FAIL 500] [{$role}] {$uri} -> Status {$code}\n";
-            $errors++;
+        $response = Router::dispatch($request);
+        $status = $response->getStatusCode();
+
+        if ($status === $expected) {
+            echo "  [PASS {$status}] [{$roleName}] {$uri}\n";
+            $passed++;
         } else {
-            echo "  [PASS {$code}] [{$role}] {$uri}\n";
-            $success++;
+            echo "  [FAIL {$status} (expected {$expected})] [{$roleName}] {$uri}\n";
+            $failed++;
         }
     } catch (\Throwable $e) {
-        echo "  [EXCEPTION] [{$role}] {$uri} -> " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine() . "\n";
-        $errors++;
+        echo "  [EXCEPTION] [{$roleName}] {$uri} -> " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine() . "\n";
+        $failed++;
     }
 }
 
-echo "\n" . str_repeat('=', 57) . "\n";
-echo "RESULTS: {$success} Passed, {$errors} Failed\n";
-echo str_repeat('=', 57) . "\n";
+echo "\n=========================================================\n";
+echo "RESULTS: {$passed} Passed, {$failed} Failed\n";
+echo "=========================================================\n";
 
-exit($errors > 0 ? 1 : 0);
+if ($failed > 0) {
+    exit(1);
+}
+exit(0);

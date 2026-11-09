@@ -279,7 +279,7 @@
                                 </div>
                             </div>
                             <?php if ($room->status === 'available'): ?>
-                                <a href="<?= url('bookings/create?room_id=' . $room->id) ?>" class="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 group-hover:underline">
+                                <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" class="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 group-hover:underline">
                                     Booking <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                                 </a>
                             <?php else: ?>

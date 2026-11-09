@@ -329,6 +329,58 @@ class ContractRepository
         return $req;
     }
 
+    public function getPendingExtensionByContractId(int $contractId): ?ContractExtensionRequest
+    {
+        $stmt = $this->db->prepare("
+            SELECT er.*, c.contract_number, r.room_number, u.name AS tenant_name
+            FROM `contract_extension_requests` er
+            JOIN `rental_contracts` c ON c.id = er.contract_id
+            JOIN `rooms` r ON r.id = c.room_id
+            JOIN `tenants` t ON t.id = c.tenant_id
+            JOIN `users` u ON u.id = t.user_id
+            WHERE er.contract_id = :contract_id AND er.status = 'pending'
+            ORDER BY er.created_at DESC
+            LIMIT 1
+        ");
+        $stmt->execute(['contract_id' => $contractId]);
+        $r = $stmt->fetch();
+        if (!$r) {
+            return null;
+        }
+
+        $req = new ContractExtensionRequest($r);
+        $req->contract_number = $r['contract_number'];
+        $req->room_number = $r['room_number'];
+        $req->tenant_name = $r['tenant_name'];
+        return $req;
+    }
+
+    public function getPendingEarlyCheckoutByContractId(int $contractId): ?EarlyCheckoutRequest
+    {
+        $stmt = $this->db->prepare("
+            SELECT ecr.*, c.contract_number, r.room_number, u.name AS tenant_name
+            FROM `early_checkout_requests` ecr
+            JOIN `rental_contracts` c ON c.id = ecr.contract_id
+            JOIN `rooms` r ON r.id = c.room_id
+            JOIN `tenants` t ON t.id = c.tenant_id
+            JOIN `users` u ON u.id = t.user_id
+            WHERE ecr.contract_id = :contract_id AND ecr.status = 'pending'
+            ORDER BY ecr.created_at DESC
+            LIMIT 1
+        ");
+        $stmt->execute(['contract_id' => $contractId]);
+        $r = $stmt->fetch();
+        if (!$r) {
+            return null;
+        }
+
+        $req = new EarlyCheckoutRequest($r);
+        $req->contract_number = $r['contract_number'];
+        $req->room_number = $r['room_number'];
+        $req->tenant_name = $r['tenant_name'];
+        return $req;
+    }
+
     private function generateContractNumber(): string
     {
         $prefix = 'KTR-' . date('Ym') . '-';
