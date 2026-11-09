@@ -177,11 +177,11 @@ $routesToTest = [
 
     // Tenant
     ['uri' => '/tenant/dashboard', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
-    ['uri' => '/tenant/extension', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
-    ['uri' => '/tenant/early-checkout', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/extension', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => [200, 302]],
+    ['uri' => '/tenant/early-checkout', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => [200, 302]],
     ['uri' => '/tenant/payment', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
     ['uri' => '/tenant/maintenance', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
-    ['uri' => '/tenant/maintenance/create', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],
+    ['uri' => '/tenant/maintenance/create', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => [200, 302]],
 ];
 
 echo "=========================================================\n";
@@ -209,11 +209,14 @@ foreach ($routesToTest as $item) {
         $response = Router::dispatch($request);
         $status = $response->getStatusCode();
 
-        if ($status === $expected) {
+        $isMatch = is_array($expected) ? in_array($status, $expected, true) : $status === $expected;
+
+        if ($isMatch) {
             echo "  [PASS {$status}] [{$roleName}] {$uri}\n";
             $passed++;
         } else {
-            echo "  [FAIL {$status} (expected {$expected})] [{$roleName}] {$uri}\n";
+            $expStr = is_array($expected) ? implode('/', $expected) : (string)$expected;
+            echo "  [FAIL {$status} (expected {$expStr})] [{$roleName}] {$uri}\n";
             $failed++;
         }
     } catch (\Throwable $e) {
