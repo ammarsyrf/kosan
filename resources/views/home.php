@@ -434,11 +434,26 @@
 
                                 <div class="shrink-0">
                                     <?php if ($isAvailable): ?>
-                                        <a href="<?= url('bookings?room_id=' . $room->id) ?>" 
-                                           class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95">
-                                            <span>Pesan Unit</span>
-                                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                                        </a>
+                                        <?php
+                                            $bizPhone = preg_replace('/[^0-9]/', '', (string)setting('business_phone', '081234567890'));
+                                            if (str_starts_with($bizPhone, '0')) $bizPhone = '62' . substr($bizPhone, 1);
+                                            $bizName = setting('business_name', 'Kost Management');
+                                            $waMsg = "Halo Pengelola {$bizName}, saya tertarik untuk booking / survei Kamar {$rNum} ({$typeName}) seharga {$room->formattedPrice()}/bln. Apakah unit masih tersedia?";
+                                            $waBookingUrl = "https://wa.me/{$bizPhone}?text=" . rawurlencode($waMsg);
+                                        ?>
+                                        <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
+                                            <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" 
+                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95">
+                                                <span>Booking Unit</span>
+                                                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="<?= e($waBookingUrl) ?>" target="_blank"
+                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95">
+                                                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                                <span>Pesan via WA</span>
+                                            </a>
+                                        <?php endif; ?>
                                     <?php else: ?>
                                         <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed">
                                             <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>

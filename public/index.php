@@ -16,6 +16,7 @@ use App\Controllers\TenantController;
 use App\Core\Config;
 use App\Core\ErrorHandler;
 use App\Core\Request;
+use App\Core\Response;
 use App\Core\Router;
 use App\Core\Session;
 use App\Middleware\AuthMiddleware;
@@ -70,8 +71,11 @@ $rootAliases = [
     '/settings' => '/admin/settings',
 ];
 foreach ($rootAliases as $from => $to) {
-    Router::get($from, function (Request $req) use ($to) {
+    Router::get($from, function (Request $req) use ($to, $from) {
         $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+        if ($from === '/bookings' && !empty($_GET['room_id'])) {
+            return Response::redirect('/admin/bookings/create' . $qs);
+        }
         return Response::redirect($to . $qs);
     });
 }
