@@ -52,3 +52,4 @@ class Room extends Model
         return 'Rp ' . number_format($this->current_price, 0, ',', '.');
     }
 }
+

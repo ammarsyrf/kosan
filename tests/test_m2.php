@@ -208,3 +208,4 @@ $t->assert('Activated tenant can login with newly created password', $loginTenan
 
 // Summary
 $t->summary();
+

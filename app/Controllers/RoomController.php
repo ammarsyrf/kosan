@@ -140,3 +140,4 @@ class RoomController extends Controller
         return $this->redirect('/admin/rooms');
     }
 }
+

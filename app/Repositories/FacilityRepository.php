@@ -70,3 +70,4 @@ class FacilityRepository
         return $stmt->execute(['id' => $id]);
     }
 }
+

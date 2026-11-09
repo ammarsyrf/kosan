@@ -98,3 +98,4 @@ class RoomService
         return $result;
     }
 }
+

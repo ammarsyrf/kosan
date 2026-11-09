@@ -238,3 +238,4 @@ echo "\n[SUCCESS] Seluruh master data & seeders berhasil dimasukkan ke database!
 echo "Akun Default:\n";
 echo "  - Owner: owner@kost.com | password123\n";
 echo "  - Admin: admin@kost.com | password123\n";
+

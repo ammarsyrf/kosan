@@ -86,3 +86,4 @@ class FacilityController extends Controller
         return $this->redirect('/admin/facilities');
     }
 }
+

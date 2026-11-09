@@ -23,3 +23,4 @@ class Facility extends Model
         }
     }
 }
+

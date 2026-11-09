@@ -67,3 +67,4 @@ foreach ($tables as $table) {
 }
 
 echo "\n[DONE] Migrasi database selesai!\n";
+
