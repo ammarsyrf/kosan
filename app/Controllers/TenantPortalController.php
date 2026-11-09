@@ -84,6 +84,23 @@ class TenantPortalController extends Controller
 
         $invoices = $this->invoiceService->getTenantInvoices($tenant->id);
         $payments = $this->paymentService->getTenantPayments($tenant->id);
+        $maintRequests = $this->maintService->getTenantRequests($tenant->id);
+
+        $totalBilled = 0.0;
+        $remainingBalance = 0.0;
+        foreach ($invoices as $inv) {
+            if (!in_array($inv->status, ['cancelled', 'void'], true)) {
+                $totalBilled += (float)$inv->total_amount;
+                $remainingBalance += (float)$inv->balance;
+            }
+        }
+
+        $totalPaid = 0.0;
+        foreach ($payments as $p) {
+            if ($p->status === 'verified') {
+                $totalPaid += (float)$p->amount;
+            }
+        }
 
         return $this->render('tenant/dashboard', [
             'title' => 'Portal Penyewa',
@@ -92,8 +109,12 @@ class TenantPortalController extends Controller
             'pastContracts' => $pastContracts,
             'pendingExtension' => $pendingExtension,
             'pendingCheckout' => $pendingCheckout,
+            'totalBilled' => $totalBilled,
+            'totalPaid' => $totalPaid,
+            'remainingBalance' => $remainingBalance,
             'invoices' => $invoices,
             'payments' => $payments,
+            'maintenanceRequests' => $maintRequests,
         ]);
     }
 

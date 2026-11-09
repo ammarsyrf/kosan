@@ -88,6 +88,16 @@ class Response
         return $this->content;
     }
 
+    public function getHeader(string $name): ?string
+    {
+        return $this->headers[$name] ?? null;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
     public function send(): void
     {
         if (!headers_sent()) {

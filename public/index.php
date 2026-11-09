@@ -50,7 +50,7 @@ Router::group([
     'prefix' => '/owner',
     'middleware' => [AuthMiddleware::class, new RoleMiddleware(['owner'])],
 ], function () {
-    Router::get('/dashboard', [HomeController::class, 'ownerDashboard'], [], 'owner.dashboard');
+    Router::get('/dashboard', [\App\Controllers\DashboardController::class, 'owner'], [], 'owner.dashboard');
 });
 
 // Admin & Owner Shared Operational Routes
@@ -58,7 +58,10 @@ Router::group([
     'prefix' => '/admin',
     'middleware' => [AuthMiddleware::class, new RoleMiddleware(['admin', 'owner'])],
 ], function () {
-    Router::get('/dashboard', [HomeController::class, 'adminDashboard'], [], 'admin.dashboard');
+    Router::get('/dashboard', [\App\Controllers\DashboardController::class, 'admin'], [], 'admin.dashboard');
+    Router::get('/reports/financial', [\App\Controllers\DashboardController::class, 'financialReport'], [], 'admin.reports.financial');
+    Router::get('/reports/export/financial', [\App\Controllers\ExportController::class, 'exportFinancial'], [], 'admin.reports.export.financial');
+    Router::get('/reports/export/operational', [\App\Controllers\ExportController::class, 'exportOperational'], [], 'admin.reports.export.operational');
 
     // Rooms Management
     Router::get('/rooms', [RoomController::class, 'index'], [], 'admin.rooms');

@@ -12,9 +12,21 @@ class HomeController extends Controller
 {
     public function index(): Response
     {
+        $user = Session::get('user');
+        if ($user) {
+            $role = strtolower($user['role'] ?? '');
+            if ($role === 'owner') {
+                return $this->redirect('/owner/dashboard');
+            } elseif ($role === 'admin') {
+                return $this->redirect('/admin/dashboard');
+            } elseif ($role === 'tenant') {
+                return $this->redirect('/tenant/dashboard');
+            }
+        }
+
         return $this->render('home', [
             'title' => 'Beranda — Kost Management System',
-            'user' => Session::get('user'),
+            'user' => $user,
         ]);
     }
 

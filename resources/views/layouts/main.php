@@ -25,6 +25,18 @@
                     <?php $u = auth_user(); ?>
                     <?php if (in_array(strtolower($u['role'] ?? ''), ['owner', 'admin'], true)): ?>
                         <nav class="hidden md:flex items-center space-x-1">
+                            <?php if (strtolower($u['role'] ?? '') === 'owner'): ?>
+                                <a href="<?= url('owner/dashboard') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                    Executive
+                                </a>
+                                <a href="<?= url('admin/reports/financial') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                    Laporan Kas
+                                </a>
+                            <?php else: ?>
+                                <a href="<?= url('admin/dashboard') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                    Dashboard
+                                </a>
+                            <?php endif; ?>
                             <a href="<?= url('admin/rooms') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
                                 Kamar
                             </a>
