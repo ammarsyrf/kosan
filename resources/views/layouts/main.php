@@ -307,21 +307,19 @@
             <!-- Main Page Content -->
             <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
                 <?php if ($success = session('_flash.success')): ?>
-                    <div class="mb-6 p-4 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-emerald-800 text-sm flex items-center space-x-3 shadow-sm">
-                        <div class="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
-                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-                        </div>
-                        <div class="flex-1 font-medium"><?= e($success) ?></div>
-                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            if (window.gooeyToast) window.gooeyToast.success(<?= json_encode($success) ?>);
+                        });
+                    </script>
                 <?php endif; ?>
 
                 <?php if ($error = session('_flash.error')): ?>
-                    <div class="mb-6 p-4 rounded-2xl bg-rose-50/90 border border-rose-200 text-rose-800 text-sm flex items-center space-x-3 shadow-sm">
-                        <div class="w-8 h-8 rounded-xl bg-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0">
-                            <i data-lucide="alert-octagon" class="w-5 h-5"></i>
-                        </div>
-                        <div class="flex-1 font-medium"><?= e($error) ?></div>
-                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            if (window.gooeyToast) window.gooeyToast.error(<?= json_encode($error) ?>);
+                        });
+                    </script>
                 <?php endif; ?>
 
                 <?= $content ?? '' ?>
@@ -381,21 +379,19 @@
 
     <main class="flex-1 w-full">
         <?php if ($success = session('_flash.success')): ?>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-                <div class="p-4 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-emerald-800 text-sm flex items-center space-x-3 shadow-sm">
-                    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600"></i>
-                    <div class="flex-1 font-medium"><?= e($success) ?></div>
-                </div>
-            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    if (window.gooeyToast) window.gooeyToast.success(<?= json_encode($success) ?>);
+                });
+            </script>
         <?php endif; ?>
 
         <?php if ($error = session('_flash.error')): ?>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-                <div class="p-4 rounded-2xl bg-rose-50/90 border border-rose-200 text-rose-800 text-sm flex items-center space-x-3 shadow-sm">
-                    <i data-lucide="alert-octagon" class="w-5 h-5 text-rose-600"></i>
-                    <div class="flex-1 font-medium"><?= e($error) ?></div>
-                </div>
-            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    if (window.gooeyToast) window.gooeyToast.error(<?= json_encode($error) ?>);
+                });
+            </script>
         <?php endif; ?>
 
         <?= $content ?? '' ?>
@@ -512,5 +508,7 @@
             });
         });
     </script>
+
+    <?php require dirname(__DIR__) . '/partials/gooey_notifications.php'; ?>
 </body>
 </html>

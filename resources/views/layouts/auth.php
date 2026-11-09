@@ -57,17 +57,19 @@
     <div class="relative z-10 mt-6 sm:mx-auto sm:w-full sm:max-w-md animate-slide-up" style="animation-delay: 0.1s;">
         <div class="bg-white/95 backdrop-blur-xl py-8 px-6 sm:px-10 shadow-2xl border border-slate-200/80 rounded-3xl">
             <?php if ($success = session('_flash.success')): ?>
-                <div class="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2.5">
-                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                    <span class="font-medium"><?= e($success) ?></span>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        if (window.gooeyToast) window.gooeyToast.success(<?= json_encode($success) ?>);
+                    });
+                </script>
             <?php endif; ?>
 
             <?php if ($error = session('_flash.error')): ?>
-                <div class="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center space-x-2.5">
-                    <i data-lucide="alert-octagon" class="w-4 h-4 text-rose-600 flex-shrink-0"></i>
-                    <span class="font-medium"><?= e($error) ?></span>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        if (window.gooeyToast) window.gooeyToast.error(<?= json_encode($error) ?>);
+                    });
+                </script>
             <?php endif; ?>
 
             <?= $content ?? '' ?>
@@ -108,5 +110,7 @@
             });
         });
     </script>
+
+    <?php require dirname(__DIR__) . '/partials/gooey_notifications.php'; ?>
 </body>
 </html>
