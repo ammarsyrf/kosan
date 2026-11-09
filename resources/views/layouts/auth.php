@@ -56,7 +56,7 @@
 
     <div class="relative z-10 mt-6 sm:mx-auto sm:w-full sm:max-w-md animate-slide-up" style="animation-delay: 0.1s;">
         <div class="bg-white/95 backdrop-blur-xl py-8 px-6 sm:px-10 shadow-2xl border border-slate-200/80 rounded-3xl">
-            <?php if ($success = session('_flash.success')): ?>
+            <?php if ($success = \App\Core\Session::getFlash('success')): ?>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         if (window.gooeyToast) window.gooeyToast.success(<?= json_encode($success) ?>);
@@ -64,7 +64,7 @@
                 </script>
             <?php endif; ?>
 
-            <?php if ($error = session('_flash.error')): ?>
+            <?php if ($error = \App\Core\Session::getFlash('error')): ?>
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
                         if (window.gooeyToast) window.gooeyToast.error(<?= json_encode($error) ?>);

@@ -63,6 +63,10 @@ class Session
     public static function get(string $key, mixed $default = null): mixed
     {
         self::start();
+        if (str_starts_with($key, '_flash.')) {
+            $flashKey = substr($key, 7);
+            return self::getFlash($flashKey, $default);
+        }
         if (str_contains($key, '.')) {
             $array = $_SESSION;
             foreach (explode('.', $key) as $segment) {
@@ -138,6 +142,9 @@ class Session
         if (isset($_SESSION['_flash'][$key])) {
             $value = $_SESSION['_flash'][$key];
             unset($_SESSION['_flash'][$key]);
+            if (empty($_SESSION['_flash'])) {
+                unset($_SESSION['_flash']);
+            }
             return $value;
         }
         return $default;

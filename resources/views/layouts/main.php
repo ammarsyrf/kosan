@@ -306,7 +306,7 @@
 
             <!-- Main Page Content -->
             <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-                <?php if ($success = session('_flash.success')): ?>
+                <?php if ($success = \App\Core\Session::getFlash('success')): ?>
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
                             if (window.gooeyToast) window.gooeyToast.success(<?= json_encode($success) ?>);
@@ -314,7 +314,7 @@
                     </script>
                 <?php endif; ?>
 
-                <?php if ($error = session('_flash.error')): ?>
+                <?php if ($error = \App\Core\Session::getFlash('error')): ?>
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
                             if (window.gooeyToast) window.gooeyToast.error(<?= json_encode($error) ?>);
@@ -378,7 +378,7 @@
     </header>
 
     <main class="flex-1 w-full">
-        <?php if ($success = session('_flash.success')): ?>
+        <?php if ($success = \App\Core\Session::getFlash('success')): ?>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     if (window.gooeyToast) window.gooeyToast.success(<?= json_encode($success) ?>);
@@ -386,7 +386,7 @@
             </script>
         <?php endif; ?>
 
-        <?php if ($error = session('_flash.error')): ?>
+        <?php if ($error = \App\Core\Session::getFlash('error')): ?>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     if (window.gooeyToast) window.gooeyToast.error(<?= json_encode($error) ?>);
