@@ -369,7 +369,7 @@
                 </div>
             </a>
 
-            <!-- Public Nav Links with Glow Pills -->
+            <!-- Public Nav Links with Glow Pills (Desktop) -->
             <nav class="hidden md:flex items-center gap-1.5 p-1.5 bg-slate-900/90 border border-slate-800 rounded-2xl shadow-inner">
                 <a href="<?= url('katalog') ?>" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
                     <i data-lucide="door-closed" class="w-3.5 h-3.5 text-teal-400"></i> Katalog Kamar
@@ -385,8 +385,37 @@
                 </a>
             </nav>
 
-            <a href="<?= url('login') ?>" class="inline-flex items-center px-5 py-2.5 text-xs font-extrabold tracking-wide rounded-xl text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 active:scale-95">
-                <i data-lucide="log-in" class="w-3.5 h-3.5 mr-1.5"></i> Masuk ke Portal
+            <div class="flex items-center gap-2">
+                <a href="<?= url('login') ?>" class="inline-flex items-center px-4 sm:px-5 py-2.5 text-xs font-extrabold tracking-wide rounded-xl text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 active:scale-95">
+                    <i data-lucide="log-in" class="w-3.5 h-3.5 mr-1.5"></i>
+                    <span class="hidden xs:inline">Masuk ke Portal</span>
+                    <span class="xs:hidden">Masuk</span>
+                </a>
+
+                <!-- Mobile Hamburger Toggle Button -->
+                <button type="button" id="public-mobile-toggle" aria-label="Toggle Navigation Menu" class="md:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                    <i data-lucide="menu" id="public-mobile-icon" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Nav Menu -->
+        <div id="public-mobile-menu" class="hidden md:hidden border-t border-slate-800/80 bg-slate-950/95 backdrop-blur-2xl px-4 py-4 space-y-2">
+            <a href="<?= url('katalog') ?>" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-200 hover:bg-slate-800/80 transition">
+                <i data-lucide="door-closed" class="w-4 h-4 text-teal-400"></i>
+                <span>Katalog Seluruh Kamar</span>
+            </a>
+            <a href="<?= url('#alur-sewa') ?>" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-200 hover:bg-slate-800/80 transition" onclick="document.getElementById('public-mobile-menu').classList.add('hidden')">
+                <i data-lucide="sparkles" class="w-4 h-4 text-blue-400"></i>
+                <span>Alur Reservasi 3 Langkah</span>
+            </a>
+            <a href="<?= url('#aturan-kos') ?>" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-200 hover:bg-slate-800/80 transition" onclick="document.getElementById('public-mobile-menu').classList.add('hidden')">
+                <i data-lucide="shield-check" class="w-4 h-4 text-indigo-400"></i>
+                <span>Tata Tertib & Aturan Kos</span>
+            </a>
+            <a href="<?= url('activate') ?>" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-200 hover:bg-slate-800/80 transition">
+                <i data-lucide="key" class="w-4 h-4 text-amber-400"></i>
+                <span>Aktivasi Akun Penghuni Baru</span>
             </a>
         </div>
     </header>
@@ -447,6 +476,15 @@
         const sidebar = document.getElementById('app-sidebar');
         const backdrop = document.getElementById('sidebar-backdrop');
         const progressBar = document.getElementById('top-progress-bar');
+
+        // Public Landing Mobile Nav Toggle
+        const publicMobileToggle = document.getElementById('public-mobile-toggle');
+        const publicMobileMenu = document.getElementById('public-mobile-menu');
+        if (publicMobileToggle && publicMobileMenu) {
+            publicMobileToggle.addEventListener('click', () => {
+                publicMobileMenu.classList.toggle('hidden');
+            });
+        }
 
         function toggleSidebar(open) {
             if (!sidebar || !backdrop) return;

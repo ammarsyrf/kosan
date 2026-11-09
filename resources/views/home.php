@@ -28,7 +28,7 @@
                 </div>
 
                 <!-- Majestic Dynamic Headline -->
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] sm:leading-[1.1] text-white">
                     <?= nl2br(e(setting('landing_hero_title', "Otomasi Penuh Kos Modern\nTanpa Repot, Rapi, & Real-Time"))) ?>
                 </h1>
 
@@ -66,32 +66,32 @@
                 </div>
 
                 <!-- Action CTA Cluster -->
-                <div class="pt-3 flex flex-wrap items-center gap-3.5">
+                <div class="pt-3 flex flex-wrap items-stretch sm:items-center gap-3">
                     <?php if (auth_check()): ?>
                         <?php $u = auth_user(); ?>
                         <?php if (strtolower($u['role'] ?? '') === 'owner'): ?>
-                            <a href="<?= url('owner/dashboard') ?>" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                            <a href="<?= url('owner/dashboard') ?>" class="w-full sm:w-auto justify-center px-6 sm:px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
                                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Executive Dashboard
                             </a>
                         <?php elseif (strtolower($u['role'] ?? '') === 'admin'): ?>
-                            <a href="<?= url('admin/dashboard') ?>" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                            <a href="<?= url('admin/dashboard') ?>" class="w-full sm:w-auto justify-center px-6 sm:px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
                                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Admin Dashboard
                             </a>
                         <?php else: ?>
-                            <a href="<?= url('tenant/dashboard') ?>" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-xl shadow-teal-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                            <a href="<?= url('tenant/dashboard') ?>" class="w-full sm:w-auto justify-center px-6 sm:px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-xl shadow-teal-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
                                 <i data-lucide="home" class="w-4 h-4"></i> Buka Portal Penghuni
                             </a>
                         <?php endif; ?>
                     <?php else: ?>
-                        <a href="#kamar-kost" class="px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-2xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center gap-2">
+                        <a href="#kamar-kost" class="w-full sm:w-auto justify-center px-6 sm:px-7 py-3.5 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-2xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center gap-2">
                             <i data-lucide="door-closed" class="w-4 h-4 text-amber-300"></i> Jelajahi Kamar Siap Huni
                         </a>
-                        <a href="<?= url('login') ?>" class="px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 backdrop-blur-xl border border-white/20 text-white transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-lg">
+                        <a href="<?= url('login') ?>" class="w-full sm:w-auto justify-center px-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm bg-white/10 hover:bg-white/15 backdrop-blur-xl border border-white/20 text-white transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-lg">
                             <i data-lucide="log-in" class="w-4 h-4 text-slate-300"></i> Masuk ke Portal
                         </a>
                     <?php endif; ?>
 
-                    <a href="#alur-sewa" class="px-5 py-3.5 rounded-2xl font-bold text-xs sm:text-sm bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-slate-300 hover:text-white transition-all inline-flex items-center gap-2">
+                    <a href="#alur-sewa" class="w-full sm:w-auto justify-center px-5 py-3.5 rounded-2xl font-bold text-xs sm:text-sm bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-slate-300 hover:text-white transition-all inline-flex items-center gap-2">
                         <i data-lucide="sparkles" class="w-4 h-4 text-teal-400"></i> Alur Sewa
                     </a>
                 </div>
@@ -241,55 +241,55 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
             <!-- 1. WiFi -->
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-teal-300 transition-all space-y-2.5 group">
-                <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
-                    <i data-lucide="wifi" class="w-5 h-5"></i>
+            <div class="p-3.5 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-teal-300 transition-all space-y-2 sm:space-y-2.5 group">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                    <i data-lucide="wifi" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">
+                <h4 class="font-bold text-slate-900 text-xs sm:text-sm">
                     <?= e(setting('landing_fac1_title', 'Internet Fiber 100 Mbps')) ?>
                 </h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">
+                <p class="text-[10px] sm:text-[11px] text-slate-500 leading-relaxed">
                     <?= e(setting('landing_fac1_desc', 'Unlimited kecepatan tinggi tanpa buffering untuk meeting, streaming, & gaming.')) ?>
                 </p>
             </div>
 
             <!-- 2. Keamanan -->
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-blue-300 transition-all space-y-2.5 group">
-                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
-                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+            <div class="p-3.5 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-blue-300 transition-all space-y-2 sm:space-y-2.5 group">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                    <i data-lucide="shield-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">
+                <h4 class="font-bold text-slate-900 text-xs sm:text-sm">
                     <?= e(setting('landing_fac2_title', 'Keamanan & CCTV 24 Jam')) ?>
                 </h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">
+                <p class="text-[10px] sm:text-[11px] text-slate-500 leading-relaxed">
                     <?= e(setting('landing_fac2_desc', 'Akses gerbang kartu/kunci aman dengan pengawasan kamera CCTV di seluruh koridor.')) ?>
                 </p>
             </div>
 
             <!-- 3. Kamar Mandi & Water Heater -->
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-amber-300 transition-all space-y-2.5 group">
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
-                    <i data-lucide="droplets" class="w-5 h-5"></i>
+            <div class="p-3.5 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-amber-300 transition-all space-y-2 sm:space-y-2.5 group">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                    <i data-lucide="droplets" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">
+                <h4 class="font-bold text-slate-900 text-xs sm:text-sm">
                     <?= e(setting('landing_fac3_title', 'Water Heater & KM Dalam')) ?>
                 </h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">
+                <p class="text-[10px] sm:text-[11px] text-slate-500 leading-relaxed">
                     <?= e(setting('landing_fac3_desc', 'Air hangat instan, kloset duduk higienis, dan sirkulasi udara kamar mandi lancar.')) ?>
                 </p>
             </div>
 
             <!-- 4. Area Bersama & Kebersihan -->
-            <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-indigo-300 transition-all space-y-2.5 group">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
-                    <i data-lucide="sparkle" class="w-5 h-5"></i>
+            <div class="p-3.5 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:shadow-md hover:border-indigo-300 transition-all space-y-2 sm:space-y-2.5 group">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
+                    <i data-lucide="sparkle" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">
+                <h4 class="font-bold text-slate-900 text-xs sm:text-sm">
                     <?= e(setting('landing_fac4_title', 'Dapur & Laundry Bersama')) ?>
                 </h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">
+                <p class="text-[10px] sm:text-[11px] text-slate-500 leading-relaxed">
                     <?= e(setting('landing_fac4_desc', 'Dilengkapi kompor gas, kulkas komunal, dispenser air minum, dan area jemur terlindung.')) ?>
                 </p>
             </div>
@@ -315,24 +315,24 @@
                 </div>
 
                 <!-- Interactive Filter Tabs & Link to Dedicated Catalog -->
-                <div class="flex flex-wrap items-center gap-2">
-                    <div class="flex items-center gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold overflow-x-auto no-scrollbar max-w-full">
-                        <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3.5 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap shrink-0">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
+                    <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold overflow-x-auto no-scrollbar max-w-full">
+                        <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap shrink-0 text-xs">
                             Semua Unit (<?= count($rooms) ?>)
                         </button>
-                        <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
+                        <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0 text-xs">
                             Lantai 1
                         </button>
-                        <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
+                        <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0 text-xs">
                             Lantai 2
                         </button>
-                        <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0">
+                        <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0 text-xs">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
                         </button>
                     </div>
 
                     <!-- Tombol Lihat Semua Kamar di Halaman Terpisah -->
-                    <a href="<?= url('katalog') ?>" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm hover:shadow-md transition whitespace-nowrap shrink-0">
+                    <a href="<?= url('katalog') ?>" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm hover:shadow-md transition whitespace-nowrap shrink-0">
                         <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
                         <span>Lihat Semua Kamar</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -341,7 +341,7 @@
             </div>
 
             <!-- Room Grid -->
-            <div id="room-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="room-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <?php foreach ($rooms as $index => $room): ?>
                     <?php
                         $rNum = (string)$room->room_number;
@@ -378,8 +378,8 @@
                          data-floor="<?= $floor ?>"
                          data-status="<?= $isAvailable ? 'available' : 'occupied' ?>">
 
-                        <!-- Image Showcase Header (Strict Uniform 3:2 Aspect Ratio & Center Cropped) -->
-                        <div class="relative aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0">
+                        <!-- Image Showcase Header (Strict Uniform Aspect Ratio & Center Cropped) -->
+                        <div class="relative aspect-[16/10] sm:aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0">
                             <img src="<?= e($photoUrl) ?>" 
                                  alt="Kamar <?= e($rNum) ?> - <?= e($typeName) ?>" 
                                  loading="lazy"
@@ -426,7 +426,7 @@
                         </div>
 
                         <!-- Card Body Content -->
-                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
                             <div>
                                 <div class="flex items-center justify-between gap-2">
                                     <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition-colors">
@@ -437,29 +437,39 @@
                                         <?= e($size) ?>
                                     </span>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                                <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
                                     <?= e($room->description ?: 'Kamar siap huni dengan ventilasi alami, lingkungan tenang, dan fasilitas lengkap.') ?>
                                 </p>
                             </div>
 
-                            <!-- Facilities Chips -->
-                            <div class="pt-3 border-t border-slate-100">
-                                <div class="flex flex-wrap gap-1.5">
-                                    <?php foreach ($facilityList as $fac): ?>
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/80">
-                                            <i data-lucide="check" class="w-2.5 h-2.5 text-emerald-500"></i>
+                            <!-- Facilities Chips (Compact & Tidy on Mobile & Desktop) -->
+                            <div class="pt-2.5 sm:pt-3 border-t border-slate-100">
+                                <div class="flex flex-wrap gap-1.5 items-center">
+                                    <?php 
+                                        $displayFacs = array_slice($facilityList, 0, 4);
+                                        $remainingCount = count($facilityList) - count($displayFacs);
+                                        $remainingNames = $remainingCount > 0 ? implode(', ', array_slice($facilityList, 4)) : '';
+                                    ?>
+                                    <?php foreach ($displayFacs as $fac): ?>
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/80 whitespace-nowrap">
+                                            <i data-lucide="check" class="w-2.5 h-2.5 text-emerald-500 shrink-0"></i>
                                             <?= e($fac) ?>
                                         </span>
                                     <?php endforeach; ?>
+                                    <?php if ($remainingCount > 0): ?>
+                                        <span title="<?= e($remainingNames) ?>" class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200/80 cursor-help whitespace-nowrap">
+                                            +<?= $remainingCount ?> lainnya
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
                             <!-- Price & Action Footer -->
-                            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                            <div class="pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
                                 <div>
                                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Tarif Sewa</div>
-                                    <div class="text-base sm:text-lg font-black text-slate-900 tracking-tight font-mono mt-0.5">
-                                        <?= $room->formattedPrice() ?><span class="text-[11px] font-semibold text-slate-400">/bln</span>
+                                    <div class="text-sm sm:text-base lg:text-lg font-black text-slate-900 tracking-tight font-mono mt-0.5 whitespace-nowrap">
+                                        <?= $room->formattedPrice() ?><span class="text-[10px] sm:text-[11px] font-semibold text-slate-400">/bln</span>
                                     </div>
                                 </div>
 
@@ -474,19 +484,19 @@
                                         ?>
                                         <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
                                             <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" 
-                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95">
+                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
                                                 <span>Booking Unit</span>
                                                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                                             </a>
                                         <?php else: ?>
                                             <a href="<?= e($waBookingUrl) ?>" target="_blank"
-                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95">
+                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
                                                 <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
                                                 <span>Pesan via WA</span>
                                             </a>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
                                             <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
                                             <span>Terisi</span>
                                         </span>
@@ -499,18 +509,18 @@
             </div>
 
             <!-- CTA: Buka Halaman Katalog Lengkap -->
-            <div class="mt-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 reveal-on-scroll">
+            <div class="mt-8 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 reveal-on-scroll">
                 <div class="space-y-1.5">
-                    <div class="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-teal-300 bg-teal-500/10 border border-teal-500/20 px-3 py-1 rounded-full">
+                    <div class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-teal-300 bg-teal-500/10 border border-teal-500/20 px-3 py-1 rounded-full">
                         <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i> Filter Detail & Multi-Kriteria
                     </div>
-                    <h3 class="text-xl sm:text-2xl font-black tracking-tight text-white">Cari Kamar Berdasarkan Kebutuhan Anda?</h3>
+                    <h3 class="text-lg sm:text-2xl font-black tracking-tight text-white">Cari Kamar Berdasarkan Kebutuhan Anda?</h3>
                     <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
                         Filter kamar berdasarkan fasilitas (AC, Water Heater, Balkon, Smart TV), rentang harga sewa, dan posisi lantai di halaman katalog khusus.
                     </p>
                 </div>
-                <div class="shrink-0">
-                    <a href="<?= url('katalog') ?>" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-500 to-teal-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-teal-500/20 hover:scale-105 transition transform active:scale-95">
+                <div class="shrink-0 w-full sm:w-auto">
+                    <a href="<?= url('katalog') ?>" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-500 to-teal-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-teal-500/20 hover:scale-105 transition transform active:scale-95">
                         <i data-lucide="layout-grid" class="w-4 h-4"></i>
                         <span>Buka Halaman Katalog Kamar</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>

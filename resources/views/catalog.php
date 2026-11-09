@@ -161,7 +161,7 @@
     </div>
 
     <!-- ROOM INVENTORY GRID -->
-    <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <?php foreach ($rooms as $index => $room): ?>
             <?php
                 $rNum = (string)$room->room_number;
@@ -208,8 +208,8 @@
                  data-price="<?= $price ?>"
                  data-facilities="<?= e($facSearchString) ?>">
 
-                <!-- Image Showcase Header (Strict Uniform 3:2 Aspect Ratio) -->
-                <div class="relative aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0">
+                <!-- Image Showcase Header (Strict Uniform Aspect Ratio) -->
+                <div class="relative aspect-[16/10] sm:aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0">
                     <img src="<?= e($photoUrl) ?>" 
                          alt="Kamar <?= e($rNum) ?> - <?= e($typeName) ?>" 
                          loading="lazy"
@@ -254,7 +254,7 @@
                 </div>
 
                 <!-- Card Body -->
-                <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
                     <div>
                         <div class="flex items-center justify-between gap-2">
                             <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition-colors">
@@ -265,29 +265,39 @@
                                 <?= e($size) ?>
                             </span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
                             <?= e($room->description ?: 'Kamar siap huni dengan ventilasi alami, lingkungan tenang, dan fasilitas lengkap.') ?>
                         </p>
                     </div>
 
-                    <!-- Facilities Chips -->
-                    <div class="pt-3 border-t border-slate-100">
-                        <div class="flex flex-wrap gap-1.5">
-                            <?php foreach ($facList as $fac): ?>
-                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/80">
-                                    <i data-lucide="check" class="w-2.5 h-2.5 text-emerald-500"></i>
+                    <!-- Facilities Chips (Compact & Tidy on Mobile & Desktop) -->
+                    <div class="pt-2.5 sm:pt-3 border-t border-slate-100">
+                        <div class="flex flex-wrap gap-1.5 items-center">
+                            <?php 
+                                $displayFacs = array_slice($facList, 0, 4);
+                                $remainingCount = count($facList) - count($displayFacs);
+                                $remainingNames = $remainingCount > 0 ? implode(', ', array_slice($facList, 4)) : '';
+                            ?>
+                            <?php foreach ($displayFacs as $fac): ?>
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/80 whitespace-nowrap">
+                                    <i data-lucide="check" class="w-2.5 h-2.5 text-emerald-500 shrink-0"></i>
                                     <?= e($fac) ?>
                                 </span>
                             <?php endforeach; ?>
+                            <?php if ($remainingCount > 0): ?>
+                                <span title="<?= e($remainingNames) ?>" class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200/80 cursor-help whitespace-nowrap">
+                                    +<?= $remainingCount ?> lainnya
+                                </span>
+                            <?php endif; ?>
                         </div>
                     </div>
 
                     <!-- Price & Action Footer -->
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div class="pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
                         <div>
                             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Tarif Sewa</div>
-                            <div class="text-base sm:text-lg font-black text-slate-900 tracking-tight font-mono mt-0.5">
-                                <?= $room->formattedPrice() ?><span class="text-[11px] font-semibold text-slate-400">/bln</span>
+                            <div class="text-sm sm:text-base lg:text-lg font-black text-slate-900 tracking-tight font-mono mt-0.5 whitespace-nowrap">
+                                <?= $room->formattedPrice() ?><span class="text-[10px] sm:text-[11px] font-semibold text-slate-400">/bln</span>
                             </div>
                         </div>
 
@@ -295,19 +305,19 @@
                             <?php if ($isAvailable): ?>
                                 <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
                                     <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" 
-                                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95">
+                                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
                                         <span>Booking Unit</span>
                                         <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
                                     </a>
                                 <?php else: ?>
                                     <a href="<?= e($waBookingUrl) ?>" target="_blank"
-                                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95">
+                                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
                                         <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
                                         <span>Pesan via WA</span>
                                     </a>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
                                     <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
                                     <span>Terisi</span>
                                 </span>
