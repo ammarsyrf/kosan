@@ -10,9 +10,12 @@ class Room extends Model
 {
     public int $id;
     public string $room_number;
+    public int $floor = 1;
     public string $name;
+    public string $size = '3x4 m²';
     public ?string $description;
     public float $current_price;
+    public ?string $photo_url = null;
     public string $status;
     public ?string $notes;
     public string $created_at;

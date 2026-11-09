@@ -151,7 +151,7 @@
                         </div>
                         <div class="flex flex-col whitespace-nowrap overflow-hidden">
                             <span class="font-extrabold text-white text-sm tracking-tight leading-none group-hover:text-blue-400 transition-colors">
-                                <?= e(config('app.name', 'Kost Management')) ?>
+                                <?= e(setting('business_name', config('app.name', 'Kost Management'))) ?>
                             </span>
                             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mt-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -244,6 +244,10 @@
                             <a href="<?= url('admin/maintenance') ?>" class="<?= $linkClass('admin/maintenance') ?>">
                                 <i data-lucide="wrench" class="w-4 h-4"></i>
                                 <span>Tiket Perbaikan</span>
+                            </a>
+                            <a href="<?= url('admin/settings') ?>" class="<?= $linkClass('admin/settings') ?>">
+                                <i data-lucide="sliders" class="w-4 h-4"></i>
+                                <span>Pengaturan Beranda</span>
                             </a>
                         </div>
                     <?php elseif ($role === 'tenant'): ?>
@@ -356,7 +360,7 @@
                 </div>
                 <div class="flex flex-col whitespace-nowrap">
                     <span class="font-black text-white tracking-tight text-lg leading-none group-hover:text-teal-300 transition-colors">
-                        <?= e(config('app.name', 'Kost Management')) ?>
+                        <?= e(setting('business_name', config('app.name', 'Kost Management'))) ?>
                     </span>
                     <span class="text-[10px] font-extrabold text-teal-400 tracking-wider uppercase mt-1 flex items-center gap-1.5">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -416,7 +420,7 @@
                     </div>
                 </div>
                 <div>
-                    <span class="font-bold text-white text-sm block"><?= e(config('app.name', 'Kost Management System')) ?></span>
+                    <span class="font-bold text-white text-sm block"><?= e(setting('business_name', config('app.name', 'Kost Management System'))) ?></span>
                     <span class="text-[11px] text-slate-500">Sistem Operasional Kos Modern &bull; Personal Monolith Edition</span>
                 </div>
             </div>

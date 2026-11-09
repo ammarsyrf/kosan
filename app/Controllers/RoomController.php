@@ -54,11 +54,28 @@ class RoomController extends Controller
         $facilityIds = (array)$request->post('facilities', []);
         $user = Session::get('user');
 
+        $photoUrl = $request->post('photo_url') ? trim((string)$request->post('photo_url')) : null;
+        if (!empty($_FILES['photo']['tmp_name']) && (is_uploaded_file($_FILES['photo']['tmp_name']) || file_exists($_FILES['photo']['tmp_name']))) {
+            $ext = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION)) ?: 'jpg';
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+                $dir = BASE_PATH . '/public/images/rooms';
+                if (!is_dir($dir)) mkdir($dir, 0755, true);
+                $filename = 'room-' . preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$validated['room_number']) . '.' . $ext;
+                $target = $dir . '/' . $filename;
+                if (@move_uploaded_file($_FILES['photo']['tmp_name'], $target) || @copy($_FILES['photo']['tmp_name'], $target)) {
+                    $photoUrl = 'images/rooms/' . $filename;
+                }
+            }
+        }
+
         try {
             $this->roomService->createRoom([
                 'room_number' => (string)$validated['room_number'],
+                'floor' => (int)$request->post('floor', str_starts_with((string)$validated['room_number'], '2') ? 2 : 1),
                 'name' => (string)$validated['name'],
+                'size' => (string)$request->post('size', '3x4 m²'),
                 'current_price' => (float)$validated['current_price'],
+                'photo_url' => $photoUrl,
                 'status' => (string)$validated['status'],
                 'description' => (string)$request->post('description', ''),
                 'notes' => (string)$request->post('notes', ''),
@@ -107,11 +124,32 @@ class RoomController extends Controller
         $facilityIds = (array)$request->post('facilities', []);
         $user = Session::get('user');
 
+        $existing = $this->roomService->getRoomById($id);
+        $photoUrl = $existing?->photo_url;
+        if ($request->post('photo_url') !== null && trim((string)$request->post('photo_url')) !== '') {
+            $photoUrl = trim((string)$request->post('photo_url'));
+        }
+        if (!empty($_FILES['photo']['tmp_name']) && (is_uploaded_file($_FILES['photo']['tmp_name']) || file_exists($_FILES['photo']['tmp_name']))) {
+            $ext = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION)) ?: 'jpg';
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
+                $dir = BASE_PATH . '/public/images/rooms';
+                if (!is_dir($dir)) mkdir($dir, 0755, true);
+                $filename = 'room-' . preg_replace('/[^a-zA-Z0-9_-]/', '', (string)$validated['room_number']) . '.' . $ext;
+                $target = $dir . '/' . $filename;
+                if (@move_uploaded_file($_FILES['photo']['tmp_name'], $target) || @copy($_FILES['photo']['tmp_name'], $target)) {
+                    $photoUrl = 'images/rooms/' . $filename;
+                }
+            }
+        }
+
         try {
             $this->roomService->updateRoom($id, [
                 'room_number' => (string)$validated['room_number'],
+                'floor' => (int)$request->post('floor', str_starts_with((string)$validated['room_number'], '2') ? 2 : 1),
                 'name' => (string)$validated['name'],
+                'size' => (string)$request->post('size', '3x4 m²'),
                 'current_price' => (float)$validated['current_price'],
+                'photo_url' => $photoUrl,
                 'status' => (string)$validated['status'],
                 'description' => (string)$request->post('description', ''),
                 'notes' => (string)$request->post('notes', ''),

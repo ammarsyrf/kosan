@@ -78,15 +78,18 @@ class RoomRepository
     public function create(array $data, array $facilityIds = []): int
     {
         $stmt = $this->db->prepare("
-            INSERT INTO `rooms` (`room_number`, `name`, `description`, `current_price`, `status`, `notes`)
-            VALUES (:room_number, :name, :description, :current_price, :status, :notes)
+            INSERT INTO `rooms` (`room_number`, `floor`, `name`, `size`, `description`, `current_price`, `photo_url`, `status`, `notes`)
+            VALUES (:room_number, :floor, :name, :size, :description, :current_price, :photo_url, :status, :notes)
         ");
 
         $stmt->execute([
             'room_number' => $data['room_number'],
+            'floor' => (int)($data['floor'] ?? (str_starts_with((string)$data['room_number'], '2') ? 2 : 1)),
             'name' => $data['name'],
+            'size' => $data['size'] ?? '3x4 m²',
             'description' => $data['description'] ?? null,
             'current_price' => $data['current_price'],
+            'photo_url' => $data['photo_url'] ?? null,
             'status' => $data['status'] ?? 'available',
             'notes' => $data['notes'] ?? null,
         ]);
@@ -105,9 +108,12 @@ class RoomRepository
         $stmt = $this->db->prepare("
             UPDATE `rooms`
             SET `room_number` = :room_number,
+                `floor` = :floor,
                 `name` = :name,
+                `size` = :size,
                 `description` = :description,
                 `current_price` = :current_price,
+                `photo_url` = :photo_url,
                 `status` = :status,
                 `notes` = :notes
             WHERE `id` = :id
@@ -116,9 +122,12 @@ class RoomRepository
         $success = $stmt->execute([
             'id' => $id,
             'room_number' => $data['room_number'],
+            'floor' => (int)($data['floor'] ?? (str_starts_with((string)$data['room_number'], '2') ? 2 : 1)),
             'name' => $data['name'],
+            'size' => $data['size'] ?? '3x4 m²',
             'description' => $data['description'] ?? null,
             'current_price' => $data['current_price'],
+            'photo_url' => $data['photo_url'] ?? null,
             'status' => $data['status'] ?? 'available',
             'notes' => $data['notes'] ?? null,
         ]);

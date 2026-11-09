@@ -14,7 +14,7 @@ $errors = session('_flash.errors') ?? [];
         </a>
     </div>
 
-    <form method="POST" action="<?= url('admin/rooms') ?>" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+    <form method="POST" action="<?= url('admin/rooms') ?>" enctype="multipart/form-data" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
         <?= csrf_field() ?>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -47,6 +47,31 @@ $errors = session('_flash.errors') ?? [];
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
+                <label for="floor" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    Posisi Lantai <span class="text-rose-500">*</span>
+                </label>
+                <select id="floor" name="floor" required
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
+                    <option value="1" <?= ((int)($old['floor'] ?? 1) === 1) ? 'selected' : '' ?>>Lantai 1</option>
+                    <option value="2" <?= ((int)($old['floor'] ?? 1) === 2) ? 'selected' : '' ?>>Lantai 2</option>
+                    <option value="3" <?= ((int)($old['floor'] ?? 1) === 3) ? 'selected' : '' ?>>Lantai 3</option>
+                    <option value="4" <?= ((int)($old['floor'] ?? 1) === 4) ? 'selected' : '' ?>>Lantai 4</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="size" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    Luas / Dimensi Kamar <span class="text-rose-500">*</span>
+                </label>
+                <input type="text" id="size" name="size" required
+                    placeholder="Contoh: 3x4 m², 4x5 m²"
+                    value="<?= e($old['size'] ?? '3x4 m²') ?>"
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
                 <label for="current_price" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
                     Harga Sewa / Bulan (Rp) <span class="text-rose-500">*</span>
                 </label>
@@ -67,6 +92,29 @@ $errors = session('_flash.errors') ?? [];
                     <option value="maintenance" <?= ($old['status'] ?? '') === 'maintenance' ? 'selected' : '' ?>>Dalam Perbaikan (Maintenance)</option>
                     <option value="inactive" <?= ($old['status'] ?? '') === 'inactive' ? 'selected' : '' ?>>Nonaktif (Inactive)</option>
                 </select>
+            </div>
+        </div>
+
+        <!-- Foto Kamar -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                Foto Kamar (Tampil di Landing Page / Katalog)
+            </label>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="w-28 h-20 rounded-lg overflow-hidden border border-slate-300 bg-slate-200 shrink-0 relative">
+                    <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=400&q=80" 
+                         alt="Foto Preview" 
+                         id="photo-preview"
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 space-y-2 w-full">
+                    <input type="file" name="photo" id="photo-input" accept="image/png,image/jpeg,image/webp"
+                        onchange="const f = this.files[0]; if (f) { document.getElementById('photo-preview').src = URL.createObjectURL(f); }"
+                        class="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                    <div class="text-[11px] text-slate-400">
+                        Format: JPG, PNG, WEBP. Maks 5MB. Rasio terbaik 3:2 landscape (misal 800x533 px).
+                    </div>
+                </div>
             </div>
         </div>
 

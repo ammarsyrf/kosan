@@ -24,20 +24,17 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-400"></span>
                     </span>
-                    <span class="tracking-wide">Kost Management Monolith &bull; High-Performance Edition</span>
+                    <span class="tracking-wide"><?= e(setting('landing_hero_badge', 'Kost Management Monolith • High-Performance Edition')) ?></span>
                 </div>
 
                 <!-- Majestic Dynamic Headline -->
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-                    Otomasi Penuh Kos Modern <br />
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400 drop-shadow-sm">
-                        Tanpa Repot, Rapi, & Real-Time
-                    </span>
+                    <?= nl2br(e(setting('landing_hero_title', "Otomasi Penuh Kos Modern\nTanpa Repot, Rapi, & Real-Time"))) ?>
                 </h1>
 
                 <!-- Editorial Subtitle -->
                 <p class="text-slate-300 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed font-normal">
-                    Platform operasional kos lengkap: otomatisasi tagihan WhatsApp Fonnte, pemantauan hunian terintegrasi, pembukuan arus kas bersih, serta portal mandiri bagi seluruh penghuni.
+                    <?= e(setting('landing_hero_subtitle', 'Platform operasional kos lengkap: otomatisasi tagihan WhatsApp Fonnte, pemantauan hunian terintegrasi, pembukuan arus kas bersih, serta portal mandiri bagi seluruh penghuni.')) ?>
                 </p>
 
                 <!-- Value Props Micro-List -->
@@ -317,43 +314,41 @@
                 <?php foreach ($rooms as $index => $room): ?>
                     <?php
                         $rNum = (string)$room->room_number;
-                        $floor = str_starts_with($rNum, '2') ? 2 : 1;
+                        $floor = (int)($room->floor ?? (str_starts_with($rNum, '2') ? 2 : 1));
                         $isAvailable = ($room->status ?? 'available') === 'available';
 
-                        // Parse room type & specs
-                        $typeName = 'Standard Studio';
-                        $size = '3 x 4 m²';
-                        $badgeStyle = 'bg-blue-500/20 text-blue-200 border-blue-400/30';
-                        $facilityList = ['AC 1/2 PK', 'KM Dalam', 'WiFi Fiber', 'Kasur Springbed'];
+                        // Dynamic room specs from Database
+                        $typeName = $room->name;
+                        $size = !empty($room->size) ? $room->size : '3x4 m²';
+                        
+                        // Dynamic facility list from room assignments
+                        $facilityList = !empty($room->facilities) 
+                            ? array_column($room->facilities, 'name') 
+                            : ['AC 1/2 PK', 'KM Dalam', 'WiFi Fiber', 'Kasur Springbed'];
 
-                        if (stripos($room->name, 'Executive') !== false) {
-                            $typeName = 'Executive Suite';
-                            $size = '4.5 x 5.5 m²';
+                        // Dynamic badge style based on tier / price
+                        $badgeStyle = 'bg-blue-500/20 text-blue-200 border-blue-400/30';
+                        if (stripos($room->name, 'Executive') !== false || $room->current_price >= 2000000) {
                             $badgeStyle = 'bg-amber-500/20 text-amber-200 border-amber-400/30';
-                            $facilityList = ['Balkon Privat', 'Smart TV', 'Water Heater', 'Kulkas Mini'];
-                        } elseif (stripos($room->name, 'VIP') !== false) {
-                            $typeName = 'VIP Studio';
-                            $size = '4 x 5 m²';
+                        } elseif (stripos($room->name, 'VIP') !== false || $room->current_price >= 1800000) {
                             $badgeStyle = 'bg-purple-500/20 text-purple-200 border-purple-400/30';
-                            $facilityList = ['Smart TV 32"', 'Water Heater', 'AC 1 PK', 'Queen Bed'];
-                        } elseif (stripos($room->name, 'Deluxe') !== false) {
-                            $typeName = 'Deluxe Studio';
-                            $size = '3.5 x 4.5 m²';
+                        } elseif (stripos($room->name, 'Deluxe') !== false || $room->current_price >= 1650000) {
                             $badgeStyle = 'bg-indigo-500/20 text-indigo-200 border-indigo-400/30';
-                            $facilityList = ['AC 1 PK', 'KM Dalam', 'Jendela Luas', 'Queen Bed'];
                         }
 
-                        // Local image with fallback
-                        $localPhotoPath = "images/rooms/room-{$rNum}.jpg";
-                        $hasLocalPhoto = file_exists(BASE_PATH . '/public/' . $localPhotoPath);
-                        $photoUrl = $hasLocalPhoto ? url($localPhotoPath) : 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80';
+                        // Local/uploaded photo with graceful fallback
+                        $photoUrl = $room->photo_url 
+                            ? url($room->photo_url) 
+                            : (file_exists(BASE_PATH . "/public/images/rooms/room-{$rNum}.jpg") 
+                                ? url("images/rooms/room-{$rNum}.jpg") 
+                                : 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80');
                     ?>
                     <div class="room-inventory-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400/70 transition-all duration-300 overflow-hidden flex flex-col justify-between group reveal-on-scroll stagger-<?= ($index % 4) + 1 ?> h-full"
                          data-floor="<?= $floor ?>"
                          data-status="<?= $isAvailable ? 'available' : 'occupied' ?>">
 
-                        <!-- Image Showcase Header (Strict Uniform Height & Center Cropped) -->
-                        <div class="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 skeleton shrink-0">
+                        <!-- Image Showcase Header (Strict Uniform 3:2 Aspect Ratio & Center Cropped) -->
+                        <div class="relative aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0">
                             <img src="<?= e($photoUrl) ?>" 
                                  alt="Kamar <?= e($rNum) ?> - <?= e($typeName) ?>" 
                                  loading="lazy"

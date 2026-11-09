@@ -67,6 +67,7 @@ $rootAliases = [
     '/notifications' => '/admin/notifications',
     '/notifications/templates' => '/admin/notifications/templates',
     '/notifications/settings' => '/admin/notifications/settings',
+    '/settings' => '/admin/settings',
 ];
 foreach ($rootAliases as $from => $to) {
     Router::get($from, function (Request $req) use ($to) {
@@ -182,6 +183,10 @@ Router::group([
     Router::post('/maintenance/{id}/priority', [\App\Controllers\MaintenanceController::class, 'updatePriority'], [], 'admin.maintenance.priority');
     Router::post('/maintenance/{id}/updates', [\App\Controllers\MaintenanceController::class, 'addUpdate'], [], 'admin.maintenance.updates');
     Router::get('/maintenance/attachments/{id}', [\App\Controllers\MaintenanceController::class, 'downloadAttachment'], [], 'admin.maintenance.attachment');
+
+    // General & Landing Settings
+    Router::get('/settings', [\App\Controllers\SettingController::class, 'index'], [], 'admin.settings');
+    Router::post('/settings', [\App\Controllers\SettingController::class, 'update'], [], 'admin.settings.update');
 });
 
 // Tenant Protected Routes

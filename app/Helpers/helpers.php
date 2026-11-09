@@ -111,3 +111,20 @@ if (!function_exists('url')) {
     }
 }
 
+if (!function_exists('setting')) {
+    function setting(string $key, mixed $default = null): mixed
+    {
+        static $settingsCache = null;
+        if ($settingsCache === null) {
+            try {
+                $db = \App\Core\Database::connect();
+                $rows = $db->query("SELECT `key`, `value` FROM `settings`")->fetchAll(\PDO::FETCH_KEY_PAIR);
+                $settingsCache = $rows ?: [];
+            } catch (\Throwable $e) {
+                $settingsCache = [];
+            }
+        }
+        return $settingsCache[$key] ?? $default;
+    }
+}
+

@@ -44,6 +44,10 @@
                     <i data-lucide="download" class="w-4 h-4"></i>
                     <span>Export Keuangan (CSV)</span>
                 </a>
+                <a href="<?= url('admin/settings') ?>" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold px-4 py-2.5 rounded-xl text-xs shadow-sm hover:shadow transition">
+                    <i data-lucide="sliders" class="w-4 h-4 text-blue-600"></i>
+                    <span>Ubah Beranda & Kos</span>
+                </a>
                 <a href="<?= url('admin/reports/export/operational') ?>" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold px-4 py-2.5 rounded-xl text-xs shadow-sm hover:shadow transition">
                     <i data-lucide="file-spreadsheet" class="w-4 h-4 text-teal-600"></i>
                     <span>Export Operasional</span>
