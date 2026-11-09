@@ -52,6 +52,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+
         /* Loading Skeleton Shimmer */
         .skeleton {
             background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
@@ -63,6 +66,24 @@
             background-size: 200% 100%;
             animation: shimmer 1.8s infinite linear;
         }
+
+        /* Scroll-Reveal Dynamic Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Delay for Grid Elements */
+        .stagger-1 { transition-delay: 0.08s; }
+        .stagger-2 { transition-delay: 0.16s; }
+        .stagger-3 { transition-delay: 0.24s; }
+        .stagger-4 { transition-delay: 0.32s; }
 
         /* Interactive Card Hover Elevation */
         .card-interactive {
@@ -419,6 +440,52 @@
                 }, 200);
             });
         }
+
+        // Top Scroll Reading Depth Indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0 && progressBar) {
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.opacity = winScroll > 20 ? '0.9' : '0';
+                progressBar.style.width = scrolled + '%';
+            }
+        }, { passive: true });
+
+        // Auto Scroll-Reveal Observer (Smooth Viewport Fade-and-Slide)
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        } else {
+            revealElements.forEach(el => el.classList.add('is-revealed'));
+        }
+
+        // Image Lazy Loading with Skeleton Shimmer Placeholder
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            const skeletonWrap = img.closest('.skeleton');
+            if (img.complete && img.naturalHeight !== 0) {
+                if (skeletonWrap) skeletonWrap.classList.remove('skeleton');
+                img.classList.remove('opacity-0');
+            } else {
+                img.addEventListener('load', function() {
+                    if (skeletonWrap) skeletonWrap.classList.remove('skeleton');
+                    this.classList.remove('opacity-0');
+                    this.classList.add('opacity-100');
+                });
+            }
+        });
 
         // Global Form Submission Progress & Loading Feedback
         document.querySelectorAll('form').forEach(form => {
