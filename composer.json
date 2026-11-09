@@ -1,0 +1,23 @@
+{
+    "name": "kost/management-system",
+    "description": "Kost Management System - Personal PHP Native Custom MVC",
+    "type": "project",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
+
