@@ -104,6 +104,9 @@ Router::group([
     // Facilities Management
     Router::get('/facilities', [FacilityController::class, 'index'], [], 'admin.facilities');
     Router::post('/facilities', [FacilityController::class, 'store'], [], 'admin.facilities.store');
+    Router::get('/facilities/{id}/edit', [FacilityController::class, 'edit'], [], 'admin.facilities.edit');
+    Router::post('/facilities/{id}', [FacilityController::class, 'update'], [], 'admin.facilities.update');
+    Router::put('/facilities/{id}', [FacilityController::class, 'update'], [], 'admin.facilities.put');
     Router::post('/facilities/{id}/delete', [FacilityController::class, 'delete'], [], 'admin.facilities.delete');
 
     // Tenants Management

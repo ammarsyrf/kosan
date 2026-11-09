@@ -81,6 +81,7 @@ Router::group([
     Router::get('/rooms/create', [RoomController::class, 'create'], [], 'admin.rooms.create');
 
     Router::get('/facilities', [FacilityController::class, 'index'], [], 'admin.facilities');
+    Router::get('/facilities/{id}/edit', [FacilityController::class, 'edit'], [], 'admin.facilities.edit');
 
     Router::get('/tenants', [TenantController::class, 'index'], [], 'admin.tenants');
     Router::get('/tenants/create', [TenantController::class, 'create'], [], 'admin.tenants.create');
@@ -145,6 +146,8 @@ $routesToTest = [
     ['uri' => '/admin/rooms', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/rooms/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/facilities', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/facilities/1/edit', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
+    ['uri' => '/admin/facilities?edit_id=1', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/tenants', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/tenants/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/tenants/1/edit', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],

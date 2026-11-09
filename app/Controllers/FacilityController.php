@@ -19,14 +19,23 @@ class FacilityController extends Controller
         $this->facilityRepo = $facilityRepo ?? new FacilityRepository();
     }
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $facilities = $this->facilityRepo->getAll();
+        $editId = (int)$request->query('edit_id', 0);
+        $editFacility = $editId > 0 ? $this->facilityRepo->findById($editId) : null;
 
         return $this->render('admin/facilities/index', [
             'title' => 'Daftar Fasilitas Kamar',
             'facilities' => $facilities,
+            'editFacility' => $editFacility,
         ]);
+    }
+
+    public function edit(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        return $this->redirect("/admin/facilities?edit_id={$id}");
     }
 
     public function store(Request $request): Response
