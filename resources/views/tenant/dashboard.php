@@ -18,19 +18,19 @@
 
     <!-- Quick Financial Summary for Tenant -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 card-interactive">
             <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total Ditagihkan</div>
-            <div class="text-xl font-bold text-slate-800">Rp <?= number_format($totalBilled ?? 0, 0, ',', '.') ?></div>
+            <div class="text-2xl font-black text-slate-900">Rp <?= number_format($totalBilled ?? 0, 0, ',', '.') ?></div>
             <div class="text-xs text-slate-400 mt-1">Akumulasi seluruh tagihan</div>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 card-interactive">
             <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total Pembayaran Terverifikasi</div>
-            <div class="text-xl font-bold text-emerald-600">Rp <?= number_format($totalPaid ?? 0, 0, ',', '.') ?></div>
+            <div class="text-2xl font-black text-emerald-600">Rp <?= number_format($totalPaid ?? 0, 0, ',', '.') ?></div>
             <div class="text-xs text-slate-400 mt-1">Pembayaran disetujui admin</div>
         </div>
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 card-interactive">
             <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Sisa Tagihan Belum Lunas</div>
-            <div class="text-xl font-bold <?= ($remainingBalance ?? 0) > 0 ? 'text-rose-600' : 'text-emerald-600' ?>">
+            <div class="text-2xl font-black <?= ($remainingBalance ?? 0) > 0 ? 'text-rose-600' : 'text-emerald-600' ?>">
                 Rp <?= number_format($remainingBalance ?? 0, 0, ',', '.') ?>
             </div>
             <div class="text-xs text-slate-400 mt-1"><?= ($remainingBalance ?? 0) > 0 ? 'Harap segera dilunasi' : 'Semua tagihan lunas' ?></div>

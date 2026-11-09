@@ -62,7 +62,7 @@
     <!-- 1. Executive Financial Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Pendapatan Terverifikasi -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 flex flex-col justify-between hover:shadow-md transition">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 flex flex-col justify-between card-interactive">
             <div>
                 <div class="flex items-center justify-between text-slate-500 mb-2">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Pendapatan Masuk</span>
@@ -83,7 +83,7 @@
         </div>
 
         <!-- Pengeluaran Operasional -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 flex flex-col justify-between hover:shadow-md transition">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-5 flex flex-col justify-between card-interactive">
             <div>
                 <div class="flex items-center justify-between text-slate-500 mb-2">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Pengeluaran Kost</span>

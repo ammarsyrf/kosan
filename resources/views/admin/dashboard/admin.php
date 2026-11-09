@@ -37,7 +37,7 @@
     <!-- 1. Operational Quick Stats (High-Contrast Metric Cards) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Kamar Terisi -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm card-interactive flex flex-col justify-between">
             <div>
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Kamar Terisi</span>
@@ -61,7 +61,7 @@
         </div>
 
         <!-- Kamar Kosong -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm card-interactive flex flex-col justify-between">
             <div>
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Kamar Kosong</span>
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Booking Pending -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm card-interactive flex flex-col justify-between">
             <div>
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Booking Pending</span>
@@ -103,7 +103,7 @@
         </div>
 
         <!-- Perlu Verifikasi Pembayaran -->
-        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm card-interactive flex flex-col justify-between">
             <div>
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Perlu Verifikasi</span>

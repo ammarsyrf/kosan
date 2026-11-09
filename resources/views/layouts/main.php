@@ -6,12 +6,84 @@
     <title><?= e($title ?? config('app.name', 'Kost Management System')) ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-up': 'slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-down': 'slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                        'shimmer': 'shimmer 1.8s infinite linear',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideDown: {
+                            '0%': { opacity: '0', transform: 'translateY(-12px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+                            '50%': { opacity: '0.7', transform: 'scale(1.08)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Loading Skeleton Shimmer */
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.8s infinite linear;
+        }
+        .skeleton-dark {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.8s infinite linear;
+        }
+
+        /* Interactive Card Hover Elevation */
+        .card-interactive {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-interactive:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px -12px rgba(15, 23, 42, 0.12);
+        }
+
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="h-full text-slate-800 antialiased bg-slate-50 selection:bg-blue-600 selection:text-white">
+
+    <!-- Top Loading Progress Indicator -->
+    <div id="top-progress-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-400 z-[9999] transition-all duration-300 w-0 opacity-0 pointer-events-none"></div>
 
 <?php if (auth_check()): ?>
     <?php
@@ -317,6 +389,7 @@
         const closeBtn = document.getElementById('close-sidebar-btn');
         const sidebar = document.getElementById('app-sidebar');
         const backdrop = document.getElementById('sidebar-backdrop');
+        const progressBar = document.getElementById('top-progress-bar');
 
         function toggleSidebar(open) {
             if (!sidebar || !backdrop) return;
@@ -332,6 +405,34 @@
         if (openBtn) openBtn.addEventListener('click', () => toggleSidebar(true));
         if (closeBtn) closeBtn.addEventListener('click', () => toggleSidebar(false));
         if (backdrop) backdrop.addEventListener('click', () => toggleSidebar(false));
+
+        // Smooth Page Load Progress Bar Animation
+        if (progressBar) {
+            progressBar.style.opacity = '1';
+            progressBar.style.width = '35%';
+            setTimeout(() => { progressBar.style.width = '80%'; }, 150);
+            window.addEventListener('load', () => {
+                progressBar.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.opacity = '0';
+                    setTimeout(() => { progressBar.style.width = '0'; }, 300);
+                }, 200);
+            });
+        }
+
+        // Global Form Submission Progress & Loading Feedback
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function() {
+                if (progressBar) {
+                    progressBar.style.opacity = '1';
+                    progressBar.style.width = '70%';
+                }
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn && !submitBtn.disabled) {
+                    submitBtn.classList.add('opacity-85', 'cursor-wait');
+                }
+            });
+        });
     </script>
 </body>
 </html>
