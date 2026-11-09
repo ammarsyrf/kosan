@@ -53,6 +53,12 @@ $tenants = $tenantRepo->getAll();
 $testTenantId = (int)$tenants[0]->id;
 
 // Clean up previous test booking/contract data for this room to ensure clean isolation
+$pdo->prepare("DELETE FROM payment_adjustments WHERE payment_id IN (SELECT id FROM payments WHERE tenant_id = ?)")->execute([$testTenantId]);
+$pdo->prepare("DELETE FROM payment_allocations WHERE invoice_id IN (SELECT id FROM invoices WHERE contract_id IN (SELECT id FROM rental_contracts WHERE room_id = ?))")->execute([$testRoomId]);
+$pdo->prepare("DELETE FROM payment_proofs WHERE payment_id IN (SELECT id FROM payments WHERE tenant_id = ?)")->execute([$testTenantId]);
+$pdo->prepare("DELETE FROM payments WHERE tenant_id = ?")->execute([$testTenantId]);
+$pdo->prepare("DELETE FROM invoice_items WHERE invoice_id IN (SELECT id FROM invoices WHERE contract_id IN (SELECT id FROM rental_contracts WHERE room_id = ?))")->execute([$testRoomId]);
+$pdo->prepare("DELETE FROM invoices WHERE contract_id IN (SELECT id FROM rental_contracts WHERE room_id = ?)")->execute([$testRoomId]);
 $pdo->prepare("DELETE FROM contract_histories WHERE contract_id IN (SELECT id FROM rental_contracts WHERE room_id = ?)")->execute([$testRoomId]);
 $pdo->prepare("DELETE FROM contract_extension_requests WHERE contract_id IN (SELECT id FROM rental_contracts WHERE room_id = ?)")->execute([$testRoomId]);
 $pdo->prepare("DELETE FROM early_checkout_requests WHERE contract_id IN (SELECT id FROM rental_contracts WHERE room_id = ?)")->execute([$testRoomId]);

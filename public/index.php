@@ -93,6 +93,23 @@ Router::group([
     Router::get('/contracts/{id}', [\App\Controllers\ContractController::class, 'show'], [], 'admin.contracts.show');
     Router::post('/contracts/extensions/{id}/review', [\App\Controllers\ContractController::class, 'reviewExtension'], [], 'admin.contracts.review_extension');
     Router::post('/contracts/early-checkouts/{id}/review', [\App\Controllers\ContractController::class, 'reviewEarlyCheckout'], [], 'admin.contracts.review_early_checkout');
+
+    // M4: Invoices Management
+    Router::get('/invoices', [\App\Controllers\InvoiceController::class, 'index'], [], 'admin.invoices');
+    Router::get('/invoices/create', [\App\Controllers\InvoiceController::class, 'create'], [], 'admin.invoices.create');
+    Router::post('/invoices', [\App\Controllers\InvoiceController::class, 'store'], [], 'admin.invoices.store');
+    Router::get('/invoices/{id}', [\App\Controllers\InvoiceController::class, 'show'], [], 'admin.invoices.show');
+    Router::post('/invoices/{id}/cancel', [\App\Controllers\InvoiceController::class, 'cancel'], [], 'admin.invoices.cancel');
+
+    // M4: Payments Management
+    Router::get('/payments', [\App\Controllers\PaymentController::class, 'index'], [], 'admin.payments');
+    Router::get('/payments/cash', [\App\Controllers\PaymentController::class, 'recordCash'], [], 'admin.payments.cash');
+    Router::post('/payments/cash', [\App\Controllers\PaymentController::class, 'storeCash'], [], 'admin.payments.cash.store');
+    Router::get('/payments/{id}', [\App\Controllers\PaymentController::class, 'show'], [], 'admin.payments.show');
+    Router::get('/payments/{id}/proof', [\App\Controllers\PaymentController::class, 'downloadProof'], [], 'admin.payments.proof');
+    Router::post('/payments/{id}/verify', [\App\Controllers\PaymentController::class, 'verify'], [], 'admin.payments.verify');
+    Router::post('/payments/{id}/reject', [\App\Controllers\PaymentController::class, 'reject'], [], 'admin.payments.reject');
+    Router::post('/payments/{id}/reverse', [\App\Controllers\PaymentController::class, 'reverse'], [], 'admin.payments.reverse');
 });
 
 // Tenant Protected Routes
@@ -105,6 +122,10 @@ Router::group([
     Router::post('/extension', [\App\Controllers\TenantPortalController::class, 'submitExtension'], [], 'tenant.extension.submit');
     Router::get('/early-checkout', [\App\Controllers\TenantPortalController::class, 'earlyCheckoutForm'], [], 'tenant.checkout');
     Router::post('/early-checkout', [\App\Controllers\TenantPortalController::class, 'submitEarlyCheckout'], [], 'tenant.checkout.submit');
+
+    // M4: Tenant Payments
+    Router::get('/payment', [\App\Controllers\TenantPortalController::class, 'paymentForm'], [], 'tenant.payment');
+    Router::post('/payments', [\App\Controllers\TenantPortalController::class, 'submitPayment'], [], 'tenant.payments.submit');
 });
 
 // 6. Capture Incoming Request and Dispatch through Router Pipeline

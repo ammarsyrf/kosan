@@ -2,7 +2,13 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-slate-800">Selamat Datang, <?= e($tenant->name ?? 'Penyewa') ?></h1>
-            <p class="text-slate-500 text-sm">Kelola masa sewa, pengajuan perpanjangan, dan informasi kamar Anda.</p>
+            <p class="text-slate-500 text-sm">Kelola masa sewa, tagihan, dan pembayaran kamar Anda.</p>
+        </div>
+        <div>
+            <a href="<?= url('tenant/payment') ?>" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2.5 rounded-lg text-sm shadow-sm transition">
+                <i data-lucide="upload" class="w-4 h-4"></i>
+                Kirim Bukti Pembayaran
+            </a>
         </div>
     </div>
 
@@ -12,7 +18,7 @@
                 <i data-lucide="home" class="w-6 h-6"></i>
             </div>
             <h2 class="text-lg font-bold text-slate-800 mb-2">Belum Ada Kontrak Aktif</h2>
-            <p class="text-slate-500 text-sm mb-4">Saat ini Anda tidak memiliki kontrak sewa kamar yang sedang aktif. Silakan hubungi pengelola kos jika Anda sudah memesan kamar.</p>
+            <p class="text-slate-500 text-sm mb-4">Saat ini Anda tidak memiliki kontrak sewa kamar yang sedang aktif.</p>
         </div>
     <?php else: ?>
         <!-- Active Contract Card -->
@@ -57,7 +63,7 @@
                         </a>
                     <?php else: ?>
                         <span class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
-                            Pengajuan Perpanjangan Menunggu Persetujuan
+                            Perpanjangan Menunggu Persetujuan
                         </span>
                     <?php endif; ?>
 
@@ -68,7 +74,7 @@
                         </a>
                     <?php else: ?>
                         <span class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-200">
-                            Pengajuan Checkout Menunggu Persetujuan
+                            Checkout Menunggu Persetujuan
                         </span>
                     <?php endif; ?>
                 </div>
@@ -76,23 +82,87 @@
         </div>
     <?php endif; ?>
 
-    <!-- Past Contracts -->
-    <?php if (!empty($pastContracts)): ?>
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <h3 class="font-bold text-slate-800 mb-4 text-sm uppercase tracking-wider">Riwayat Kontrak Sebelumnya</h3>
-            <div class="space-y-3">
-                <?php foreach ($pastContracts as $pc): ?>
-                    <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 text-sm">
-                        <div>
-                            <div class="font-medium text-slate-800">Kamar <?= e($pc->room_number) ?> (No. <?= e($pc->contract_number) ?>)</div>
-                            <div class="text-xs text-slate-500"><?= e($pc->start_date) ?> s/d <?= e($pc->end_date) ?></div>
-                        </div>
-                        <span class="px-2.5 py-0.5 rounded text-xs font-semibold uppercase bg-slate-200 text-slate-700">
-                            <?= e($pc->status) ?>
-                        </span>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+    <!-- Tenant Invoices -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+            <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wider">Tagihan Saya</h3>
         </div>
-    <?php endif; ?>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600">
+                <thead class="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase text-slate-500">
+                    <tr>
+                        <th class="py-3 px-4">No. Invoice</th>
+                        <th class="py-3 px-4">Periode</th>
+                        <th class="py-3 px-4">Jatuh Tempo</th>
+                        <th class="py-3 px-4">Total</th>
+                        <th class="py-3 px-4">Sisa Tagihan</th>
+                        <th class="py-3 px-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    <?php if (empty($invoices)): ?>
+                        <tr>
+                            <td colspan="6" class="py-6 text-center text-slate-400">Belum ada tagihan yang diterbitkan.</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($invoices as $inv): ?>
+                            <tr>
+                                <td class="py-3 px-4 font-mono font-medium text-slate-900"><?= e($inv->invoice_number) ?></td>
+                                <td class="py-3 px-4 text-xs"><?= e($inv->period_start) ?> s/d <?= e($inv->period_end) ?></td>
+                                <td class="py-3 px-4 text-xs font-medium <?= $inv->isOverdue() ? 'text-rose-600 font-bold' : '' ?>"><?= e($inv->due_date) ?></td>
+                                <td class="py-3 px-4 font-semibold text-slate-900"><?= $inv->formattedTotal() ?></td>
+                                <td class="py-3 px-4 font-bold <?= $inv->balance > 0 ? 'text-rose-600' : 'text-emerald-600' ?>"><?= $inv->formattedBalance() ?></td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+                                        <?= ucfirst(str_replace('_', ' ', e($inv->status))) ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tenant Payments History -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="p-4 border-b border-slate-200 bg-slate-50">
+            <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wider">Histori Pembayaran Saya</h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600">
+                <thead class="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase text-slate-500">
+                    <tr>
+                        <th class="py-3 px-4">No. Transaksi</th>
+                        <th class="py-3 px-4">Tanggal</th>
+                        <th class="py-3 px-4">Metode</th>
+                        <th class="py-3 px-4">Nominal</th>
+                        <th class="py-3 px-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    <?php if (empty($payments)): ?>
+                        <tr>
+                            <td colspan="5" class="py-6 text-center text-slate-400">Belum ada riwayat pembayaran.</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($payments as $p): ?>
+                            <tr>
+                                <td class="py-3 px-4 font-mono font-medium text-slate-900"><?= e($p->payment_number) ?></td>
+                                <td class="py-3 px-4 text-xs"><?= e($p->payment_date) ?></td>
+                                <td class="py-3 px-4 uppercase text-xs font-semibold"><?= e($p->payment_method) ?></td>
+                                <td class="py-3 px-4 font-bold text-slate-900"><?= $p->formattedAmount() ?></td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+                                        <?= ucfirst(e($p->status)) ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

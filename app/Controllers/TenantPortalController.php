@@ -10,23 +10,33 @@ use App\Core\Request;
 use App\Core\Response;
 use App\Core\Session;
 use App\Repositories\ContractRepository;
+use App\Repositories\InvoiceRepository;
+use App\Repositories\PaymentRepository;
 use App\Repositories\TenantRepository;
 use App\Services\ContractService;
+use App\Services\InvoiceService;
+use App\Services\PaymentService;
 
 class TenantPortalController extends Controller
 {
     private ContractService $contractService;
     private ContractRepository $contractRepo;
     private TenantRepository $tenantRepo;
+    private InvoiceService $invoiceService;
+    private PaymentService $paymentService;
 
     public function __construct(
         ?ContractService $contractService = null,
         ?ContractRepository $contractRepo = null,
-        ?TenantRepository $tenantRepo = null
+        ?TenantRepository $tenantRepo = null,
+        ?InvoiceService $invoiceService = null,
+        ?PaymentService $paymentService = null
     ) {
         $this->contractService = $contractService ?? new ContractService();
         $this->contractRepo = $contractRepo ?? new ContractRepository();
         $this->tenantRepo = $tenantRepo ?? new TenantRepository();
+        $this->invoiceService = $invoiceService ?? new InvoiceService();
+        $this->paymentService = $paymentService ?? new PaymentService();
     }
 
     public function dashboard(): Response
@@ -43,6 +53,8 @@ class TenantPortalController extends Controller
                 'pastContracts' => [],
                 'pendingExtension' => null,
                 'pendingCheckout' => null,
+                'invoices' => [],
+                'payments' => [],
             ]);
         }
 
@@ -66,6 +78,9 @@ class TenantPortalController extends Controller
             $pendingCheckout = $this->contractRepo->getPendingEarlyCheckoutByContractId($activeContract->id);
         }
 
+        $invoices = $this->invoiceService->getTenantInvoices($tenant->id);
+        $payments = $this->paymentService->getTenantPayments($tenant->id);
+
         return $this->render('tenant/dashboard', [
             'title' => 'Portal Penyewa',
             'tenant' => $tenant,
@@ -73,6 +88,8 @@ class TenantPortalController extends Controller
             'pastContracts' => $pastContracts,
             'pendingExtension' => $pendingExtension,
             'pendingCheckout' => $pendingCheckout,
+            'invoices' => $invoices,
+            'payments' => $payments,
         ]);
     }
 
@@ -163,6 +180,58 @@ class TenantPortalController extends Controller
         } catch (\Throwable $e) {
             Session::flash('error', $e->getMessage());
             return $this->redirect('/tenant/early-checkout');
+        }
+    }
+
+    public function paymentForm(): Response
+    {
+        $user = Session::get('user');
+        $tenant = $this->tenantRepo->findByUserId((int)$user['id']);
+        if (!$tenant) {
+            Session::flash('error', 'Profil penyewa tidak valid.');
+            return $this->redirect('/tenant/dashboard');
+        }
+
+        $allInvoices = $this->invoiceService->getTenantInvoices($tenant->id);
+        $unpaidInvoices = array_filter($allInvoices, fn($i) => in_array($i->status, ['unpaid', 'partially_paid', 'overdue'], true));
+
+        return $this->render('tenant/payments', [
+            'title' => 'Kirim Bukti Pembayaran',
+            'invoices' => $unpaidInvoices,
+        ]);
+    }
+
+    public function submitPayment(Request $request): Response
+    {
+        $user = Session::get('user');
+        $tenant = $this->tenantRepo->findByUserId((int)$user['id']);
+        if (!$tenant) {
+            Session::flash('error', 'Profil penyewa tidak valid.');
+            return $this->redirect('/tenant/dashboard');
+        }
+
+        $validated = $this->validate($request, [
+            'amount' => 'required|numeric',
+            'payment_date' => 'required',
+        ]);
+
+        $file = $_FILES['proof'] ?? null;
+
+        try {
+            $paymentId = $this->paymentService->submitTenantPayment([
+                'tenant_id' => $tenant->id,
+                'amount' => (float)$validated['amount'],
+                'payment_date' => (string)$validated['payment_date'],
+                'payment_method' => 'transfer',
+                'invoice_id' => $request->post('invoice_id'),
+                'notes' => (string)$request->post('notes', ''),
+            ], $file, $user['name'] ?? 'Tenant');
+
+            Session::flash('success', 'Bukti pembayaran berhasil dikirim! Menunggu verifikasi pengelola kos.');
+            return $this->redirect('/tenant/dashboard');
+        } catch (\Throwable $e) {
+            Session::flash('error', $e->getMessage());
+            return $this->redirect('/tenant/payment');
         }
     }
 }
