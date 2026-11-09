@@ -46,11 +46,13 @@ class PaymentService
         $prefix = "PAY/{$yearMonth}/";
 
         $pdo = Database::connect();
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM `payments` WHERE `payment_number` LIKE :prefix");
+        $stmt = $pdo->prepare("SELECT payment_number FROM `payments` WHERE `payment_number` LIKE :prefix ORDER BY payment_number DESC LIMIT 1");
         $stmt->execute(['prefix' => "{$prefix}%"]);
-        $count = (int)$stmt->fetchColumn() + 1;
+        $last = $stmt->fetchColumn();
 
-        return sprintf("%s%04d", $prefix, $count);
+        $next = $last ? ((int)substr($last, strlen($prefix)) + 1) : 1;
+
+        return sprintf("%s%04d", $prefix, $next);
     }
 
     public function submitTenantPayment(array $data, ?array $file = null, ?string $actor = 'Tenant'): int
