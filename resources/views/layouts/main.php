@@ -49,6 +49,24 @@
                             <a href="<?= url('admin/notifications') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
                                 Notifikasi WA
                             </a>
+                            <a href="<?= url('admin/expenses') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Pengeluaran
+                            </a>
+                            <a href="<?= url('admin/maintenance') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Maintenance
+                            </a>
+                        </nav>
+                    <?php elseif (strtolower($u['role'] ?? '') === 'tenant'): ?>
+                        <nav class="hidden md:flex items-center space-x-1">
+                            <a href="<?= url('tenant/dashboard') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Dashboard
+                            </a>
+                            <a href="<?= url('tenant/maintenance') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Lapor Kerusakan
+                            </a>
+                            <a href="<?= url('tenant/payment') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Bayar Sewa
+                            </a>
                         </nav>
                     <?php endif; ?>
                 <?php endif; ?>

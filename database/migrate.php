@@ -57,6 +57,28 @@ if (file_exists($schemaFile) && !in_array('000_full_schema.sql', $executed, true
     echo "[INFO] Skema utama sudah pernah dijalankan sebelumnya.\n";
 }
 
+// 3.5. Execute pending migration files in database/migrations/
+$migrationFiles = glob(BASE_PATH . '/database/migrations/*.sql');
+if ($migrationFiles) {
+    sort($migrationFiles);
+    foreach ($migrationFiles as $file) {
+        $filename = basename($file);
+        if (!in_array($filename, $executed, true)) {
+            echo "[MIGRATE] Menjalankan migration: {$filename}...\n";
+            $sql = file_get_contents($file);
+            try {
+                $pdo->exec($sql);
+                $insertStmt = $pdo->prepare("INSERT INTO `migrations` (`migration`, `batch`) VALUES (?, 2)");
+                $insertStmt->execute([$filename]);
+                echo "  [SUCCESS] {$filename} berhasil dijalankan!\n";
+            } catch (\Throwable $e) {
+                echo "  [ERROR] Eksekusi {$filename} gagal: " . $e->getMessage() . "\n";
+                exit(1);
+            }
+        }
+    }
+}
+
 // 4. Verify tables count
 $tablesStmt = $pdo->query("SHOW TABLES");
 $tables = $tablesStmt->fetchAll(PDO::FETCH_COLUMN) ?: [];

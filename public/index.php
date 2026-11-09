@@ -118,6 +118,28 @@ Router::group([
     Router::get('/notifications/settings', [\App\Controllers\NotificationController::class, 'settings'], [], 'admin.notifications.settings');
     Router::post('/notifications/settings', [\App\Controllers\NotificationController::class, 'updateSettings'], [], 'admin.notifications.settings.update');
     Router::post('/notifications/retry/{id}', [\App\Controllers\NotificationController::class, 'retry'], [], 'admin.notifications.retry');
+
+    // M6: Operational Expenses & Categories
+    Router::get('/expenses', [\App\Controllers\ExpenseController::class, 'index'], [], 'admin.expenses');
+    Router::get('/expenses/create', [\App\Controllers\ExpenseController::class, 'create'], [], 'admin.expenses.create');
+    Router::post('/expenses', [\App\Controllers\ExpenseController::class, 'store'], [], 'admin.expenses.store');
+    Router::get('/expenses/categories', [\App\Controllers\ExpenseController::class, 'categories'], [], 'admin.expenses.categories');
+    Router::post('/expenses/categories', [\App\Controllers\ExpenseController::class, 'storeCategory'], [], 'admin.expenses.categories.store');
+    Router::post('/expenses/categories/{id}', [\App\Controllers\ExpenseController::class, 'updateCategory'], [], 'admin.expenses.categories.update');
+    Router::post('/expenses/categories/{id}/delete', [\App\Controllers\ExpenseController::class, 'deleteCategory'], [], 'admin.expenses.categories.delete');
+    Router::get('/expenses/{id}', [\App\Controllers\ExpenseController::class, 'show'], [], 'admin.expenses.show');
+    Router::get('/expenses/{id}/edit', [\App\Controllers\ExpenseController::class, 'edit'], [], 'admin.expenses.edit');
+    Router::post('/expenses/{id}', [\App\Controllers\ExpenseController::class, 'update'], [], 'admin.expenses.update');
+    Router::post('/expenses/{id}/delete', [\App\Controllers\ExpenseController::class, 'delete'], [], 'admin.expenses.delete');
+    Router::get('/expenses/{id}/receipt', [\App\Controllers\ExpenseController::class, 'downloadReceipt'], [], 'admin.expenses.receipt');
+
+    // M6: Maintenance Management
+    Router::get('/maintenance', [\App\Controllers\MaintenanceController::class, 'index'], [], 'admin.maintenance');
+    Router::get('/maintenance/{id}', [\App\Controllers\MaintenanceController::class, 'show'], [], 'admin.maintenance.show');
+    Router::post('/maintenance/{id}/status', [\App\Controllers\MaintenanceController::class, 'updateStatus'], [], 'admin.maintenance.status');
+    Router::post('/maintenance/{id}/priority', [\App\Controllers\MaintenanceController::class, 'updatePriority'], [], 'admin.maintenance.priority');
+    Router::post('/maintenance/{id}/updates', [\App\Controllers\MaintenanceController::class, 'addUpdate'], [], 'admin.maintenance.updates');
+    Router::get('/maintenance/attachments/{id}', [\App\Controllers\MaintenanceController::class, 'downloadAttachment'], [], 'admin.maintenance.attachment');
 });
 
 // Tenant Protected Routes
@@ -134,6 +156,14 @@ Router::group([
     // M4: Tenant Payments
     Router::get('/payment', [\App\Controllers\TenantPortalController::class, 'paymentForm'], [], 'tenant.payment');
     Router::post('/payments', [\App\Controllers\TenantPortalController::class, 'submitPayment'], [], 'tenant.payments.submit');
+
+    // M6: Tenant Maintenance Reports
+    Router::get('/maintenance', [\App\Controllers\TenantPortalController::class, 'maintenanceIndex'], [], 'tenant.maintenance');
+    Router::get('/maintenance/create', [\App\Controllers\TenantPortalController::class, 'maintenanceCreate'], [], 'tenant.maintenance.create');
+    Router::post('/maintenance', [\App\Controllers\TenantPortalController::class, 'maintenanceStore'], [], 'tenant.maintenance.store');
+    Router::get('/maintenance/{id}', [\App\Controllers\TenantPortalController::class, 'maintenanceShow'], [], 'tenant.maintenance.show');
+    Router::post('/maintenance/{id}/updates', [\App\Controllers\TenantPortalController::class, 'maintenanceAddUpdate'], [], 'tenant.maintenance.updates');
+    Router::get('/maintenance/attachments/{id}', [\App\Controllers\TenantPortalController::class, 'downloadMaintenanceAttachment'], [], 'tenant.maintenance.attachment');
 });
 
 // 6. Capture Incoming Request and Dispatch through Router Pipeline
