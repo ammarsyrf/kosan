@@ -99,6 +99,13 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Hide scrollbars for mobile carousels & tabs */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Native smooth momentum scrolling for tables on iOS & Android */
+        .overflow-x-auto { -webkit-overflow-scrolling: touch; }
     </style>
 </head>
 <body class="h-full text-slate-800 antialiased bg-slate-50 selection:bg-blue-600 selection:text-white">
@@ -152,7 +159,7 @@
                             </span>
                         </div>
                     </a>
-                    <button id="close-sidebar-btn" type="button" class="lg:hidden text-slate-400 hover:text-white p-1 rounded-lg">
+                    <button id="close-sidebar-btn" type="button" class="lg:hidden text-slate-400 hover:text-white p-2 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-slate-800 transition touch-target" aria-label="Tutup Menu">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -282,14 +289,14 @@
         <div class="flex-1 lg:pl-64 flex flex-col min-h-screen min-w-0">
             <!-- Slim Top Header -->
             <header class="h-16 bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-30 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 shadow-sm">
-                <div class="flex items-center gap-3">
-                    <button id="open-sidebar-btn" type="button" class="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition focus:outline-none" aria-label="Buka Menu">
+                <div class="flex items-center gap-3 min-w-0">
+                    <button id="open-sidebar-btn" type="button" class="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition focus:outline-none min-w-[44px] min-h-[44px] flex items-center justify-center shrink-0 touch-target" aria-label="Buka Menu">
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
-                    <div class="hidden sm:flex items-center gap-2 text-xs font-semibold text-slate-500">
-                        <a href="<?= url() ?>" class="hover:text-blue-600 transition">Kost Management</a>
-                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
-                        <span class="text-slate-800 font-bold"><?= e($title ?? 'Dashboard') ?></span>
+                    <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 truncate">
+                        <a href="<?= url() ?>" class="hidden sm:inline hover:text-blue-600 transition truncate">Kost Management</a>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 hidden sm:inline shrink-0"></i>
+                        <span class="text-slate-800 font-bold truncate"><?= e($title ?? 'Dashboard') ?></span>
                     </div>
                 </div>
 
@@ -451,6 +458,15 @@
         if (openBtn) openBtn.addEventListener('click', () => toggleSidebar(true));
         if (closeBtn) closeBtn.addEventListener('click', () => toggleSidebar(false));
         if (backdrop) backdrop.addEventListener('click', () => toggleSidebar(false));
+
+        // Auto-close sidebar on mobile when navigating
+        if (sidebar) {
+            sidebar.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) toggleSidebar(false);
+                });
+            });
+        }
 
         // Smooth Page Load Progress Bar Animation
         if (progressBar) {

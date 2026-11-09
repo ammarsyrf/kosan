@@ -106,20 +106,20 @@
     <?php if ($contract->isActive()): ?>
         <!-- Modal Mutasi / Pindah Kamar -->
         <div id="modal-transfer-room" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+            <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center">
                             <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
                         </div>
                         <h3 class="font-bold text-slate-900 text-base">Mutasi / Pindah Kamar</h3>
                     </div>
-                    <button type="button" onclick="document.getElementById('modal-transfer-room').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <button type="button" onclick="document.getElementById('modal-transfer-room').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 p-2 rounded-lg touch-target flex items-center justify-center">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
 
-                <form action="<?= url("admin/contracts/{$contract->id}/transfer-room") ?>" method="POST" class="p-6 space-y-4">
+                <form action="<?= url("admin/contracts/{$contract->id}/transfer-room") ?>" method="POST" class="p-6 space-y-4 overflow-y-auto flex-1">
                     <?= csrf_field() ?>
                     <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900">
                         Pindah kamar akan otomatis membebaskan <strong>Kamar <?= e($contract->room_number) ?></strong> menjadi <em>available</em> dan mengunci kamar baru menjadi <em>occupied</em>.
@@ -181,20 +181,20 @@
 
         <!-- Modal Selesai Sewa (Checkout Langsung) -->
         <div id="modal-terminate-contract" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+            <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center">
                             <i data-lucide="log-out" class="w-4 h-4"></i>
                         </div>
                         <h3 class="font-bold text-slate-900 text-base">Pengakhiran Sewa / Checkout</h3>
                     </div>
-                    <button type="button" onclick="document.getElementById('modal-terminate-contract').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <button type="button" onclick="document.getElementById('modal-terminate-contract').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 p-2 rounded-lg touch-target flex items-center justify-center">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
 
-                <form action="<?= url("admin/contracts/{$contract->id}/terminate") ?>" method="POST" class="p-6 space-y-4">
+                <form action="<?= url("admin/contracts/{$contract->id}/terminate") ?>" method="POST" class="p-6 space-y-4 overflow-y-auto flex-1">
                     <?= csrf_field() ?>
                     <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-900">
                         Tindakan ini akan mengakhiri kontrak sewa aktif dan mengembalikan <strong>Kamar <?= e($contract->room_number) ?></strong> menjadi berstatus <em>tersedia (available)</em>.

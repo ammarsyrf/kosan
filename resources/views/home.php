@@ -295,18 +295,18 @@
                     </p>
                 </div>
 
-                <!-- Interactive Filter Tabs -->
-                <div class="flex flex-wrap items-center gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold">
-                    <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3.5 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer">
+                <!-- Interactive Filter Tabs (Mobile-Friendly Horizontal Swipe) -->
+                <div class="flex items-center gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold overflow-x-auto no-scrollbar max-w-full">
+                    <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3.5 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap shrink-0">
                         Semua Unit (<?= count($rooms) ?>)
                     </button>
-                    <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer">
+                    <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
                         Lantai 1
                     </button>
-                    <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer">
+                    <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
                         Lantai 2
                     </button>
-                    <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5">
+                    <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
                     </button>
                 </div>
