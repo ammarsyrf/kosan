@@ -12,15 +12,28 @@
             <?= csrf_field() ?>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Pilih Kontrak Sewa Aktif <span class="text-rose-500">*</span></label>
-                <select name="contract_id" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
-                    <option value="">-- Pilih Kontrak Sewa --</option>
-                    <?php foreach ($contracts as $c): ?>
-                        <option value="<?= (int)$c->id ?>">
-                            #<?= e($c->contract_number) ?> - Kamar <?= e($c->room_number) ?> (<?= e($c->tenant_name) ?>) - Tarif: <?= $c->formattedPrice() ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="contract_id" class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
+                    <span>Pilih Kontrak Sewa Aktif</span>
+                    <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i data-lucide="file-check" class="w-4 h-4"></i>
+                    </div>
+                    <select name="contract_id" id="contract_id" required 
+                            class="w-full appearance-none bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-10 py-3 text-xs sm:text-sm font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition shadow-xs cursor-pointer">
+                        <option value="">-- Pilih Kontrak Sewa --</option>
+                        <?php foreach ($contracts as $c): ?>
+                            <option value="<?= (int)$c->id ?>">
+                                #<?= e($c->contract_number) ?> &bull; Kamar <?= e($c->room_number) ?> (<?= e($c->tenant_name) ?>) &bull; Tarif: <?= $c->formattedPrice() ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400">
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </div>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
