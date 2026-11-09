@@ -344,6 +344,150 @@ class ContractService
         });
     }
 
+    public function transferRoom(
+        int $contractId,
+        int $newRoomId,
+        string $effectiveDate,
+        ?float $newPrice = null,
+        ?string $reason = null,
+        ?int $adminId = null,
+        ?string $actor = 'Admin'
+    ): bool {
+        return Database::transaction(function (PDO $pdo) use ($contractId, $newRoomId, $effectiveDate, $newPrice, $reason, $adminId, $actor) {
+            $contract = $this->contractRepo->findById($contractId);
+            if (!$contract || !$contract->isActive()) {
+                throw new RuntimeException("Kontrak tidak ditemukan atau tidak dalam status aktif.");
+            }
+
+            if ($contract->room_id === $newRoomId) {
+                throw new RuntimeException("Kamar baru tidak boleh sama dengan kamar saat ini.");
+            }
+
+            // Lock and inspect new room
+            $stmtNew = $pdo->prepare("SELECT `id`, `room_number`, `current_price`, `status` FROM `rooms` WHERE `id` = :id FOR UPDATE");
+            $stmtNew->execute(['id' => $newRoomId]);
+            $newRoom = $stmtNew->fetch(PDO::FETCH_ASSOC);
+
+            if (!$newRoom) {
+                throw new RuntimeException("Kamar tujuan tidak ditemukan.");
+            }
+
+            if ($newRoom['status'] !== 'available') {
+                throw new RuntimeException("Kamar tujuan (Kamar {$newRoom['room_number']}) sedang tidak tersedia (status: {$newRoom['status']}).");
+            }
+
+            // Lock old room
+            $stmtOld = $pdo->prepare("SELECT `id`, `room_number` FROM `rooms` WHERE `id` = :id FOR UPDATE");
+            $stmtOld->execute(['id' => $contract->room_id]);
+            $oldRoom = $stmtOld->fetch(PDO::FETCH_ASSOC);
+            $oldRoomNumber = $oldRoom['room_number'] ?? (string)$contract->room_id;
+
+            // Determine new price
+            $finalPrice = ($newPrice !== null && $newPrice > 0)
+                ? (float)$newPrice
+                : (float)$newRoom['current_price'];
+
+            // 1. Set old room to available
+            $stmtFreeOld = $pdo->prepare("UPDATE `rooms` SET `status` = 'available' WHERE `id` = :id");
+            $stmtFreeOld->execute(['id' => $contract->room_id]);
+
+            // 2. Set new room to occupied
+            $stmtOccupyNew = $pdo->prepare("UPDATE `rooms` SET `status` = 'occupied' WHERE `id` = :id");
+            $stmtOccupyNew->execute(['id' => $newRoomId]);
+
+            // 3. Update contract room_id and rent_price_snapshot
+            $auditNote = "Mutasi kamar efektif per {$effectiveDate}: dari Kamar {$oldRoomNumber} ke Kamar {$newRoom['room_number']}. " . ($reason ? "Alasan: {$reason}." : "");
+            $newContractNotes = trim(($contract->notes ? $contract->notes . "\n" : "") . "[{$auditNote}]");
+
+            $stmtUpdateContract = $pdo->prepare("
+                UPDATE `rental_contracts`
+                SET `room_id` = :new_room_id,
+                    `rent_price_snapshot` = :new_price,
+                    `notes` = :notes,
+                    `updated_at` = NOW()
+                WHERE `id` = :id
+            ");
+            $stmtUpdateContract->execute([
+                'new_room_id' => $newRoomId,
+                'new_price' => $finalPrice,
+                'notes' => $newContractNotes,
+                'id' => $contract->id,
+            ]);
+
+            // 4. Record history
+            $this->contractRepo->addHistory([
+                'contract_id' => $contract->id,
+                'action' => 'ROOM_TRANSFER',
+                'old_end_date' => $contract->end_date,
+                'new_end_date' => $contract->end_date,
+                'old_rent_price' => $contract->rent_price_snapshot,
+                'new_rent_price' => $finalPrice,
+                'notes' => $auditNote,
+                'created_by' => $adminId,
+            ]);
+
+            Logger::audit((string)$actor, 'ROOM_TRANSFER', 'rental_contracts', $contract->id, [
+                'old_room_id' => $contract->room_id,
+                'new_room_id' => $newRoomId,
+                'effective_date' => $effectiveDate,
+                'old_price' => $contract->rent_price_snapshot,
+                'new_price' => $finalPrice,
+                'reason' => $reason,
+            ]);
+
+            return true;
+        });
+    }
+
+    public function terminateContract(
+        int $contractId,
+        string $checkoutDate,
+        string $reason = '',
+        ?int $adminId = null,
+        string $actor = 'Admin'
+    ): bool {
+        return Database::transaction(function (PDO $pdo) use ($contractId, $checkoutDate, $reason, $adminId, $actor) {
+            $contract = $this->contractRepo->findById($contractId);
+            if (!$contract || !$contract->isActive()) {
+                throw new RuntimeException("Kontrak tidak ditemukan atau sudah tidak dalam status aktif.");
+            }
+
+            // Update contract status to terminated and shorten end_date
+            $stmt = $pdo->prepare("
+                UPDATE `rental_contracts`
+                SET `status` = 'terminated', `end_date` = :eff, `updated_at` = NOW()
+                WHERE `id` = :id
+            ");
+            $stmt->execute(['id' => $contractId, 'eff' => $checkoutDate]);
+
+            // If effective date has passed or is today, free the room
+            if ($checkoutDate <= date('Y-m-d')) {
+                $stmtRoom = $pdo->prepare("UPDATE `rooms` SET `status` = 'available' WHERE `id` = :id");
+                $stmtRoom->execute(['id' => $contract->room_id]);
+            }
+
+            $auditNote = "Pengakhiran sewa / checkout selesai per {$checkoutDate}. " . ($reason ? "Alasan: {$reason}." : "");
+
+            $this->contractRepo->addHistory([
+                'contract_id' => $contract->id,
+                'action' => 'EARLY_CHECKOUT',
+                'old_end_date' => $contract->end_date,
+                'new_end_date' => $checkoutDate,
+                'old_rent_price' => $contract->rent_price_snapshot,
+                'new_rent_price' => $contract->rent_price_snapshot,
+                'notes' => $auditNote,
+                'created_by' => $adminId,
+            ]);
+
+            Logger::audit((string)$actor, 'TERMINATE_CONTRACT', 'rental_contracts', $contractId, [
+                'checkout_date' => $checkoutDate,
+                'reason' => $reason,
+            ]);
+
+            return true;
+        });
+    }
+
     public function getExtensionRequests(): array
     {
         return $this->contractRepo->getExtensionRequests();

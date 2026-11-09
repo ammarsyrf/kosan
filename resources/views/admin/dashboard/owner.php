@@ -34,8 +34,12 @@
                 <?php endif; ?>
             </form>
 
-            <!-- Export Buttons -->
+            <!-- Action Buttons -->
             <div class="flex items-center gap-2">
+                <a href="<?= url('admin/payments/cash') ?>" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-blue-500/25 hover:shadow-lg transition transform active:scale-95">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                    <span>Catat Bayar Tunai</span>
+                </a>
                 <a href="<?= url('admin/reports/export/financial') . '?date_from=' . urlencode($date_from ?? '') . '&date_to=' . urlencode($date_to ?? '') ?>" class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-emerald-500/25 hover:shadow-lg transition transform active:scale-95">
                     <i data-lucide="download" class="w-4 h-4"></i>
                     <span>Export Keuangan (CSV)</span>

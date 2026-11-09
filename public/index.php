@@ -131,6 +131,8 @@ Router::group([
     Router::get('/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
     Router::post('/contracts', [\App\Controllers\ContractController::class, 'store'], [], 'admin.contracts.store');
     Router::get('/contracts/{id}', [\App\Controllers\ContractController::class, 'show'], [], 'admin.contracts.show');
+    Router::post('/contracts/{id}/transfer-room', [\App\Controllers\ContractController::class, 'transferRoom'], [], 'admin.contracts.transfer_room');
+    Router::post('/contracts/{id}/terminate', [\App\Controllers\ContractController::class, 'terminate'], [], 'admin.contracts.terminate');
     Router::post('/contracts/extensions/{id}/review', [\App\Controllers\ContractController::class, 'reviewExtension'], [], 'admin.contracts.review_extension');
     Router::post('/contracts/early-checkouts/{id}/review', [\App\Controllers\ContractController::class, 'reviewEarlyCheckout'], [], 'admin.contracts.review_early_checkout');
 
