@@ -34,6 +34,12 @@
                             <a href="<?= url('admin/tenants') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
                                 Penghuni
                             </a>
+                            <a href="<?= url('bookings') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Booking
+                            </a>
+                            <a href="<?= url('contracts') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Kontrak Sewa
+                            </a>
                         </nav>
                     <?php endif; ?>
                 <?php endif; ?>

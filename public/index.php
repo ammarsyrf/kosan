@@ -77,6 +77,22 @@ Router::group([
     Router::get('/tenants', [TenantController::class, 'index'], [], 'admin.tenants');
     Router::get('/tenants/create', [TenantController::class, 'create'], [], 'admin.tenants.create');
     Router::post('/tenants', [TenantController::class, 'store'], [], 'admin.tenants.store');
+
+    // M3: Bookings Management
+    Router::get('/bookings', [\App\Controllers\BookingController::class, 'index'], [], 'admin.bookings');
+    Router::get('/bookings/create', [\App\Controllers\BookingController::class, 'create'], [], 'admin.bookings.create');
+    Router::post('/bookings', [\App\Controllers\BookingController::class, 'store'], [], 'admin.bookings.store');
+    Router::post('/bookings/{id}/confirm', [\App\Controllers\BookingController::class, 'confirm'], [], 'admin.bookings.confirm');
+    Router::post('/bookings/{id}/cancel', [\App\Controllers\BookingController::class, 'cancel'], [], 'admin.bookings.cancel');
+    Router::post('/bookings/{id}/convert', [\App\Controllers\BookingController::class, 'convert'], [], 'admin.bookings.convert');
+
+    // M3: Contracts Management
+    Router::get('/contracts', [\App\Controllers\ContractController::class, 'index'], [], 'admin.contracts');
+    Router::get('/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
+    Router::post('/contracts', [\App\Controllers\ContractController::class, 'store'], [], 'admin.contracts.store');
+    Router::get('/contracts/{id}', [\App\Controllers\ContractController::class, 'show'], [], 'admin.contracts.show');
+    Router::post('/contracts/extensions/{id}/review', [\App\Controllers\ContractController::class, 'reviewExtension'], [], 'admin.contracts.review_extension');
+    Router::post('/contracts/early-checkouts/{id}/review', [\App\Controllers\ContractController::class, 'reviewEarlyCheckout'], [], 'admin.contracts.review_early_checkout');
 });
 
 // Tenant Protected Routes
@@ -84,7 +100,11 @@ Router::group([
     'prefix' => '/tenant',
     'middleware' => [AuthMiddleware::class, new RoleMiddleware(['tenant'])],
 ], function () {
-    Router::get('/dashboard', [HomeController::class, 'tenantDashboard'], [], 'tenant.dashboard');
+    Router::get('/dashboard', [\App\Controllers\TenantPortalController::class, 'dashboard'], [], 'tenant.dashboard');
+    Router::get('/extension', [\App\Controllers\TenantPortalController::class, 'extensionForm'], [], 'tenant.extension');
+    Router::post('/extension', [\App\Controllers\TenantPortalController::class, 'submitExtension'], [], 'tenant.extension.submit');
+    Router::get('/early-checkout', [\App\Controllers\TenantPortalController::class, 'earlyCheckoutForm'], [], 'tenant.checkout');
+    Router::post('/early-checkout', [\App\Controllers\TenantPortalController::class, 'submitEarlyCheckout'], [], 'tenant.checkout.submit');
 });
 
 // 6. Capture Incoming Request and Dispatch through Router Pipeline
