@@ -46,6 +46,9 @@
                             <a href="<?= url('admin/payments') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
                                 Pembayaran
                             </a>
+                            <a href="<?= url('admin/notifications') ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition">
+                                Notifikasi WA
+                            </a>
                         </nav>
                     <?php endif; ?>
                 <?php endif; ?>

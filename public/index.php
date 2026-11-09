@@ -110,6 +110,14 @@ Router::group([
     Router::post('/payments/{id}/verify', [\App\Controllers\PaymentController::class, 'verify'], [], 'admin.payments.verify');
     Router::post('/payments/{id}/reject', [\App\Controllers\PaymentController::class, 'reject'], [], 'admin.payments.reject');
     Router::post('/payments/{id}/reverse', [\App\Controllers\PaymentController::class, 'reverse'], [], 'admin.payments.reverse');
+
+    // M5: WhatsApp Notifications & Settings
+    Router::get('/notifications', [\App\Controllers\NotificationController::class, 'index'], [], 'admin.notifications');
+    Router::get('/notifications/templates', [\App\Controllers\NotificationController::class, 'templates'], [], 'admin.notifications.templates');
+    Router::post('/notifications/templates', [\App\Controllers\NotificationController::class, 'updateTemplate'], [], 'admin.notifications.templates.update');
+    Router::get('/notifications/settings', [\App\Controllers\NotificationController::class, 'settings'], [], 'admin.notifications.settings');
+    Router::post('/notifications/settings', [\App\Controllers\NotificationController::class, 'updateSettings'], [], 'admin.notifications.settings.update');
+    Router::post('/notifications/retry/{id}', [\App\Controllers\NotificationController::class, 'retry'], [], 'admin.notifications.retry');
 });
 
 // Tenant Protected Routes
