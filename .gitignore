@@ -1,6 +1,18 @@
+# Environment & Secrets
 /.env
+/.env.*
+!/.env.example
+*.pem
+*.key
+*.cert
+
+# Composer Dependencies
 /vendor/
-/storage/logs/*.log
+composer.phar
+
+# Storage, Uploads, Logs, and Caches
+/storage/logs/*
+!/storage/logs/.gitkeep
 /storage/uploads/*
 !/storage/uploads/.gitkeep
 /storage/cache/*
@@ -9,12 +21,30 @@
 !/storage/exports/.gitkeep
 /storage/backups/*
 !/storage/backups/.gitkeep
+*.log
 
-# IDE & OS
+# Temporary & Cache files
+*.tmp
+*.temp
+*.bak
+.phpunit.result.cache
+.php-cs-fixer.cache
+
+# IDE, Editors & Workspaces
 .idea/
 .vscode/
+*.sublime-project
+*.sublime-workspace
 *.swp
 *.swo
-.DS_Store
-Thumbs.db
+*~
 
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
