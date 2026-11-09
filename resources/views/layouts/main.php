@@ -248,19 +248,27 @@
 
 <?php else: ?>
     <!-- Public Visitor Layout (Landing Page) -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 sticky top-0 z-50 transition-all shadow-sm">
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50 transition-all shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
             <a href="<?= url() ?>" class="flex items-center space-x-3 group">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
                     <i data-lucide="home" class="w-5 h-5"></i>
                 </div>
                 <div class="flex flex-col whitespace-nowrap">
-                    <span class="font-extrabold text-slate-900 tracking-tight text-base leading-none group-hover:text-blue-600 transition-colors">
+                    <span class="font-black text-slate-900 tracking-tight text-base leading-none group-hover:text-blue-600 transition-colors">
                         <?= e(config('app.name', 'Kost Management')) ?>
                     </span>
                     <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase mt-1">Smart Living Monolith</span>
                 </div>
             </a>
+
+            <!-- Public Nav Links -->
+            <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600">
+                <a href="#kamar-kost" class="hover:text-blue-600 transition">Katalog Kamar</a>
+                <a href="#demo-access" class="hover:text-blue-600 transition">Uji Coba Demo</a>
+                <a href="<?= url('activate') ?>" class="text-slate-500 hover:text-slate-900 transition">Aktivasi Akun Baru</a>
+            </nav>
+
             <a href="<?= url('login') ?>" class="inline-flex items-center px-4 py-2 text-xs font-bold tracking-wide rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-500/25 transition transform active:scale-95">
                 <i data-lucide="log-in" class="w-3.5 h-3.5 mr-1.5"></i> Masuk ke Portal
             </a>

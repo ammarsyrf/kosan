@@ -1,108 +1,130 @@
-<div class="space-y-16 pb-16">
-    <!-- Hero Section with Deep Slate & Gradient Mesh Background -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 text-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl border border-slate-800">
-        <!-- Ambient Decorative Glow -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+<?php
+/** @var array $stats */
+/** @var array $rooms */
+/** @var string|null $role_zone */
+?>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-20">
+
+    <!-- HERO SECTION: Ultra-Modern Obsidian & Indigo Gradient with Glassmorphism -->
+    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-14 lg:p-16 shadow-2xl border border-slate-800/80">
+        <!-- Ambient Decorative Lighting Glows -->
+        <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.07] pointer-events-none"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-            <!-- Product Badge -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-teal-300">
-                <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span>
-                <span>Kost Management System • Personal Monolith</span>
+            <!-- Platform Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-bold text-teal-300 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Sistem Manajemen Kost Modern • Smart Living Monolith</span>
             </div>
 
             <!-- Main Heading -->
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight sm:leading-tight">
-                Kelola Kos Lebih <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400">Cerdas, Rapi, & Otomatis</span>
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-tight">
+                Kendali Penuh Properti Kos <br class="hidden sm:inline" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400">
+                    Otomatis, Rapi, & Real-Time
+                </span>
             </h1>
 
             <!-- Subtitle -->
-            <p class="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed">
-                Platform all-in-one untuk automasi tagihan WhatsApp (Fonnte API), pemantauan okupansi kamar real-time, pembukuan arus kas, serta portal mandiri bagi seluruh penghuni kos.
+            <p class="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+                Platform operasional kos lengkap: automasi penagihan via WhatsApp (Fonnte API), pemantauan okupansi kamar terintegrasi, pembukuan arus kas bersih, serta portal mandiri bagi seluruh penghuni.
             </p>
 
-            <!-- Call to Actions -->
-            <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-wrap items-center justify-center gap-3.5">
                 <?php if (auth_check()): ?>
                     <?php $u = auth_user(); ?>
                     <?php if (strtolower($u['role'] ?? '') === 'owner'): ?>
-                        <a href="<?= url('owner/dashboard') ?>" class="px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <a href="<?= url('owner/dashboard') ?>" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
                             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Executive Dashboard
                         </a>
                     <?php elseif (strtolower($u['role'] ?? '') === 'admin'): ?>
-                        <a href="<?= url('admin/dashboard') ?>" class="px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <a href="<?= url('admin/dashboard') ?>" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
                             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Admin Dashboard
                         </a>
                     <?php else: ?>
-                        <a href="<?= url('tenant/dashboard') ?>" class="px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
-                            <i data-lucide="home" class="w-4 h-4"></i> Buka Tenant Portal
+                        <a href="<?= url('tenant/dashboard') ?>" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-lg shadow-teal-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                            <i data-lucide="home" class="w-4 h-4"></i> Buka Portal Penghuni
                         </a>
                     <?php endif; ?>
                 <?php else: ?>
-                    <a href="<?= url('login') ?>" class="px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
-                        <i data-lucide="log-in" class="w-4 h-4"></i> Masuk ke Sistem
+                    <a href="#demo-access" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> Coba Akun Demo Sekarang
+                    </a>
+                    <a href="<?= url('login') ?>" class="px-6 py-3.5 rounded-xl font-semibold text-sm bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 text-white transition inline-flex items-center gap-2">
+                        <i data-lucide="log-in" class="w-4 h-4 text-slate-300"></i> Masuk Akun
                     </a>
                 <?php endif; ?>
 
-                <a href="#demo-access" class="px-6 py-3.5 rounded-xl font-semibold text-sm bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 text-white transition inline-flex items-center gap-2">
-                    <i data-lucide="key" class="w-4 h-4 text-amber-300"></i> Akun Pengujian Demo
+                <a href="#kamar-kost" class="px-6 py-3.5 rounded-xl font-semibold text-sm bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-slate-200 transition inline-flex items-center gap-2">
+                    <i data-lucide="door-closed" class="w-4 h-4 text-teal-400"></i> Lihat Kamar Tersedia
                 </a>
             </div>
 
-            <!-- Role Zone Alert (backward-compatible check) -->
-            <?php if (!empty($role_zone)): ?>
-                <div class="mt-4 p-4 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-sm flex items-center justify-center gap-3">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-amber-300"></i>
-                    <span><strong>Otorisasi Area:</strong> <?= e($role_zone) ?></span>
-                </div>
-            <?php endif; ?>
-
-            <!-- Live KPI Metric Strip -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10 text-left">
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+            <!-- Live KPI Metric Cards Strip -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-8 text-left">
+                <!-- Card 1 -->
+                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
+                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
                         <span>Total Kamar</span>
-                        <i data-lucide="door-closed" class="w-4 h-4 text-blue-400"></i>
+                        <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                            <i data-lucide="door-closed" class="w-4 h-4"></i>
+                        </div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-extrabold text-white">
                         <?= (int)($stats['total_rooms'] ?? 8) ?> <span class="text-xs font-normal text-slate-400">Unit</span>
                     </div>
-                    <div class="text-[11px] text-teal-300 mt-1 flex items-center gap-1">
+                    <div class="text-[11px] text-teal-300 mt-1 flex items-center gap-1.5 font-medium">
                         <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span> Siap dikelola
                     </div>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+                <!-- Card 2 -->
+                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
+                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
                         <span>Okupansi Aktif</span>
-                        <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i>
+                        <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                            <i data-lucide="pie-chart" class="w-4 h-4"></i>
+                        </div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">
-                        <?= $stats['occupancy_rate'] ?? 75.0 ?>%
+                        <?= $stats['occupancy_rate'] ?? 12.5 ?>%
                     </div>
-                    <div class="text-[11px] text-slate-400 mt-1">
-                        <?= (int)($stats['occupied'] ?? 6) ?> Kamar Terisi
+                    <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <?= (int)($stats['occupied'] ?? 1) ?> Kamar Terisi
                     </div>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1">
+                <!-- Card 3 -->
+                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
+                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
                         <span>Automasi WhatsApp</span>
-                        <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i>
+                        <div class="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center">
+                            <i data-lucide="message-square" class="w-4 h-4"></i>
+                        </div>
                     </div>
-                    <div class="text-2xl sm:text-3xl font-extrabold text-white">
-                        Fonnte <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Aktif</span>
+                    <div class="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
+                        Fonnte
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            Aktif
+                        </span>
                     </div>
                     <div class="text-[11px] text-slate-400 mt-1">
                         Jadwal H-7, H-3, H-1, H+1
                     </div>
                 </div>
 
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1">
-                        <span>Keuangan & Ekspor</span>
-                        <i data-lucide="file-spreadsheet" class="w-4 h-4 text-teal-400"></i>
+                <!-- Card 4 -->
+                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
+                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
+                        <span>Laporan Keuangan</span>
+                        <div class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+                        </div>
                     </div>
                     <div class="text-2xl sm:text-3xl font-extrabold text-white">
                         CSV <span class="text-xs font-normal text-slate-400">Export</span>
@@ -115,175 +137,294 @@
         </div>
     </section>
 
-    <!-- Quick Demo Access Section (Evaluator / User Friendly) -->
-    <section id="demo-access" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
-        <div class="max-w-3xl mb-6">
-            <div class="inline-flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
-                <i data-lucide="shield-check" class="w-4 h-4"></i> Akses Cepat Demo Akun
+    <!-- DEMO ACCESS SECTION: 1-Click Role Exploration Cards -->
+    <section id="demo-access" class="space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Uji Coba Cepat Sistem
             </div>
-            <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Uji Coba Hak Akses Berdasarkan Role</h2>
-            <p class="text-slate-500 text-xs sm:text-sm mt-1">
-                Sistem memiliki 3 level otorisasi dengan isolasi data ketat. Gunakan kredensial di bawah untuk mengeksplorasi masing-masing peran:
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Eksplorasi Hak Akses Berdasarkan 3 Peran
+            </h2>
+            <p class="text-slate-500 text-xs sm:text-sm">
+                Sistem memiliki isolasi otorisasi data ketat. Klik tombol masuk instan pada masing-masing peran untuk menguji alur kerja nyata:
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Owner Card -->
-            <div class="p-5 rounded-2xl border border-amber-200 bg-amber-50/40 relative flex flex-col justify-between hover:shadow-md transition">
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 uppercase tracking-wider">
-                            Owner / Pemilik
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- 1. OWNER CARD -->
+            <div class="bg-white rounded-3xl p-6 sm:p-7 border border-amber-200/90 shadow-sm hover:shadow-xl hover:shadow-amber-500/10 hover:border-amber-400 transition-all duration-200 flex flex-col justify-between group">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-105 transition-transform">
+                            <i data-lucide="crown" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-800">
+                            Eksekutif / Pemilik
                         </span>
-                        <i data-lucide="crown" class="w-5 h-5 text-amber-600"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-sm">Bapak Kos (Eksekutif)</h3>
-                    <p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">
-                        Akses penuh analitik keuangan, arus kas bersih, laba/rugi, okupansi, serta ekspor laporan CSV keuangan.
-                    </p>
+
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Bapak Kos (Owner)</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            Akses penuh analitik keuangan eksekutif, margin laba kotor, arus kas bersih, serta ekspor CSV rahasia.
+                        </p>
+                    </div>
+
+                    <ul class="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Executive Net Cash Flow & Revenue
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Laporan Keuangan Kas Lengkap
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Ekspor CSV Khusus Owner (Protected)
+                        </li>
+                    </ul>
+
+                    <!-- Credential Pill -->
+                    <div class="p-3 bg-amber-50/60 rounded-xl border border-amber-200/60 text-xs font-mono text-slate-700 space-y-0.5">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Email:</span>
+                            <span class="font-bold text-slate-900">owner@kost.com</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Password:</span>
+                            <span class="font-bold text-slate-900">password123</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="pt-3 border-t border-amber-200/60 text-xs space-y-1">
-                    <div class="text-slate-600"><strong>Email:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-amber-200 text-slate-800">owner@kost.com</code></div>
-                    <div class="text-slate-600"><strong>Password:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-amber-200 text-slate-800">password123</code></div>
-                    <a href="<?= url('login') ?>" class="mt-3 block text-center py-2 px-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold text-xs shadow-sm transition">
-                        Masuk sbg Owner &rarr;
-                    </a>
-                </div>
+
+                <!-- Instant 1-Click Login Form -->
+                <form method="POST" action="<?= url('login') ?>" class="mt-6">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="email" value="owner@kost.com">
+                    <input type="hidden" name="password" value="password123">
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-md shadow-amber-500/25 transition transform active:scale-95 flex items-center justify-center gap-1.5">
+                        <span>Masuk Langsung sbg Owner</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </form>
             </div>
 
-            <!-- Admin Card -->
-            <div class="p-5 rounded-2xl border border-blue-200 bg-blue-50/40 relative flex flex-col justify-between hover:shadow-md transition">
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 uppercase tracking-wider">
-                            Admin Operasional
+            <!-- 2. ADMIN CARD -->
+            <div class="bg-white rounded-3xl p-6 sm:p-7 border border-blue-200/90 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-400 transition-all duration-200 flex flex-col justify-between group">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-105 transition-transform">
+                            <i data-lucide="shield" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+                            Pengelola Harian
                         </span>
-                        <i data-lucide="shield" class="w-5 h-5 text-blue-600"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-sm">Pengelola Harian</h3>
-                    <p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">
-                        Kelola kamar, kontrak, tagihan, verifikasi bukti bayar, pencatatan biaya, notifikasi WA, dan penugasan maintenance.
-                    </p>
+
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Admin Operasional</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            Manajemen kamar, kontrak sewa, verifikasi pembayaran, pencatatan pengeluaran, WhatsApp, dan perbaikan.
+                        </p>
+                    </div>
+
+                    <ul class="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-blue-500"></i> Kelola Kamar, Penghuni, & Fasilitas
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-blue-500"></i> Verifikasi Transfer Bank & Kas Tunai
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-blue-500"></i> Disposisi Kerusakan & Biaya Operasional
+                        </li>
+                    </ul>
+
+                    <!-- Credential Pill -->
+                    <div class="p-3 bg-blue-50/60 rounded-xl border border-blue-200/60 text-xs font-mono text-slate-700 space-y-0.5">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Email:</span>
+                            <span class="font-bold text-slate-900">admin@kost.com</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Password:</span>
+                            <span class="font-bold text-slate-900">password123</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="pt-3 border-t border-blue-200/60 text-xs space-y-1">
-                    <div class="text-slate-600"><strong>Email:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-blue-200 text-slate-800">admin@kost.com</code></div>
-                    <div class="text-slate-600"><strong>Password:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-blue-200 text-slate-800">password123</code></div>
-                    <a href="<?= url('login') ?>" class="mt-3 block text-center py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-sm transition">
-                        Masuk sbg Admin &rarr;
-                    </a>
-                </div>
+
+                <!-- Instant 1-Click Login Form -->
+                <form method="POST" action="<?= url('login') ?>" class="mt-6">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="email" value="admin@kost.com">
+                    <input type="hidden" name="password" value="password123">
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md shadow-blue-500/25 transition transform active:scale-95 flex items-center justify-center gap-1.5">
+                        <span>Masuk Langsung sbg Admin</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </form>
             </div>
 
-            <!-- Tenant Card -->
-            <div class="p-5 rounded-2xl border border-teal-200 bg-teal-50/40 relative flex flex-col justify-between hover:shadow-md transition">
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-teal-100 text-teal-800 uppercase tracking-wider">
-                            Penghuni / Tenant
+            <!-- 3. TENANT CARD -->
+            <div class="bg-white rounded-3xl p-6 sm:p-7 border border-teal-200/90 shadow-sm hover:shadow-xl hover:shadow-teal-500/10 hover:border-teal-400 transition-all duration-200 flex flex-col justify-between group">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-105 transition-transform">
+                            <i data-lucide="user-check" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-teal-100 text-teal-800">
+                            Penyewa Kos
                         </span>
-                        <i data-lucide="user-check" class="w-5 h-5 text-teal-600"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-sm">Portal Mandiri Penghuni</h3>
-                    <p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">
-                        Cek tagihan kamar, unggah bukti bayar transfer bank, ajukan perbaikan fasilitas dengan lampiran foto, dan perpanjangan sewa.
-                    </p>
+
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Penghuni (Budi Gunawan)</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                            Cek tagihan sewa, kirim bukti bayar, perpanjangan sewa (extension), ajukan perbaikan kamar, dan early checkout.
+                        </p>
+                    </div>
+
+                    <ul class="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-teal-500"></i> Tagihan Kamar & Upload Bukti Bayar
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-teal-500"></i> Lapor Kerusakan Kamar dengan Foto
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-teal-500"></i> Ajukan Perpanjangan / Early Checkout
+                        </li>
+                    </ul>
+
+                    <!-- Credential Pill -->
+                    <div class="p-3 bg-teal-50/60 rounded-xl border border-teal-200/60 text-xs font-mono text-slate-700 space-y-0.5">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Email:</span>
+                            <span class="font-bold text-slate-900">budi@gmail.com</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Password:</span>
+                            <span class="font-bold text-slate-900">password123</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="pt-3 border-t border-teal-200/60 text-xs space-y-1">
-                    <div class="text-slate-600"><strong>Email:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-teal-200 text-slate-800">budi@gmail.com</code></div>
-                    <div class="text-slate-600"><strong>Password:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-teal-200 text-slate-800">password123</code></div>
-                    <a href="<?= url('login') ?>" class="mt-3 block text-center py-2 px-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-xs shadow-sm transition">
-                        Masuk sbg Penghuni &rarr;
-                    </a>
-                </div>
+
+                <!-- Instant 1-Click Login Form -->
+                <form method="POST" action="<?= url('login') ?>" class="mt-6">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="email" value="budi@gmail.com">
+                    <input type="hidden" name="password" value="password123">
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white shadow-md shadow-teal-500/25 transition transform active:scale-95 flex items-center justify-center gap-1.5">
+                        <span>Masuk Langsung sbg Penghuni</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Room Inventory Live Showcase Section -->
+    <!-- ROOM INVENTORY & SHOWCASE SECTION -->
     <?php if (!empty($rooms)): ?>
-        <section class="space-y-6">
+        <section id="kamar-kost" class="space-y-6 pt-4">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <div class="inline-flex items-center gap-2 text-xs font-bold text-teal-600 uppercase tracking-wider mb-1">
-                        <i data-lucide="home" class="w-4 h-4"></i> Inventaris Properti
+                    <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-teal-600 uppercase tracking-wider bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
+                        <i data-lucide="door-closed" class="w-3.5 h-3.5"></i> Inventaris Kamar
                     </div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Daftar Kamar & Fasilitas Kost</h2>
-                    <p class="text-slate-500 text-xs sm:text-sm mt-1">Status ketersediaan kamar yang terkelola secara real-time di sistem.</p>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+                        Daftar Kamar & Ketersediaan
+                    </h2>
+                    <p class="text-slate-500 text-xs sm:text-sm">
+                        Kamar kost eksklusif siap huni dengan fasilitas lengkap dan harga transparan.
+                    </p>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Tersedia
+                <div class="flex items-center gap-2 text-xs font-bold">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
                     </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Terisi
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-amber-500"></span> Maintenance
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Disewa
                     </span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Room Grid: High-res Card Aesthetics with Architectural Gradients -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <?php foreach (array_slice($rooms, 0, 8) as $room): ?>
-                    <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
-                        <div class="p-5 space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">
-                                    No. <?= e($room->room_number) ?>
-                                </span>
-                                <?php if ($room->status === 'available'): ?>
-                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Tersedia
+                    <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-200 flex flex-col justify-between group">
+                        <div>
+                            <!-- Visual Banner with Gradient Backdrop -->
+                            <div class="h-32 bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-800 p-4 relative flex flex-col justify-between overflow-hidden">
+                                <div class="absolute -right-8 -bottom-8 w-28 h-28 bg-blue-500/20 rounded-full blur-xl pointer-events-none"></div>
+                                <div class="flex items-center justify-between relative z-10">
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-black tracking-wider bg-white/10 backdrop-blur-md text-white border border-white/20">
+                                        KAMAR <?= e($room->room_number) ?>
                                     </span>
-                                <?php elseif ($room->status === 'occupied'): ?>
-                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Terisi
-                                    </span>
-                                <?php else: ?>
-                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Perbaikan
-                                    </span>
-                                <?php endif; ?>
-                            </div>
-
-                            <div>
-                                <h3 class="font-bold text-slate-800 text-base group-hover:text-blue-600 transition">
-                                    <?= e($room->name ?? ('Kamar ' . $room->room_number)) ?>
-                                </h3>
-                                <p class="text-xs text-slate-400 mt-0.5">
-                                    Lantai <?= (int)($room->floor ?? 1) ?> • Tipe <?= e(ucfirst($room->type ?? 'Standard')) ?>
-                                </p>
-                            </div>
-
-                            <!-- Facilities Chips -->
-                            <div class="flex flex-wrap gap-1.5 pt-1">
-                                <?php if (!empty($room->facilities) && is_array($room->facilities)): ?>
-                                    <?php foreach (array_slice($room->facilities, 0, 3) as $fac): ?>
-                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md">
-                                            <?= e($fac->name ?? (is_array($fac) ? ($fac['name'] ?? '') : $fac)) ?>
+                                    <?php if ($room->status === 'available'): ?>
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-300 bg-emerald-950/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-400/30">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Siap Huni
                                         </span>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <span class="text-[10px] bg-slate-100 text-slate-500 font-medium px-2 py-0.5 rounded-md">AC • WiFi</span>
-                                    <span class="text-[10px] bg-slate-100 text-slate-500 font-medium px-2 py-0.5 rounded-md">KM Dalam</span>
-                                <?php endif; ?>
+                                    <?php elseif ($room->status === 'occupied'): ?>
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-300 bg-blue-950/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-blue-400/30">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Terisi
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-300 bg-amber-950/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-400/30">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Maintenance
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="relative z-10 text-slate-300 text-xs font-medium flex items-center gap-2">
+                                    <i data-lucide="bed" class="w-4 h-4 text-teal-300"></i>
+                                    <span>Lantai <?= (int)($room->floor ?? 1) ?> • Deluxe Single</span>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-5 space-y-3">
+                                <div>
+                                    <h3 class="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors">
+                                        <?= e($room->name ?? ('Kamar ' . $room->room_number)) ?>
+                                    </h3>
+                                    <p class="text-xs text-slate-400 mt-0.5 line-clamp-1">
+                                        <?= e($room->description ?: 'Kamar nyaman dan bersih dengan sirkulasi udara baik.') ?>
+                                    </p>
+                                </div>
+
+                                <!-- Amenities Chips -->
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    <?php if (!empty($room->facilities) && is_array($room->facilities)): ?>
+                                        <?php foreach (array_slice($room->facilities, 0, 3) as $fac): ?>
+                                            <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">
+                                                <?= e($fac->name ?? (is_array($fac) ? ($fac['name'] ?? '') : $fac)) ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">AC</span>
+                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">KM Dalam</span>
+                                        <span class="text-[10px] bg-slate-100 text-slate-600 font-semibold px-2 py-0.5 rounded-md border border-slate-200/60">WiFi</span>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="px-5 py-3.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
+                        <!-- Card Footer -->
+                        <div class="px-5 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between">
                             <div>
-                                <div class="text-[10px] font-medium text-slate-400">Harga Sewa</div>
-                                <div class="text-sm font-extrabold text-slate-800">
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Harga Sewa</div>
+                                <div class="text-sm font-black text-slate-900">
                                     Rp <?= number_format((float)($room->price ?? 1500000), 0, ',', '.') ?>
                                     <span class="text-[10px] font-normal text-slate-400">/bln</span>
                                 </div>
                             </div>
+
                             <?php if ($room->status === 'available'): ?>
-                                <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" class="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 group-hover:underline">
+                                <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-sm inline-flex items-center gap-1 group-hover:scale-105 transform">
                                     Booking <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                                 </a>
                             <?php else: ?>
-                                <span class="text-xs font-medium text-slate-400">Disewa</span>
+                                <span class="px-3 py-1 rounded-xl bg-slate-200 text-slate-500 text-xs font-semibold">
+                                    Disewa
+                                </span>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -292,120 +433,87 @@
         </section>
     <?php endif; ?>
 
-    <!-- 6 Core System Capabilities Grid -->
-    <section class="space-y-6">
+    <!-- 6 CORE PILLARS CAPABILITIES -->
+    <section class="space-y-8 pt-4">
         <div class="text-center max-w-2xl mx-auto space-y-2">
-            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Fitur Unggulan</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Arsitektur Lengkap dari Reservasi hingga Laporan</h2>
-            <p class="text-slate-500 text-xs sm:text-sm">Dibangun dengan standar produksi tinggi tanpa ketergantungan framework berat.</p>
+            <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i> Fitur Unggulan
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Arsitektur Lengkap dari Reservasi hingga Laporan Kas
+            </h2>
+            <p class="text-slate-500 text-xs sm:text-sm">
+                Dirancang spesifik untuk kosan Indonesia dengan akurasi finansial dan keamanan level produksi.
+            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- 1. WhatsApp Automation -->
-            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-200 space-y-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 text-base">Automasi Notifikasi WhatsApp (Fonnte)</h3>
+                <h3 class="font-extrabold text-slate-900 text-base">Automasi WhatsApp (Fonnte API)</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Pengingat tagihan cerdas terjadwal (H-7, H-3, H-1, Hari-H, H+1). Invoice lunas tidak akan terganggu, template pesan dinamis tanpa placeholder mentah, serta log pengiriman aman tanpa kebocoran API token.
+                    Pengingat tagihan otomatis (H-7, H-3, H-1, Hari-H, H+1). Invoice lunas tidak akan terganggu, template dinamis, dan retry queue aman tanpa mengekspos token API.
                 </p>
             </div>
 
             <!-- 2. Booking & Kontrak Digital -->
-            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-200 space-y-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
                     <i data-lucide="file-check" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 text-base">Booking & Manajemen Kontrak Sewa</h3>
+                <h3 class="font-extrabold text-slate-900 text-base">Booking & Kontrak Sewa Digital</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Alur reservasi kamar dengan validasi bentrok tanggal (anti-double booking). Penerbitan kontrak sewa resmi, perpanjangan sewa (extension), deposit jaminan, dan permohonan early checkout teratur.
+                    Alur reservasi kamar dengan validasi bentrok tanggal (anti-double booking). Penerbitan kontrak sewa resmi, perpanjangan sewa (extension), dan permohonan early checkout.
                 </p>
             </div>
 
             <!-- 3. Billing & Payment Gateway Internal -->
-            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-200 space-y-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
                     <i data-lucide="credit-card" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 text-base">Penerbitan Invoice & Verifikasi Struk</h3>
+                <h3 class="font-extrabold text-slate-900 text-base">Penagihan & Verifikasi Pembayaran</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Dukungan multi-metode pembayaran: Transfer Bank, QRIS, dan Tunai. Fitur verifikasi bukti bayar dengan validasi MIME, pencegahan alokasi ganda, pembayaran parsial, dan reversal transaksi aman.
+                    Dukungan Transfer Bank dan Tunai. Verifikasi struk transfer dengan validasi MIME, pencegahan alokasi ganda, pembayaran parsial, dan reversal transaksi aman.
                 </p>
             </div>
 
             <!-- 4. Expense Tracker -->
-            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-rose-300 transition-all duration-200 space-y-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
                     <i data-lucide="receipt" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 text-base">Pencatatan Biaya & Arus Kas Bersih</h3>
+                <h3 class="font-extrabold text-slate-900 text-base">Pencatatan Biaya & Arus Kas Bersih</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Pencatatan pengeluaran operasional (listrik, air, kebersihan, perbaikan) dengan kategori, vendor, dan upload bukti nota. Terhubung langsung dengan penghitungan Net Cash Flow eksekutif.
+                    Pencatatan pengeluaran operasional (listrik, air, kebersihan, pemeliharaan) dengan kategori, vendor, dan struk nota. Terhubung ke penghitungan laba bersih Owner.
                 </p>
             </div>
 
             <!-- 5. Maintenance Ticket System -->
-            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-300 transition-all duration-200 space-y-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
                     <i data-lucide="wrench" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 text-base">Tiket Kerusakan & Pemeliharaan</h3>
+                <h3 class="font-extrabold text-slate-900 text-base">Tiket Kerusakan & Pemeliharaan</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Penghuni dapat melaporkan kerusakan kamar secara instan beserta foto pendukung. Admin dapat memperbarui status (in_progress, resolved), estimasi biaya, dan riwayat tindakan teknisi.
+                    Penghuni dapat melaporkan kerusakan kamar beserta lampiran foto. Admin dapat memperbarui status penanganan, estimasi biaya, dan riwayat tindakan teknisi.
                 </p>
             </div>
 
             <!-- 6. Executive Analytics & Export CSV -->
-            <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md transition space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold">
+            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-200 space-y-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
                     <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 text-base">Dashboard Eksekutif & Ekspor CSV</h3>
+                <h3 class="font-extrabold text-slate-900 text-base">Eksekutif Analitik & Ekspor CSV</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Grafik tren performa keuangan 6 bulan, rasio okupansi, piutang tertunggak, dan perbandingan performa antar periode. Dilengkapi ekspor CSV berstandar Excel (BOM UTF-8) yang aman.
+                    Visualisasi okupansi, pendapatan per kamar, arus kas, dan ekspor spreadsheet terenkripsi BOM UTF-8 yang kompatibel langsung dengan Microsoft Excel.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Engineering & Architecture Guarantee Card -->
-    <section class="bg-slate-900 text-slate-200 rounded-3xl p-8 sm:p-10 border border-slate-800 shadow-xl">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-            <div class="lg:col-span-2 space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-400 text-xs font-semibold">
-                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Rekayasa Perangkat Lunak Teruji
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">PHP Native Modular Monolith Architecture</h2>
-                <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                    Aplikasi ini dirancang khusus dengan Custom MVC murni tanpa framework eksternal, menjamin kecepatan eksekusi tinggi, nol overhead bloatware, dan kemudahan deployment di berbagai hosting/VPS.
-                </p>
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <span class="inline-flex items-center gap-1.5 text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-teal-400"></i> Prepared Statements & PDO
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-teal-400"></i> CSRF & Secure Cookie Flags
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-teal-400"></i> Strict Role Data Isolation
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-teal-400"></i> Private Storage Receipts
-                    </span>
-                </div>
-            </div>
-
-            <div class="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/80 space-y-4 text-center">
-                <div class="text-3xl font-black text-white">245+</div>
-                <div class="text-xs text-slate-400">Automated Tests Passed (M1–M8)</div>
-                <div class="pt-2 border-t border-slate-700 text-xs text-teal-400 font-semibold flex items-center justify-center gap-1.5">
-                    <i data-lucide="badge-check" class="w-4 h-4"></i> Production Ready Quality
-                </div>
-                <a href="<?= url('login') ?>" class="block w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-md shadow-blue-600/30 transition">
-                    Masuk ke Sistem Sekarang
-                </a>
-            </div>
-        </div>
-    </section>
 </div>
