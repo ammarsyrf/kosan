@@ -157,7 +157,16 @@ class RoomRepository
     public function getAvailableRooms(): array
     {
         $stmt = $this->db->query("SELECT * FROM `rooms` WHERE `status` = 'available' ORDER BY `room_number` ASC");
-        return $stmt->fetchAll();
+        $rows = $stmt->fetchAll();
+
+        $rooms = [];
+        foreach ($rows as $row) {
+            $room = new Room($row);
+            $room->facilities = $this->getFacilitiesForRoom($room->id);
+            $rooms[] = $room;
+        }
+
+        return $rooms;
     }
 }
 

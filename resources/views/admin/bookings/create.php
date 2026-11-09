@@ -15,9 +15,16 @@
                 <label class="block text-sm font-medium text-slate-700 mb-1">Pilih Kamar <span class="text-rose-500">*</span></label>
                 <select name="room_id" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
                     <option value="">-- Pilih Kamar Tersedia --</option>
-                    <?php foreach ($rooms as $room): ?>
-                        <option value="<?= (int)$room->id ?>">
-                            <?= e($room->room_number) ?> - <?= e($room->name) ?> (Rp <?= number_format((float)$room->current_price, 0, ',', '.') ?>/bln)
+                    <?php
+                    $selectedRoomId = (int)($_GET['room_id'] ?? 0);
+                    foreach ($rooms as $room):
+                        $rId = (int)(is_object($room) ? $room->id : $room['id']);
+                        $rNum = is_object($room) ? $room->room_number : $room['room_number'];
+                        $rName = is_object($room) ? $room->name : $room['name'];
+                        $rPrice = (float)(is_object($room) ? ($room->current_price ?? 0) : ($room['current_price'] ?? 0));
+                    ?>
+                        <option value="<?= $rId ?>" <?= $selectedRoomId === $rId ? 'selected' : '' ?>>
+                            <?= e($rNum) ?> - <?= e($rName) ?> (Rp <?= number_format($rPrice, 0, ',', '.') ?>/bln)
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -27,9 +34,13 @@
                 <label class="block text-sm font-medium text-slate-700 mb-1">Pilih Calon Penyewa <span class="text-rose-500">*</span></label>
                 <select name="tenant_id" required class="w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm">
                     <option value="">-- Pilih Penyewa --</option>
-                    <?php foreach ($tenants as $tenant): ?>
-                        <option value="<?= (int)$tenant->id ?>">
-                            <?= e($tenant->name) ?> (<?= e($tenant->phone ?: '-') ?>)
+                    <?php foreach ($tenants as $tenant):
+                        $tId = (int)(is_object($tenant) ? $tenant->id : $tenant['id']);
+                        $tName = is_object($tenant) ? $tenant->name : $tenant['name'];
+                        $tPhone = is_object($tenant) ? $tenant->phone : ($tenant['phone'] ?? '');
+                    ?>
+                        <option value="<?= $tId ?>">
+                            <?= e($tName) ?> (<?= e($tPhone ?: '-') ?>)
                         </option>
                     <?php endforeach; ?>
                 </select>
