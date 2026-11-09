@@ -313,3 +313,4 @@ function generateRandomUserPassword() {
     document.getElementById('modal_new_password').value = word + num;
 }
 </script>
+

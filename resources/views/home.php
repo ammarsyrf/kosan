@@ -1012,13 +1012,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Floating Orbiting Data Particles
     const particles = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 28; i++) {
         particles.push({
-            radius: 120 + Math.random() * 90,
+            radius: 135 + Math.random() * 85,
             angle: Math.random() * Math.PI * 2,
-            speed: 0.008 + Math.random() * 0.012,
-            y: (Math.random() - 0.5) * 180,
-            size: 2 + Math.random() * 2.5,
+            speed: 0.007 + Math.random() * 0.010,
+            y: (Math.random() - 0.5) * 160,
+            size: 2 + Math.random() * 2.2,
             color: i % 3 === 0 ? '#38bdf8' : (i % 3 === 1 ? '#2dd4bf' : '#34d399')
         });
     }
@@ -1091,11 +1091,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Front (+Z): 4, 5, 6, 7
             // Right (+X): 1, 2, 6, 5
             // Left (-X): 0, 3, 7, 4
+            // Back (-Z): 0, 1, 2, 3
             const faces = [
                 { pts: [v[3], v[2], v[6], v[7]], col: b.col[0], depth: (v[3][2] + v[2][2] + v[6][2] + v[7][2]) / 4 },
                 { pts: [v[4], v[5], v[6], v[7]], col: b.col[3], depth: (v[4][2] + v[5][2] + v[6][2] + v[7][2]) / 4 },
                 { pts: [v[1], v[2], v[6], v[5]], col: b.col[2], depth: (v[1][2] + v[2][2] + v[6][2] + v[5][2]) / 4 },
-                { pts: [v[0], v[3], v[7], v[4]], col: b.col[1], depth: (v[0][2] + v[3][2] + v[7][2] + v[4][2]) / 4 }
+                { pts: [v[0], v[3], v[7], v[4]], col: b.col[1], depth: (v[0][2] + v[3][2] + v[7][2] + v[4][2]) / 4 },
+                { pts: [v[0], v[1], v[2], v[3]], col: b.col[4] || b.col[1], depth: (v[0][2] + v[1][2] + v[2][2] + v[3][2]) / 4 }
             ];
 
             faces.forEach(f => renderList.push(f));
@@ -1120,11 +1122,44 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Depth sort: back to front
+        // Add Orbiting Data Particles to render list for true 3D depth occlusion
+        particles.forEach(pt => {
+            pt.angle += pt.speed;
+            const px = Math.cos(pt.angle) * pt.radius;
+            const pz = Math.sin(pt.angle) * pt.radius;
+            const pr = project([px, pt.y, pz], rotY, rotX, scale, cx, cy);
+
+            const isFront = pr[2] >= 0;
+            renderList.push({
+                isParticle: true,
+                depth: pr[2],
+                x: pr[0],
+                y: pr[1],
+                size: pt.size * (scale * 0.9) * (isFront ? 1.15 : 0.8),
+                color: pt.color,
+                alpha: isFront ? 1.0 : 0.6,
+                blur: isFront ? 12 : 5
+            });
+        });
+
+        // Depth sort: back to front (Painter's algorithm)
         renderList.sort((a, b) => a.depth - b.depth);
 
-        // Render Polygons
+        // Render Polygons and Particles in sorted order
         renderList.forEach(f => {
+            if (f.isParticle) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
+                ctx.fillStyle = f.color;
+                ctx.shadowColor = f.color;
+                ctx.shadowBlur = f.blur;
+                ctx.globalAlpha = f.alpha;
+                ctx.fill();
+                ctx.restore();
+                return;
+            }
+
             ctx.beginPath();
             ctx.moveTo(f.pts[0][0], f.pts[0][1]);
             for (let i = 1; i < f.pts.length; i++) {
@@ -1160,23 +1195,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 ctx.lineWidth = 1;
                 ctx.stroke();
             }
-        });
-
-        // Orbiting Smart Data Particles
-        particles.forEach(pt => {
-            pt.angle += pt.speed;
-            const px = Math.cos(pt.angle) * pt.radius;
-            const pz = Math.sin(pt.angle) * pt.radius;
-            const pr = project([px, pt.y, pz], rotY, rotX, scale, cx, cy);
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(pr[0], pr[1], pt.size * (scale * 0.9), 0, Math.PI * 2);
-            ctx.fillStyle = pt.color;
-            ctx.shadowColor = pt.color;
-            ctx.shadowBlur = 10;
-            ctx.fill();
-            ctx.restore();
         });
     }
 
