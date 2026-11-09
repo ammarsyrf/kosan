@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full bg-slate-100">
+<html lang="id" class="h-full bg-slate-950">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +7,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="flex flex-col justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 text-slate-800 antialiased">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="flex justify-center mb-2">
-            <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                <i data-lucide="home" class="w-7 h-7"></i>
+<body class="flex flex-col justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 text-slate-800 antialiased bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative overflow-hidden">
+    <!-- Ambient Background Accents -->
+    <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 sm:mx-auto sm:w-full sm:max-w-md text-center">
+        <!-- Logo -->
+        <a href="<?= url() ?>" class="inline-flex items-center justify-center space-x-3 group mb-4">
+            <div class="w-12 h-12 bg-gradient-to-tr from-blue-600 via-indigo-600 to-teal-400 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform duration-200">
+                <i data-lucide="home" class="w-6 h-6"></i>
             </div>
-        </div>
-        <h2 class="text-center text-2xl font-bold tracking-tight text-slate-900">
+        </a>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
             <?= e(config('app.name', 'Kost Management')) ?>
         </h2>
-        <p class="mt-1 text-center text-sm text-slate-500">
-            Sistem Manajemen Kos Personal &bullet; Internal Access Only
+        <p class="mt-1.5 text-xs sm:text-sm text-slate-400">
+            Sistem Manajemen Kos Personal &bullet; Masuk ke Portal
         </p>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-6 shadow-sm border border-slate-200 rounded-2xl sm:px-10">
+    <div class="relative z-10 mt-6 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white/95 backdrop-blur-xl py-8 px-6 sm:px-10 shadow-2xl border border-slate-200/80 rounded-3xl">
             <?php if ($success = session('_flash.success')): ?>
-                <div class="mb-4 p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2">
+                <div class="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2.5">
                     <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
-                    <span><?= e($success) ?></span>
+                    <span class="font-medium"><?= e($success) ?></span>
                 </div>
             <?php endif; ?>
 
             <?php if ($error = session('_flash.error')): ?>
-                <div class="mb-4 p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center space-x-2">
-                    <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 flex-shrink-0"></i>
-                    <span><?= e($error) ?></span>
+                <div class="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center space-x-2.5">
+                    <i data-lucide="alert-octagon" class="w-4 h-4 text-rose-600 flex-shrink-0"></i>
+                    <span class="font-medium"><?= e($error) ?></span>
                 </div>
             <?php endif; ?>
 
             <?= $content ?? '' ?>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-6">
+            <a href="<?= url() ?>" class="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Halaman Utama
+            </a>
         </div>
     </div>
 
@@ -51,4 +63,3 @@
     </script>
 </body>
 </html>
-
