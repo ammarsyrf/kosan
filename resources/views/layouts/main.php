@@ -363,8 +363,8 @@
                 <a href="#kamar-kost" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
                     <i data-lucide="door-closed" class="w-3.5 h-3.5 text-teal-400"></i> Katalog Kamar
                 </a>
-                <a href="#demo-access" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i> Uji Coba Demo
+                <a href="#alur-sewa" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i> Alur Sewa
                 </a>
                 <a href="<?= url('activate') ?>" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
                     <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i> Aktivasi Akun
