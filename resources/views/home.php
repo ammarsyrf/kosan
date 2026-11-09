@@ -580,6 +580,172 @@
             </div>
         </div>
 
+        <!-- TATA TERTIB & ATURAN HUNIAN KOS (HOUSE RULES) -->
+        <div id="aturan-kos" class="mt-14 space-y-6 reveal-on-scroll">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 shadow-xs">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-600"></i>
+                    <span>Kenyamanan & Keamanan Bersama</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    Tata Tertib & Aturan Tinggal di Kos
+                </h2>
+                <p class="text-slate-500 text-xs sm:text-sm">
+                    Dirancang demi menjaga privasi, ketenangan waktu istirahat, kebersihan, dan keselamatan seluruh penghuni kos.
+                </p>
+            </div>
+
+            <!-- Rules Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 1. Jam Tenang & Tamu -->
+                <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-300 space-y-3 group flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center font-bold group-hover:scale-110 transition-transform shadow-xs">
+                                <i data-lucide="moon" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                Jam Tenang
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Jam Tenang & Kunjungan Tamu</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Jam tenang berlaku pukul <strong>22.00 - 06.00 WIB</strong> untuk istirahat optimal. Tamu dipersilakan diterima di ruang tamu komunal dan mohon kembali sebelum pukul 22.00 WIB.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-500 shrink-0"></i>
+                        <span>Akses mandiri 24 jam untuk penghuni</span>
+                    </div>
+                </div>
+
+                <!-- 2. Keamanan & Kunci Akses -->
+                <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 space-y-3 group flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center font-bold group-hover:scale-110 transition-transform shadow-xs">
+                                <i data-lucide="key-round" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                                Keamanan
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Keamanan & Kunci Akses</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Pintu utama dilengkapi <strong>Smart Access Lock 24 Jam</strong> dan pantauan kamera CCTV 24/7 di area publik serta parkiran. Kunci kamar bersifat pribadi dan dilarang dipinjamkan.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+                        <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-500 shrink-0"></i>
+                        <span>CCTV 24/7 di koridor & parkiran</span>
+                    </div>
+                </div>
+
+                <!-- 3. Kebersihan & Area Bersama -->
+                <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 space-y-3 group flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold group-hover:scale-110 transition-transform shadow-xs">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                Kebersihan
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Kebersihan & Dapur Bersama</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Area bersama (dapur, dispenser, kulkas bersama, dan jemuran) wajib dirapikan dan dibersihkan kembali setelah digunakan. Sampah kamar diikat rapi dan diletakkan di tempat sampah utama.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5 text-emerald-500 shrink-0"></i>
+                        <span>Pembuangan sampah rutin setiap pagi</span>
+                    </div>
+                </div>
+
+                <!-- 4. Pembayaran & Notice Period -->
+                <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-300 transition-all duration-300 space-y-3 group flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center font-bold group-hover:scale-110 transition-transform shadow-xs">
+                                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                                Pembayaran
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Sewa & Pemberitahuan Checkout</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Sewa bulanan dibayarkan tepat waktu sebelum tanggal jatuh tempo (*billing anchor*). Jika berencana selesai sewa / keluar, mohon konfirmasi ke pengelola minimal <strong>H-14 sebelum tanggal tagihan</strong>.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+                        <i data-lucide="message-square" class="w-3.5 h-3.5 text-amber-500 shrink-0"></i>
+                        <span>Pengingat WhatsApp H-7, H-3, & Hari-H</span>
+                    </div>
+                </div>
+
+                <!-- 5. Hemat Energi & Fasilitas Listrik -->
+                <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 space-y-3 group flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center font-bold group-hover:scale-110 transition-transform shadow-xs">
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+                                Fasilitas
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Penggunaan Listrik & Elektronik</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Mohon matikan AC, lampu, dan peralatan elektronik saat meninggalkan kamar demi keselamatan bersama. Penggunaan alat daya tinggi (seperti dispenser pemanas/oven pribadi) harap dikonfirmasikan ke pengelola.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+                        <i data-lucide="power" class="w-3.5 h-3.5 text-teal-500 shrink-0"></i>
+                        <span>Instalasi listrik standar SNI & aman</span>
+                    </div>
+                </div>
+
+                <!-- 6. Larangan Mutlak (Zero Tolerance) -->
+                <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-rose-300 transition-all duration-300 space-y-3 group flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center font-bold group-hover:scale-110 transition-transform shadow-xs">
+                                <i data-lucide="ban" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                                Larangan Mutlak
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Bebas Asap Rokok & Narkoba</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Dilarang keras membawa narkotika, minuman keras, zat berbahaya, senjata tajam, atau berjudi. Seluruh kamar ber-AC bersifat <strong>Non-Smoking Room (Bebas Asap Rokok)</strong>; area merokok khusus tersedia di luar.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-rose-600">
+                        <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-500 shrink-0"></i>
+                        <span>Pelanggaran berakibat pemutusan sewa sepihak</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agreement Assurance Banner -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-md">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-teal-300 shrink-0">
+                        <i data-lucide="file-check-2" class="w-5 h-5"></i>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-snug">
+                        Seluruh ketentuan di atas tercantum dalam <strong>Kontrak Sewa Digital Resmi</strong> dan disepakati bersama sebelum penyerahan kunci kamar.
+                    </p>
+                </div>
+                <a href="#kamar-kost" class="shrink-0 px-4 py-2 rounded-xl text-xs font-bold text-slate-900 bg-teal-300 hover:bg-teal-200 transition shadow-xs text-center">
+                    Pilih Kamar Sekarang
+                </a>
+            </div>
+        </div>
+
         <!-- Luxury Bottom Call-to-Action Section -->
         <div class="mt-12 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-12 relative overflow-hidden border border-slate-800 shadow-2xl reveal-on-scroll">
             <!-- Ambient Glow Blobs -->
