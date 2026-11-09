@@ -168,5 +168,92 @@ class TenantRepository
             return true;
         });
     }
+
+    public function hasActiveContractsOrInvoices(int $tenantId): bool
+    {
+        $stmtContracts = $this->db->prepare("SELECT COUNT(*) FROM `rental_contracts` WHERE `tenant_id` = :id AND `status` = 'active'");
+        $stmtContracts->execute(['id' => $tenantId]);
+        if ((int)$stmtContracts->fetchColumn() > 0) {
+            return true;
+        }
+
+        $stmtBookings = $this->db->prepare("SELECT COUNT(*) FROM `bookings` WHERE `tenant_id` = :id AND `status` IN ('pending', 'confirmed')");
+        $stmtBookings->execute(['id' => $tenantId]);
+        if ((int)$stmtBookings->fetchColumn() > 0) {
+            return true;
+        }
+
+        $stmtInvoices = $this->db->prepare("SELECT COUNT(*) FROM `invoices` WHERE `tenant_id` = :id AND `status` IN ('unpaid', 'partially_paid', 'overdue')");
+        $stmtInvoices->execute(['id' => $tenantId]);
+        if ((int)$stmtInvoices->fetchColumn() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function updateTenant(int $tenantId, array $userData, array $tenantData): bool
+    {
+        return Database::transaction(function (PDO $pdo) use ($tenantId, $userData, $tenantData) {
+            $stmt = $pdo->prepare("SELECT `user_id` FROM `tenants` WHERE `id` = :id LIMIT 1");
+            $stmt->execute(['id' => $tenantId]);
+            $userId = $stmt->fetchColumn();
+            if (!$userId) {
+                return false;
+            }
+
+            $stmtUser = $pdo->prepare("
+                UPDATE `users`
+                SET `name` = :name,
+                    `email` = :email,
+                    `phone` = :phone,
+                    `status` = :status
+                WHERE `id` = :id
+            ");
+            $stmtUser->execute([
+                'name' => trim($userData['name']),
+                'email' => strtolower(trim($userData['email'])),
+                'phone' => trim($userData['phone'] ?? ''),
+                'status' => $userData['status'] ?? 'active',
+                'id' => (int)$userId,
+            ]);
+
+            $stmtTenant = $pdo->prepare("
+                UPDATE `tenants`
+                SET `id_card_number` = :id_card_number,
+                    `emergency_contact_name` = :emergency_contact_name,
+                    `emergency_contact_phone` = :emergency_contact_phone,
+                    `occupation` = :occupation,
+                    `notes` = :notes
+                WHERE `id` = :id
+            ");
+            $stmtTenant->execute([
+                'id_card_number' => trim($tenantData['id_card_number'] ?? ''),
+                'emergency_contact_name' => trim($tenantData['emergency_contact_name'] ?? ''),
+                'emergency_contact_phone' => trim($tenantData['emergency_contact_phone'] ?? ''),
+                'occupation' => trim($tenantData['occupation'] ?? ''),
+                'notes' => trim($tenantData['notes'] ?? ''),
+                'id' => $tenantId,
+            ]);
+
+            return true;
+        });
+    }
+
+    public function deleteTenant(int $tenantId): bool
+    {
+        return Database::transaction(function (PDO $pdo) use ($tenantId) {
+            $stmt = $pdo->prepare("SELECT `user_id` FROM `tenants` WHERE `id` = :id LIMIT 1");
+            $stmt->execute(['id' => $tenantId]);
+            $userId = $stmt->fetchColumn();
+            if (!$userId) {
+                return false;
+            }
+
+            // Deleting user cascades down to tenants and account_activation_tokens
+            $stmtDeleteUser = $pdo->prepare("DELETE FROM `users` WHERE `id` = :id");
+            return $stmtDeleteUser->execute(['id' => (int)$userId]);
+        });
+    }
 }
 

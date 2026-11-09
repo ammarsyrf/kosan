@@ -84,6 +84,7 @@ Router::group([
 
     Router::get('/tenants', [TenantController::class, 'index'], [], 'admin.tenants');
     Router::get('/tenants/create', [TenantController::class, 'create'], [], 'admin.tenants.create');
+    Router::get('/tenants/{id}/edit', [TenantController::class, 'edit'], [], 'admin.tenants.edit');
 
     Router::get('/bookings', [\App\Controllers\BookingController::class, 'index'], [], 'admin.bookings');
     Router::get('/bookings/create', [\App\Controllers\BookingController::class, 'create'], [], 'admin.bookings.create');
@@ -146,6 +147,7 @@ $routesToTest = [
     ['uri' => '/admin/facilities', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/tenants', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/tenants/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/tenants/1/edit', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/bookings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
     ['uri' => '/bookings/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
     ['uri' => '/admin/bookings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],

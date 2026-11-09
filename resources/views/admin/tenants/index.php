@@ -44,12 +44,13 @@
                         <th class="px-6 py-3.5">Kamar Saat Ini</th>
                         <th class="px-6 py-3.5">Status Akun</th>
                         <th class="px-6 py-3.5">Pekerjaan</th>
+                        <th class="px-6 py-3.5 text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     <?php if (empty($tenants)): ?>
                         <tr>
-                            <td colspan="5" class="px-6 py-8 text-center text-slate-400">
+                            <td colspan="6" class="px-6 py-8 text-center text-slate-400">
                                 Belum ada data penghuni. Klik "Daftarkan Penghuni Baru" untuk memulai.
                             </td>
                         </tr>
@@ -90,6 +91,17 @@
                                 </td>
                                 <td class="px-6 py-4 text-xs text-slate-500">
                                     <?= e($t->occupation ?: '-') ?>
+                                </td>
+                                <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
+                                    <a href="<?= url("admin/tenants/{$t->id}/edit") ?>" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i> Ubah
+                                    </a>
+                                    <form method="POST" action="<?= url("admin/tenants/{$t->id}/delete") ?>" class="inline ml-2" onsubmit="return confirm('Hapus data penghuni <?= e(addslashes($t->name)) ?>? Data yang dihapus tidak dapat dipulihkan.')">
+                                        <?= csrf_field() ?>
+                                        <button type="submit" class="inline-flex items-center gap-1 text-xs font-bold text-rose-600 hover:text-rose-800 transition">
+                                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

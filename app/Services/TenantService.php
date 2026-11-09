@@ -84,5 +84,65 @@ class TenantService
 
         return true;
     }
+
+    public function updateTenant(int $id, array $data, ?string $actor = 'Admin'): bool
+    {
+        $tenant = $this->tenantRepo->findById($id);
+        if (!$tenant) {
+            throw new RuntimeException("Data penghuni tidak ditemukan.");
+        }
+
+        $email = strtolower(trim($data['email']));
+        $existingUser = $this->userRepo->findByEmail($email);
+        if ($existingUser && (int)$existingUser->id !== (int)$tenant->user_id) {
+            throw new RuntimeException("Alamat email {$email} sudah digunakan oleh akun lain.");
+        }
+
+        $userData = [
+            'name' => $data['name'],
+            'email' => $email,
+            'phone' => $data['phone'] ?? null,
+            'status' => $data['status'] ?? 'active',
+        ];
+
+        $tenantData = [
+            'id_card_number' => $data['id_card_number'] ?? null,
+            'emergency_contact_name' => $data['emergency_contact_name'] ?? null,
+            'emergency_contact_phone' => $data['emergency_contact_phone'] ?? null,
+            'occupation' => $data['occupation'] ?? null,
+            'notes' => $data['notes'] ?? null,
+        ];
+
+        $success = $this->tenantRepo->updateTenant($id, $userData, $tenantData);
+
+        Logger::audit((string)$actor, 'UPDATE_TENANT', 'tenants', $id, [
+            'name' => $data['name'],
+            'email' => $email,
+            'status' => $data['status'] ?? 'active',
+        ]);
+
+        return $success;
+    }
+
+    public function deleteTenant(int $id, ?string $actor = 'Admin'): bool
+    {
+        $tenant = $this->tenantRepo->findById($id);
+        if (!$tenant) {
+            throw new RuntimeException("Data penghuni tidak ditemukan.");
+        }
+
+        if ($this->tenantRepo->hasActiveContractsOrInvoices($id)) {
+            throw new RuntimeException("Tidak dapat menghapus penghuni karena memiliki riwayat kontrak aktif atau tagihan belum lunas. Ubah statusnya menjadi 'Nonaktif' melalui menu Ubah.");
+        }
+
+        $success = $this->tenantRepo->deleteTenant($id);
+
+        Logger::audit((string)$actor, 'DELETE_TENANT', 'tenants', $id, [
+            'name' => $tenant->name,
+            'email' => $tenant->email,
+        ]);
+
+        return $success;
+    }
 }
 

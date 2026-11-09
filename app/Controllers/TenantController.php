@@ -104,5 +104,69 @@ class TenantController extends Controller
             return $this->redirect('/activate?token=' . urlencode((string)$validated['token']));
         }
     }
+
+    public function edit(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        $tenant = $this->tenantService->getTenantById($id);
+
+        if (!$tenant) {
+            Session::flash('error', 'Data penghuni tidak ditemukan.');
+            return $this->redirect('/admin/tenants');
+        }
+
+        return $this->render('admin/tenants/edit', [
+            'title' => 'Ubah Data Penghuni',
+            'tenant' => $tenant,
+        ]);
+    }
+
+    public function update(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        $validated = $this->validate($request, [
+            'name' => 'required|max:100',
+            'email' => 'required|email|max:150',
+            'phone' => 'required|max:30',
+            'status' => 'required|in:active,pending,inactive',
+        ]);
+
+        $user = Session::get('user');
+
+        try {
+            $this->tenantService->updateTenant($id, [
+                'name' => (string)$validated['name'],
+                'email' => (string)$validated['email'],
+                'phone' => (string)$validated['phone'],
+                'status' => (string)$validated['status'],
+                'id_card_number' => (string)$request->post('id_card_number', ''),
+                'emergency_contact_name' => (string)$request->post('emergency_contact_name', ''),
+                'emergency_contact_phone' => (string)$request->post('emergency_contact_phone', ''),
+                'occupation' => (string)$request->post('occupation', ''),
+                'notes' => (string)$request->post('notes', ''),
+            ], $user['name'] ?? 'Admin');
+
+            Session::flash('success', "Data penghuni {$validated['name']} berhasil diperbarui!");
+            return $this->redirect('/admin/tenants');
+        } catch (\Throwable $e) {
+            Session::flash('error', $e->getMessage());
+            return $this->redirect("/admin/tenants/{$id}/edit");
+        }
+    }
+
+    public function delete(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        $user = Session::get('user');
+
+        try {
+            $this->tenantService->deleteTenant($id, $user['name'] ?? 'Admin');
+            Session::flash('success', 'Data penghuni berhasil dihapus.');
+        } catch (\Throwable $e) {
+            Session::flash('error', $e->getMessage());
+        }
+
+        return $this->redirect('/admin/tenants');
+    }
 }
 

@@ -110,6 +110,10 @@ Router::group([
     Router::get('/tenants', [TenantController::class, 'index'], [], 'admin.tenants');
     Router::get('/tenants/create', [TenantController::class, 'create'], [], 'admin.tenants.create');
     Router::post('/tenants', [TenantController::class, 'store'], [], 'admin.tenants.store');
+    Router::get('/tenants/{id}/edit', [TenantController::class, 'edit'], [], 'admin.tenants.edit');
+    Router::post('/tenants/{id}', [TenantController::class, 'update'], [], 'admin.tenants.update');
+    Router::put('/tenants/{id}', [TenantController::class, 'update'], [], 'admin.tenants.put');
+    Router::post('/tenants/{id}/delete', [TenantController::class, 'delete'], [], 'admin.tenants.delete');
 
     // M3: Bookings Management
     Router::get('/bookings', [\App\Controllers\BookingController::class, 'index'], [], 'admin.bookings');
