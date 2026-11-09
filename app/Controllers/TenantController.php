@@ -132,9 +132,10 @@ class TenantController extends Controller
         ]);
 
         $user = Session::get('user');
+        $password = (string)$request->post('password', '');
 
         try {
-            $this->tenantService->updateTenant($id, [
+            $payload = [
                 'name' => (string)$validated['name'],
                 'email' => (string)$validated['email'],
                 'phone' => (string)$validated['phone'],
@@ -144,14 +145,44 @@ class TenantController extends Controller
                 'emergency_contact_phone' => (string)$request->post('emergency_contact_phone', ''),
                 'occupation' => (string)$request->post('occupation', ''),
                 'notes' => (string)$request->post('notes', ''),
-            ], $user['name'] ?? 'Admin');
+            ];
 
-            Session::flash('success', "Data penghuni {$validated['name']} berhasil diperbarui!");
+            if (!empty($password)) {
+                if (strlen($password) < 6) {
+                    throw new \RuntimeException('Kata sandi baru minimal 6 karakter.');
+                }
+                $payload['password'] = $password;
+            }
+
+            $this->tenantService->updateTenant($id, $payload, $user['name'] ?? 'Admin');
+
+            Session::flash('success', "Data penghuni {$validated['name']} berhasil diperbarui!" . (!empty($password) ? " Kata sandi akun juga berhasil diubah." : ""));
             return $this->redirect('/admin/tenants');
         } catch (\Throwable $e) {
             Session::flash('error', $e->getMessage());
             return $this->redirect("/admin/tenants/{$id}/edit");
         }
+    }
+
+    public function resetPassword(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        $newPassword = (string)$request->post('new_password', '');
+        $user = Session::get('user');
+
+        if (strlen($newPassword) < 6) {
+            Session::flash('error', 'Kata sandi baru minimal 6 karakter.');
+            return $this->redirect('/admin/tenants');
+        }
+
+        try {
+            $this->tenantService->resetPassword($id, $newPassword, $user['name'] ?? 'Owner');
+            Session::flash('success', 'Kata sandi akun penghuni berhasil direset!');
+        } catch (\Throwable $e) {
+            Session::flash('error', $e->getMessage());
+        }
+
+        return $this->redirect('/admin/tenants');
     }
 
     public function delete(Request $request): Response

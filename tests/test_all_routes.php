@@ -111,6 +111,8 @@ Router::group([
     Router::get('/maintenance', [\App\Controllers\MaintenanceController::class, 'index'], [], 'admin.maintenance');
     Router::get('/settings', [\App\Controllers\SettingController::class, 'index'], [], 'admin.settings');
     Router::post('/settings', [\App\Controllers\SettingController::class, 'update'], [], 'admin.settings.update');
+    Router::get('/users', [\App\Controllers\UserController::class, 'index'], [], 'admin.users');
+    Router::get('/users/create', [\App\Controllers\UserController::class, 'create'], [], 'admin.users.create');
 });
 
 Router::group([
@@ -179,6 +181,8 @@ $routesToTest = [
     ['uri' => '/admin/expenses/categories', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/maintenance', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/settings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/users', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],
+    ['uri' => '/admin/users/create', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],
 
     // Tenant
     ['uri' => '/tenant/dashboard', 'role' => 'tenant', 'user' => $tenantSession, 'expected' => 200],

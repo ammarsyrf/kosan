@@ -13,6 +13,7 @@ use App\Controllers\FacilityController;
 use App\Controllers\HomeController;
 use App\Controllers\RoomController;
 use App\Controllers\TenantController;
+use App\Controllers\UserController;
 use App\Core\Config;
 use App\Core\ErrorHandler;
 use App\Core\Request;
@@ -123,7 +124,17 @@ Router::group([
     Router::get('/tenants/{id}/edit', [TenantController::class, 'edit'], [], 'admin.tenants.edit');
     Router::post('/tenants/{id}', [TenantController::class, 'update'], [], 'admin.tenants.update');
     Router::put('/tenants/{id}', [TenantController::class, 'update'], [], 'admin.tenants.put');
+    Router::post('/tenants/{id}/reset-password', [TenantController::class, 'resetPassword'], [], 'admin.tenants.reset_password');
     Router::post('/tenants/{id}/delete', [TenantController::class, 'delete'], [], 'admin.tenants.delete');
+
+    // Users & Access Management (Admin & Staff Accounts)
+    Router::get('/users', [UserController::class, 'index'], [], 'admin.users');
+    Router::get('/users/create', [UserController::class, 'create'], [], 'admin.users.create');
+    Router::post('/users', [UserController::class, 'store'], [], 'admin.users.store');
+    Router::get('/users/{id}/edit', [UserController::class, 'edit'], [], 'admin.users.edit');
+    Router::post('/users/{id}', [UserController::class, 'update'], [], 'admin.users.update');
+    Router::post('/users/{id}/reset-password', [UserController::class, 'resetPassword'], [], 'admin.users.reset_password');
+    Router::post('/users/{id}/delete', [UserController::class, 'delete'], [], 'admin.users.delete');
 
     // M3: Bookings Management
     Router::get('/bookings', [\App\Controllers\BookingController::class, 'index'], [], 'admin.bookings');

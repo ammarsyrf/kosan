@@ -178,10 +178,18 @@
                                 <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
                                 <span>Laporan Keuangan Kas</span>
                             </a>
+                            <a href="<?= url('admin/users') ?>" class="<?= $linkClass('admin/users') ?>">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i>
+                                <span>Kelola Akun & Pengguna</span>
+                            </a>
                         <?php elseif ($role === 'admin'): ?>
                             <a href="<?= url('admin/dashboard') ?>" class="<?= $linkClass('admin/dashboard') ?>">
                                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                                 <span>Operations Dashboard</span>
+                            </a>
+                            <a href="<?= url('admin/users') ?>" class="<?= $linkClass('admin/users') ?>">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i>
+                                <span>Kelola Akun & Pengguna</span>
                             </a>
                         <?php else: ?>
                             <a href="<?= url('tenant/dashboard') ?>" class="<?= $linkClass('tenant/dashboard') ?>">

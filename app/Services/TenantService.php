@@ -105,6 +105,10 @@ class TenantService
             'status' => $data['status'] ?? 'active',
         ];
 
+        if (!empty($data['password'])) {
+            $userData['password'] = (string)$data['password'];
+        }
+
         $tenantData = [
             'id_card_number' => $data['id_card_number'] ?? null,
             'emergency_contact_name' => $data['emergency_contact_name'] ?? null,
@@ -119,6 +123,28 @@ class TenantService
             'name' => $data['name'],
             'email' => $email,
             'status' => $data['status'] ?? 'active',
+            'password_changed' => !empty($data['password']),
+        ]);
+
+        return $success;
+    }
+
+    public function resetPassword(int $id, string $newPassword, ?string $actor = 'Admin'): bool
+    {
+        $tenant = $this->tenantRepo->findById($id);
+        if (!$tenant) {
+            throw new RuntimeException("Data penghuni tidak ditemukan.");
+        }
+
+        if (strlen($newPassword) < 6) {
+            throw new RuntimeException("Kata sandi baru minimal 6 karakter.");
+        }
+
+        $success = $this->tenantRepo->resetTenantPassword($id, $newPassword);
+
+        Logger::audit((string)$actor, 'RESET_TENANT_PASSWORD', 'tenants', $id, [
+            'tenant_name' => $tenant->name,
+            'tenant_email' => $tenant->email,
         ]);
 
         return $success;

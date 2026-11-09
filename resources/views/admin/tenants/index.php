@@ -93,6 +93,9 @@
                                     <?= e($t->occupation ?: '-') ?>
                                 </td>
                                 <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
+                                    <button type="button" onclick="openResetPasswordModal(<?= $t->id ?>, '<?= e(addslashes($t->name)) ?>', '<?= e(addslashes($t->email)) ?>')" class="inline-flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-800 transition bg-amber-50 hover:bg-amber-100 px-2 py-1 rounded-lg border border-amber-200" title="Reset password jika anak kost lupa password">
+                                        <i data-lucide="key" class="w-3.5 h-3.5"></i> Reset PW
+                                    </button>
                                     <a href="<?= url("admin/tenants/{$t->id}/edit") ?>" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition">
                                         <i data-lucide="pencil" class="w-3.5 h-3.5"></i> Ubah
                                     </a>
@@ -110,5 +113,86 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal Reset Password Anak Kost -->
+    <div id="reset-pw-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-md w-full p-6 sm:p-7 space-y-5 animate-scale-up">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                        <i data-lucide="key" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Reset Password Penghuni</h3>
+                        <p class="text-xs text-slate-400">Ganti password akun jika anak kost lupa</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeResetPasswordModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="reset-pw-form" method="POST" action="" class="space-y-4">
+                <?= csrf_field() ?>
+                <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+                    <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Penghuni Terpilih</div>
+                    <div id="modal-tenant-name" class="font-bold text-slate-900 text-sm"></div>
+                    <div id="modal-tenant-email" class="text-xs text-slate-500 font-mono"></div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label for="new_password" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                            Kata Sandi Baru <span class="text-rose-500">*</span>
+                        </label>
+                        <button type="button" onclick="generateRandomPassword()" class="text-[11px] font-bold text-blue-600 hover:text-blue-800">
+                            Acak Password
+                        </button>
+                    </div>
+                    <input type="text" id="new_password" name="new_password" required minlength="6"
+                        placeholder="Contoh: kost12345"
+                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-mono text-slate-900 focus:bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none transition">
+                    <p class="mt-1 text-[11px] text-slate-400">Minimal 6 karakter. Password langsung aktif seketika.</p>
+                </div>
+
+                <div class="pt-3 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="closeResetPasswordModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-bold shadow-md shadow-amber-500/20 hover:shadow-lg transition">
+                        Simpan Password Baru
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    function openResetPasswordModal(tenantId, name, email) {
+        const modal = document.getElementById('reset-pw-modal');
+        const form = document.getElementById('reset-pw-form');
+        const nameEl = document.getElementById('modal-tenant-name');
+        const emailEl = document.getElementById('modal-tenant-email');
+        const input = document.getElementById('new_password');
+
+        form.action = '<?= url("admin/tenants") ?>/' + tenantId + '/reset-password';
+        nameEl.textContent = name;
+        emailEl.textContent = email;
+        input.value = '';
+        modal.classList.remove('hidden');
+        input.focus();
+    }
+
+    function closeResetPasswordModal() {
+        document.getElementById('reset-pw-modal').classList.add('hidden');
+    }
+
+    function generateRandomPassword() {
+        const words = ['kosan', 'kost', 'kamar', 'hunian', 'sukses', 'nyaman'];
+        const word = words[Math.floor(Math.random() * words.length)];
+        const num = Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('new_password').value = word + num;
+    }
+    </script>
 </div>
 

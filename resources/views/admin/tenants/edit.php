@@ -88,6 +88,26 @@ $errors = session('_flash.errors') ?? [];
             </div>
         </div>
 
+        <!-- Reset / Ganti Password Akun Penghuni -->
+        <div class="space-y-3 p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+            <div class="flex items-center gap-2 text-amber-800">
+                <i data-lucide="key" class="w-4 h-4 text-amber-600"></i>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-amber-900">Reset / Ganti Kata Sandi (Password Akun)</h2>
+            </div>
+            <p class="text-xs text-amber-700 leading-relaxed">
+                Jika anak kost lupa kata sandi akunnya, masukkan kata sandi baru di bawah ini. Kosongkan jika tidak ingin mengubah kata sandi.
+            </p>
+            <div>
+                <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    Kata Sandi Baru (Opsional, min. 6 karakter)
+                </label>
+                <input type="text" id="password" name="password" minlength="6"
+                    placeholder="Ketik password baru untuk penghuni..."
+                    class="w-full px-3.5 py-2.5 bg-white border border-amber-300 rounded-lg text-sm text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none transition font-mono">
+                <p class="mt-1 text-[11px] text-slate-400">Kata sandi langsung aktif setelah disimpan dan dapat langsung digunakan anak kost untuk masuk ke portal.</p>
+            </div>
+        </div>
+
         <div class="space-y-4 pt-4 border-t border-slate-100">
             <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2">Kontak Darurat & Catatan</h2>
             

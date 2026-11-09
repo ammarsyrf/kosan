@@ -222,21 +222,29 @@ class TenantRepository
                 return false;
             }
 
-            $stmtUser = $pdo->prepare("
+            $userSql = "
                 UPDATE `users`
                 SET `name` = :name,
                     `email` = :email,
                     `phone` = :phone,
                     `status` = :status
-                WHERE `id` = :id
-            ");
-            $stmtUser->execute([
+            ";
+            $userParams = [
                 'name' => trim($userData['name']),
                 'email' => strtolower(trim($userData['email'])),
                 'phone' => trim($userData['phone'] ?? ''),
                 'status' => $userData['status'] ?? 'active',
                 'id' => (int)$userId,
-            ]);
+            ];
+
+            if (!empty($userData['password'])) {
+                $userSql .= ", `password` = :pwd";
+                $userParams['pwd'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+            }
+
+            $userSql .= " WHERE `id` = :id";
+            $stmtUser = $pdo->prepare($userSql);
+            $stmtUser->execute($userParams);
 
             $stmtTenant = $pdo->prepare("
                 UPDATE `tenants`
@@ -274,6 +282,20 @@ class TenantRepository
             $stmtDeleteUser = $pdo->prepare("DELETE FROM `users` WHERE `id` = :id");
             return $stmtDeleteUser->execute(['id' => (int)$userId]);
         });
+    }
+
+    public function resetTenantPassword(int $tenantId, string $newPassword): bool
+    {
+        $stmt = $this->db->prepare("SELECT `user_id` FROM `tenants` WHERE `id` = :id LIMIT 1");
+        $stmt->execute(['id' => $tenantId]);
+        $userId = $stmt->fetchColumn();
+        if (!$userId) {
+            return false;
+        }
+
+        $hashed = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmtUpdate = $this->db->prepare("UPDATE `users` SET `password` = :pwd, `status` = 'active' WHERE `id` = :id");
+        return $stmtUpdate->execute(['pwd' => $hashed, 'id' => (int)$userId]);
     }
 }
 
