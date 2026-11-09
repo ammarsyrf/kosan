@@ -17,6 +17,19 @@ use RuntimeException;
 
 class NotificationService
 {
+    public const ALLOWED_PLACEHOLDERS = [
+        '{{tenant_name}}',
+        '{{room_name}}',
+        '{{invoice_number}}',
+        '{{period_start}}',
+        '{{period_end}}',
+        '{{due_date}}',
+        '{{total_amount}}',
+        '{{paid_amount}}',
+        '{{remaining_balance}}',
+        '{{business_name}}',
+    ];
+
     private NotificationRepository $notifRepo;
     private InvoiceRepository $invoiceRepo;
     private FonnteService $fonnteService;
@@ -44,6 +57,21 @@ class NotificationService
     public function updateTemplate(int $id, string $content, int $isActive): bool
     {
         return $this->notifRepo->updateTemplate($id, $content, $isActive);
+    }
+
+    public function validateTemplateContent(string $content): void
+    {
+        if (preg_match_all('/\{\{?([a-zA-Z0-9_]+)\}?\}/', $content, $matches)) {
+            $allowedClean = array_map(fn($p) => trim($p, '{}'), self::ALLOWED_PLACEHOLDERS);
+            $allowedClean[] = 'room_number';
+            $allowedClean[] = 'balance';
+
+            foreach ($matches[1] as $placeholder) {
+                if (!in_array($placeholder, $allowedClean, true)) {
+                    throw new RuntimeException("Placeholder '{{{$placeholder}}}' tidak dikenal dalam sistem.");
+                }
+            }
+        }
     }
 
     public function getAllLogs(array $filters = []): array

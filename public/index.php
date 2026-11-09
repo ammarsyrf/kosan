@@ -45,6 +45,10 @@ Router::post('/logout', [AuthController::class, 'logout'], [], 'logout');
 Router::get('/activate', [TenantController::class, 'showActivationForm'], [], 'tenant.activate');
 Router::post('/activate', [TenantController::class, 'activate'], [], 'tenant.activate.post');
 
+// Convenient Aliases / Redirects
+Router::get('/bookings', fn() => \App\Core\Response::redirect('/admin/bookings'));
+Router::get('/contracts', fn() => \App\Core\Response::redirect('/admin/contracts'));
+
 // Owner Protected Routes
 Router::group([
     'prefix' => '/owner',

@@ -112,11 +112,11 @@
                         <!-- SECTION 3: SEWA & TRANSAKSI -->
                         <div class="space-y-1">
                             <div class="px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Sewa & Tagihan</div>
-                            <a href="<?= url('bookings') ?>" class="<?= $linkClass('bookings') ?>">
+                            <a href="<?= url('admin/bookings') ?>" class="<?= $linkClass('admin/bookings') ?>">
                                 <i data-lucide="calendar" class="w-4 h-4"></i>
                                 <span>Booking Kamar</span>
                             </a>
-                            <a href="<?= url('contracts') ?>" class="<?= $linkClass('contracts') ?>">
+                            <a href="<?= url('admin/contracts') ?>" class="<?= $linkClass('admin/contracts') ?>">
                                 <i data-lucide="file-text" class="w-4 h-4"></i>
                                 <span>Kontrak Sewa</span>
                             </a>

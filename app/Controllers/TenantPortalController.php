@@ -179,6 +179,16 @@ class TenantPortalController extends Controller
         ]);
     }
 
+    public function earlyCheckoutForm(): Response
+    {
+        return $this->checkoutForm();
+    }
+
+    public function submitEarlyCheckout(Request $request): Response
+    {
+        return $this->submitCheckout($request);
+    }
+
     public function submitCheckout(Request $request): Response
     {
         $user = Session::get('user');
