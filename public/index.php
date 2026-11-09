@@ -38,6 +38,8 @@ Router::use(new CsrfMiddleware());
 // 5. Define Application Routes
 // Public Routes
 Router::get('/', [HomeController::class, 'index'], [], 'home');
+Router::get('/katalog', [HomeController::class, 'catalog'], [], 'catalog');
+Router::get('/catalog', [HomeController::class, 'catalog'], [], 'catalog.alt');
 Router::get('/login', [AuthController::class, 'showLogin'], [], 'login');
 Router::post('/login', [AuthController::class, 'login'], [], 'login.post');
 Router::post('/logout', [AuthController::class, 'logout'], [], 'logout');

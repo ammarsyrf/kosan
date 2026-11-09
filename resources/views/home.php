@@ -292,20 +292,29 @@
                     </p>
                 </div>
 
-                <!-- Interactive Filter Tabs (Mobile-Friendly Horizontal Swipe) -->
-                <div class="flex items-center gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold overflow-x-auto no-scrollbar max-w-full">
-                    <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3.5 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap shrink-0">
-                        Semua Unit (<?= count($rooms) ?>)
-                    </button>
-                    <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
-                        Lantai 1
-                    </button>
-                    <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
-                        Lantai 2
-                    </button>
-                    <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
-                    </button>
+                <!-- Interactive Filter Tabs & Link to Dedicated Catalog -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="flex items-center gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold overflow-x-auto no-scrollbar max-w-full">
+                        <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3.5 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap shrink-0">
+                            Semua Unit (<?= count($rooms) ?>)
+                        </button>
+                        <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
+                            Lantai 1
+                        </button>
+                        <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0">
+                            Lantai 2
+                        </button>
+                        <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
+                        </button>
+                    </div>
+
+                    <!-- Tombol Lihat Semua Kamar di Halaman Terpisah -->
+                    <a href="<?= url('katalog') ?>" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm hover:shadow-md transition whitespace-nowrap shrink-0">
+                        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                        <span>Lihat Semua Kamar</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
                 </div>
             </div>
 
@@ -465,6 +474,26 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
+            </div>
+
+            <!-- CTA: Buka Halaman Katalog Lengkap -->
+            <div class="mt-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 reveal-on-scroll">
+                <div class="space-y-1.5">
+                    <div class="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider text-teal-300 bg-teal-500/10 border border-teal-500/20 px-3 py-1 rounded-full">
+                        <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i> Filter Detail & Multi-Kriteria
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-black tracking-tight text-white">Cari Kamar Berdasarkan Kebutuhan Anda?</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
+                        Filter kamar berdasarkan fasilitas (AC, Water Heater, Balkon, Smart TV), rentang harga sewa, dan posisi lantai di halaman katalog khusus.
+                    </p>
+                </div>
+                <div class="shrink-0">
+                    <a href="<?= url('katalog') ?>" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-500 to-teal-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-teal-500/20 hover:scale-105 transition transform active:scale-95">
+                        <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                        <span>Buka Halaman Katalog Kamar</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
             </div>
         </section>
 

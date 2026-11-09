@@ -62,6 +62,49 @@ class HomeController extends Controller
         ]);
     }
 
+    public function catalog(): Response
+    {
+        $rooms = [];
+        $facilities = [];
+        $stats = [
+            'total_rooms' => 0,
+            'available' => 0,
+            'occupied' => 0,
+            'min_price' => 0,
+            'max_price' => 0,
+        ];
+
+        try {
+            $roomRepo = new \App\Repositories\RoomRepository();
+            $rooms = $roomRepo->getAll();
+
+            $facilityRepo = new \App\Repositories\FacilityRepository();
+            $facilities = $facilityRepo->getAll();
+
+            if (!empty($rooms)) {
+                $prices = array_map(fn($r) => (float)$r->current_price, $rooms);
+                $stats = [
+                    'total_rooms' => count($rooms),
+                    'available' => count(array_filter($rooms, fn($r) => ($r->status ?? 'available') === 'available')),
+                    'occupied' => count(array_filter($rooms, fn($r) => ($r->status ?? '') === 'occupied')),
+                    'min_price' => !empty($prices) ? min($prices) : 0,
+                    'max_price' => !empty($prices) ? max($prices) : 0,
+                ];
+            }
+        } catch (\Throwable $e) {
+            // graceful fallback
+        }
+
+        return $this->render('catalog', [
+            'title' => 'Katalog Lengkap Kamar Kost — ' . setting('business_name', config('app.name', 'Kost Management System')),
+            'rooms' => $rooms,
+            'facilities' => $facilities,
+            'stats' => $stats,
+            'user' => Session::get('user'),
+            'is_landing' => true,
+        ]);
+    }
+
     public function ownerDashboard(): Response
     {
         return $this->render('home', [

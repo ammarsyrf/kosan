@@ -26,6 +26,7 @@ Router::clear();
 
 // Public Routes
 Router::get('/', [HomeController::class, 'index'], [], 'home');
+Router::get('/katalog', [HomeController::class, 'catalog'], [], 'catalog');
 Router::get('/login', [AuthController::class, 'showLogin'], [], 'login');
 Router::get('/activate', [TenantController::class, 'showActivationForm'], [], 'tenant.activate');
 
@@ -137,6 +138,7 @@ $tenantSession = $tenantUser ? ['id' => $tenantUser->id, 'name' => $tenantUser->
 $routesToTest = [
     // Guest
     ['uri' => '/', 'role' => null, 'user' => null, 'expected' => 200],
+    ['uri' => '/katalog', 'role' => null, 'user' => null, 'expected' => 200],
     ['uri' => '/login', 'role' => null, 'user' => null, 'expected' => 200],
     
     // Owner
