@@ -185,9 +185,35 @@
 
                 <!-- Section: Drag & Drop File Upload Bukti Transfer -->
                 <div>
-                    <label class="block text-sm font-semibold text-slate-800 mb-1.5">
-                        Bukti Transfer (Struk / Tangkapan Layar) <span class="text-rose-500">*</span>
-                    </label>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-sm font-semibold text-slate-800">
+                            Bukti Transfer (Struk / Tangkapan Layar) <span class="text-rose-500">*</span>
+                        </label>
+                        <span class="text-[11px] text-slate-400 font-medium">Maks. 5MB (JPG, PNG, PDF)</span>
+                    </div>
+
+                    <!-- Action Bar: Tombol Kamera & Pilih File -->
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <button type="button" 
+                                id="btn-proof-camera" 
+                                class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-indigo-300 hover:border-indigo-500 bg-indigo-50/50 hover:bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-bold transition active:scale-95 cursor-pointer">
+                            <i data-lucide="camera" class="w-4 h-4 text-indigo-600"></i>
+                            <span>Foto dari Kamera</span>
+                        </button>
+                        <button type="button" 
+                                id="btn-proof-file" 
+                                class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-slate-300 hover:border-blue-500 bg-slate-50/50 hover:bg-blue-50/30 text-slate-700 hover:text-blue-700 text-xs sm:text-sm font-bold transition active:scale-95 cursor-pointer">
+                            <i data-lucide="image" class="w-4 h-4 text-slate-500"></i>
+                            <span>Pilih dari Galeri</span>
+                        </button>
+                    </div>
+
+                    <!-- Hidden Native Camera Trigger -->
+                    <input type="file" 
+                           id="native-camera-proof" 
+                           accept="image/*" 
+                           capture="environment" 
+                           class="hidden">
 
                     <div id="dropzone" class="border-2 border-dashed border-slate-300 hover:border-blue-500 hover:bg-blue-50/20 bg-slate-50/50 rounded-2xl p-6 text-center cursor-pointer transition-all duration-200 relative group">
                         <input type="file" 
@@ -328,8 +354,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 3. Drag & Drop File Upload with Real-time Preview
+    // 3. Drag & Drop & Camera File Upload with Real-time Preview
     const fileInput = document.getElementById('proof');
+    const nativeCameraProof = document.getElementById('native-camera-proof');
+    const btnProofCamera = document.getElementById('btn-proof-camera');
+    const btnProofFile = document.getElementById('btn-proof-file');
     const dropzone = document.getElementById('dropzone');
     const dropzonePrompt = document.getElementById('dropzone-prompt');
     const dropzonePreview = document.getElementById('dropzone-preview');
@@ -338,6 +367,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const previewImg = document.getElementById('preview-img');
     const previewFileIcon = document.getElementById('preview-file-icon');
     const btnRemoveFile = document.getElementById('btn-remove-file');
+
+    if (btnProofFile) {
+        btnProofFile.addEventListener('click', () => fileInput.click());
+    }
+    if (btnProofCamera) {
+        btnProofCamera.addEventListener('click', () => nativeCameraProof.click());
+    }
+    if (nativeCameraProof) {
+        nativeCameraProof.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const dt = new DataTransfer();
+                dt.items.add(this.files[0]);
+                fileInput.files = dt.files;
+                showFile(this.files[0]);
+            }
+        });
+    }
 
     function formatBytes(bytes) {
         if (!+bytes) return '0 Bytes';
