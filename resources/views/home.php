@@ -4,138 +4,147 @@
 /** @var string|null $role_zone */
 ?>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-20">
+</div>
 
-    <!-- HERO SECTION: Ultra-Modern Obsidian & Indigo Gradient with Glassmorphism -->
-    <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-14 lg:p-16 shadow-2xl border border-slate-800/80">
-        <!-- Ambient Decorative Lighting Glows -->
-        <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-600/25 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.07] pointer-events-none"></div>
+<!-- Full-Width Fluid Hero Section with Edge-to-Edge Obsidian Horizon -->
+<div class="relative -mt-8 sm:-mt-12 overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white border-b border-slate-800/80 shadow-2xl">
+    <!-- Ambient Multidimensional Aurora Glows -->
+    <div class="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/30 via-indigo-500/20 to-teal-400/20 rounded-full blur-[130px] pointer-events-none animate-float"></div>
+    <div class="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-gradient-to-bl from-teal-500/20 via-emerald-600/15 to-transparent rounded-full blur-[120px] pointer-events-none animate-float" style="animation-delay: -3s;"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.06] pointer-events-none"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-            <!-- Platform Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-bold text-teal-300 shadow-inner">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Sistem Manajemen Kost Modern • Smart Living Monolith</span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28 relative z-10 space-y-12">
+        <div class="max-w-4xl mx-auto text-center space-y-7 animate-slide-up">
+            
+            <!-- Luxury Status Badge -->
+            <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.08] backdrop-blur-xl border border-white/15 text-xs font-extrabold text-teal-300 shadow-2xl hover:border-teal-400/40 transition">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-400"></span>
+                </span>
+                <span class="tracking-wide">Kost Management Monolith • High-Performance Edition</span>
             </div>
 
-            <!-- Main Heading -->
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-tight">
-                Kendali Penuh Properti Kos <br class="hidden sm:inline" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400">
-                    Otomatis, Rapi, & Real-Time
+            <!-- Majestic Dynamic Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-white">
+                Otomasi Penuh Kos Modern <br class="hidden sm:inline" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400 drop-shadow-sm">
+                    Tanpa Repot, Rapi, & Real-Time
                 </span>
             </h1>
 
-            <!-- Subtitle -->
-            <p class="text-slate-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
-                Platform operasional kos lengkap: automasi penagihan via WhatsApp (Fonnte API), pemantauan okupansi kamar terintegrasi, pembukuan arus kas bersih, serta portal mandiri bagi seluruh penghuni.
+            <!-- Editorial Subtitle -->
+            <p class="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed font-normal">
+                Sistem pengelolaan kamar, otomatisasi penagihan WhatsApp Fonnte, pemantauan arus kas, serta portal mandiri penghuni dalam satu aplikasi terpadu.
             </p>
 
-            <!-- Action Buttons -->
-            <div class="pt-4 flex flex-wrap items-center justify-center gap-3.5">
+            <!-- Action CTA Cluster -->
+            <div class="pt-2 flex flex-wrap items-center justify-center gap-4">
                 <?php if (auth_check()): ?>
                     <?php $u = auth_user(); ?>
                     <?php if (strtolower($u['role'] ?? '') === 'owner'): ?>
-                        <a href="<?= url('owner/dashboard') ?>" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <a href="<?= url('owner/dashboard') ?>" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2.5">
                             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Executive Dashboard
                         </a>
                     <?php elseif (strtolower($u['role'] ?? '') === 'admin'): ?>
-                        <a href="<?= url('admin/dashboard') ?>" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <a href="<?= url('admin/dashboard') ?>" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2.5">
                             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Buka Admin Dashboard
                         </a>
                     <?php else: ?>
-                        <a href="<?= url('tenant/dashboard') ?>" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-lg shadow-teal-500/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                        <a href="<?= url('tenant/dashboard') ?>" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white shadow-xl shadow-teal-500/30 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2.5">
                             <i data-lucide="home" class="w-4 h-4"></i> Buka Portal Penghuni
                         </a>
                     <?php endif; ?>
                 <?php else: ?>
-                    <a href="#demo-access" class="px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i> Coba Akun Demo Sekarang
+                    <a href="#demo-access" class="px-8 py-4 rounded-2xl font-black text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 text-white shadow-2xl shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center gap-2.5">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i> Eksplorasi Demo Sekarang
                     </a>
-                    <a href="<?= url('login') ?>" class="px-6 py-3.5 rounded-xl font-semibold text-sm bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 text-white transition inline-flex items-center gap-2">
+                    <a href="<?= url('login') ?>" class="px-7 py-4 rounded-2xl font-bold text-sm bg-white/10 hover:bg-white/15 backdrop-blur-xl border border-white/20 text-white transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2 shadow-lg">
                         <i data-lucide="log-in" class="w-4 h-4 text-slate-300"></i> Masuk Akun
                     </a>
                 <?php endif; ?>
 
-                <a href="#kamar-kost" class="px-6 py-3.5 rounded-xl font-semibold text-sm bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-slate-200 transition inline-flex items-center gap-2">
+                <a href="#kamar-kost" class="px-7 py-4 rounded-2xl font-bold text-sm bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-slate-300 hover:text-white transition-all inline-flex items-center gap-2">
                     <i data-lucide="door-closed" class="w-4 h-4 text-teal-400"></i> Lihat Kamar Tersedia
                 </a>
             </div>
+        </div>
 
-            <!-- Live KPI Metric Cards Strip -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-8 text-left">
-                <!-- Card 1 -->
-                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
-                        <span>Total Kamar</span>
-                        <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
-                            <i data-lucide="door-closed" class="w-4 h-4"></i>
-                        </div>
-                    </div>
-                    <div class="text-2xl sm:text-3xl font-extrabold text-white">
-                        <?= (int)($stats['total_rooms'] ?? 8) ?> <span class="text-xs font-normal text-slate-400">Unit</span>
-                    </div>
-                    <div class="text-[11px] text-teal-300 mt-1 flex items-center gap-1.5 font-medium">
-                        <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span> Siap dikelola
+        <!-- Floating Glassmorphic Metric Matrix (Full-Width Responsive) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-6">
+            <!-- Card 1 -->
+            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-blue-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
+                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
+                    <span>Total Kamar</span>
+                    <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="door-closed" class="w-4 h-4"></i>
                     </div>
                 </div>
+                <div class="text-3xl sm:text-4xl font-black text-white">
+                    <?= (int)($stats['total_rooms'] ?? 8) ?> <span class="text-xs font-normal text-slate-400">Unit</span>
+                </div>
+                <div class="text-[11px] text-teal-300 mt-2 flex items-center gap-1.5 font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span> Siap dikelola otomatis
+                </div>
+            </div>
 
-                <!-- Card 2 -->
-                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
-                        <span>Okupansi Aktif</span>
-                        <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                            <i data-lucide="pie-chart" class="w-4 h-4"></i>
-                        </div>
-                    </div>
-                    <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">
-                        <?= $stats['occupancy_rate'] ?? 12.5 ?>%
-                    </div>
-                    <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                        <?= (int)($stats['occupied'] ?? 1) ?> Kamar Terisi
+            <!-- Card 2 -->
+            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-emerald-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
+                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
+                    <span>Okupansi Aktif</span>
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="pie-chart" class="w-4 h-4"></i>
                     </div>
                 </div>
+                <div class="text-3xl sm:text-4xl font-black text-emerald-400">
+                    <?= $stats['occupancy_rate'] ?? 12.5 ?>%
+                </div>
+                <div class="text-[11px] text-slate-400 mt-2 flex items-center gap-1.5 font-medium">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <?= (int)($stats['occupied'] ?? 1) ?> Kamar Terisi
+                </div>
+            </div>
 
-                <!-- Card 3 -->
-                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
-                        <span>Automasi WhatsApp</span>
-                        <div class="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center">
-                            <i data-lucide="message-square" class="w-4 h-4"></i>
-                        </div>
-                    </div>
-                    <div class="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
-                        Fonnte
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                            Aktif
-                        </span>
-                    </div>
-                    <div class="text-[11px] text-slate-400 mt-1">
-                        Jadwal H-7, H-3, H-1, H+1
+            <!-- Card 3 -->
+            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-teal-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
+                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
+                    <span>Automasi WhatsApp</span>
+                    <div class="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
                     </div>
                 </div>
+                <div class="text-3xl sm:text-4xl font-black text-white flex items-center gap-2">
+                    Fonnte
+                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        Aktif
+                    </span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-2 font-medium">
+                    Jadwal H-7, H-3, H-1, Hari-H, H+1
+                </div>
+            </div>
 
-                <!-- Card 4 -->
-                <div class="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.07] transition shadow-lg">
-                    <div class="flex items-center justify-between text-slate-400 text-xs mb-1.5 font-medium">
-                        <span>Laporan Keuangan</span>
-                        <div class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
-                            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-                        </div>
+            <!-- Card 4 -->
+            <div class="bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 sm:p-6 hover:border-indigo-500/50 hover:bg-slate-900/95 transition-all duration-300 shadow-xl group">
+                <div class="flex items-center justify-between text-slate-400 text-xs mb-3 font-semibold">
+                    <span>Laporan Arus Kas</span>
+                    <div class="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
                     </div>
-                    <div class="text-2xl sm:text-3xl font-extrabold text-white">
-                        CSV <span class="text-xs font-normal text-slate-400">Export</span>
-                    </div>
-                    <div class="text-[11px] text-teal-300 mt-1">
-                        BOM UTF-8 Excel Ready
-                    </div>
+                </div>
+                <div class="text-3xl sm:text-4xl font-black text-white">
+                    CSV <span class="text-xs font-normal text-slate-400">Export</span>
+                </div>
+                <div class="text-[11px] text-teal-300 mt-2 font-medium">
+                    BOM UTF-8 Excel Ready
                 </div>
             </div>
         </div>
-    </section>
+
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
 
     <!-- DEMO ACCESS SECTION: 1-Click Role Exploration Cards -->
     <section id="demo-access" class="space-y-6 reveal-on-scroll">

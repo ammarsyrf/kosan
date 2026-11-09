@@ -340,29 +340,40 @@
     </div>
 
 <?php else: ?>
-    <!-- Public Visitor Layout (Landing Page) -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50 transition-all shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-            <a href="<?= url() ?>" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
-                    <i data-lucide="home" class="w-5 h-5"></i>
+    <!-- Public Visitor Layout (Landing Page): Full-Width Immersive Glass Navigation -->
+    <header class="bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80 sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <a href="<?= url() ?>" class="flex items-center space-x-3.5 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-500 via-indigo-500 to-teal-400 p-0.5 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-teal-300">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </div>
                 </div>
                 <div class="flex flex-col whitespace-nowrap">
-                    <span class="font-black text-slate-900 tracking-tight text-base leading-none group-hover:text-blue-600 transition-colors">
+                    <span class="font-black text-white tracking-tight text-lg leading-none group-hover:text-teal-300 transition-colors">
                         <?= e(config('app.name', 'Kost Management')) ?>
                     </span>
-                    <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase mt-1">Smart Living Monolith</span>
+                    <span class="text-[10px] font-extrabold text-teal-400 tracking-wider uppercase mt-1 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Smart Living Monolith
+                    </span>
                 </div>
             </a>
 
-            <!-- Public Nav Links -->
-            <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600">
-                <a href="#kamar-kost" class="hover:text-blue-600 transition">Katalog Kamar</a>
-                <a href="#demo-access" class="hover:text-blue-600 transition">Uji Coba Demo</a>
-                <a href="<?= url('activate') ?>" class="text-slate-500 hover:text-slate-900 transition">Aktivasi Akun Baru</a>
+            <!-- Public Nav Links with Glow Pills -->
+            <nav class="hidden md:flex items-center gap-1.5 p-1.5 bg-slate-900/90 border border-slate-800 rounded-2xl shadow-inner">
+                <a href="#kamar-kost" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
+                    <i data-lucide="door-closed" class="w-3.5 h-3.5 text-teal-400"></i> Katalog Kamar
+                </a>
+                <a href="#demo-access" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-400"></i> Uji Coba Demo
+                </a>
+                <a href="<?= url('activate') ?>" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all flex items-center gap-1.5">
+                    <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i> Aktivasi Akun
+                </a>
             </nav>
 
-            <a href="<?= url('login') ?>" class="inline-flex items-center px-4 py-2 text-xs font-bold tracking-wide rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-md shadow-blue-500/25 transition transform active:scale-95">
+            <a href="<?= url('login') ?>" class="inline-flex items-center px-5 py-2.5 text-xs font-extrabold tracking-wide rounded-xl text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 active:scale-95">
                 <i data-lucide="log-in" class="w-3.5 h-3.5 mr-1.5"></i> Masuk ke Portal
             </a>
         </div>
