@@ -282,6 +282,9 @@ class TenantPortalController extends Controller
 
         $requests = $this->maintService->getTenantRequests($tenant->id);
         $activeContract = $this->contractService->getActiveContractByTenantId($tenant->id);
+        if (!$activeContract) {
+            $activeContract = $this->contractRepo->getLatestContractByTenantId($tenant->id);
+        }
 
         return $this->render('tenant/maintenance/index', [
             'title' => 'Laporan Perbaikan Kamar',
@@ -295,9 +298,12 @@ class TenantPortalController extends Controller
         $user = Session::get('user');
         $tenant = $this->tenantRepo->findByUserId((int)$user['id']);
         $activeContract = $tenant ? $this->contractService->getActiveContractByTenantId($tenant->id) : null;
+        if (!$activeContract && $tenant) {
+            $activeContract = $this->contractRepo->getLatestContractByTenantId($tenant->id);
+        }
 
         if (!$activeContract) {
-            Session::flash('error', 'Anda harus memiliki kontrak sewa aktif untuk membuat laporan perbaikan.');
+            Session::flash('error', 'Anda harus memiliki kontrak sewa aktif atau terdaftar pada unit kamar untuk membuat laporan perbaikan.');
             return $this->redirect('/tenant/dashboard');
         }
 
@@ -316,6 +322,9 @@ class TenantPortalController extends Controller
         $user = Session::get('user');
         $tenant = $this->tenantRepo->findByUserId((int)$user['id']);
         $activeContract = $tenant ? $this->contractService->getActiveContractByTenantId($tenant->id) : null;
+        if (!$activeContract && $tenant) {
+            $activeContract = $this->contractRepo->getLatestContractByTenantId($tenant->id);
+        }
 
         if (!$activeContract) {
             Session::flash('error', 'Kontrak sewa aktif tidak ditemukan.');

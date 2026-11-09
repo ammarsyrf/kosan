@@ -101,6 +101,34 @@ class ContractRepository
             JOIN `tenants` t ON t.id = c.tenant_id
             JOIN `users` u ON u.id = t.user_id
             WHERE c.tenant_id = :tenant_id AND c.status = 'active'
+            ORDER BY c.id DESC
+            LIMIT 1
+        ");
+        $stmt->execute(['tenant_id' => $tenantId]);
+        $row = $stmt->fetch();
+
+        if (!$row) {
+            return null;
+        }
+
+        $contract = new RentalContract($row);
+        $contract->room_number = $row['room_number'];
+        $contract->room_name = $row['room_name'];
+        $contract->tenant_name = $row['tenant_name'];
+        $contract->tenant_phone = $row['tenant_phone'] ?? '';
+        return $contract;
+    }
+
+    public function getLatestContractByTenantId(int $tenantId): ?RentalContract
+    {
+        $stmt = $this->db->prepare("
+            SELECT c.*, r.room_number, r.name AS room_name, u.name AS tenant_name, u.phone AS tenant_phone
+            FROM `rental_contracts` c
+            JOIN `rooms` r ON r.id = c.room_id
+            JOIN `tenants` t ON t.id = c.tenant_id
+            JOIN `users` u ON u.id = t.user_id
+            WHERE c.tenant_id = :tenant_id
+            ORDER BY c.id DESC
             LIMIT 1
         ");
         $stmt->execute(['tenant_id' => $tenantId]);

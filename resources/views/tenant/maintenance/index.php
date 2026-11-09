@@ -3,17 +3,16 @@
         <h1 class="text-2xl font-bold text-slate-800">Laporan Perbaikan Kamar</h1>
         <p class="text-slate-500 text-sm">Laporkan kendala kerusakan fasilitas kos atau kamar untuk segera diperbaiki pengelola.</p>
     </div>
-    <?php if ($activeContract): ?>
-        <a href="<?= url('tenant/maintenance/create') ?>" class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-lg shadow-sm transition">
-            <i data-lucide="plus-circle" class="w-4 h-4"></i>
-            Buat Laporan Baru
-        </a>
-    <?php endif; ?>
+    <a href="<?= url('tenant/maintenance/create') ?>" class="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 cursor-pointer">
+        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+        <span>Buat Laporan Baru</span>
+    </a>
 </div>
 
-<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-    <div class="p-4 bg-slate-50 border-b border-slate-200 font-bold text-slate-800 text-sm">
-        Daftar Laporan Kerusakan Anda
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="p-4 bg-slate-50 border-b border-slate-200 font-bold text-slate-800 text-sm flex items-center justify-between">
+        <span>Daftar Laporan Kerusakan Anda</span>
+        <span class="text-xs font-semibold text-slate-500">Total: <?= count($requests ?? []) ?> Laporan</span>
     </div>
 
     <div class="overflow-x-auto">
@@ -31,7 +30,23 @@
             <tbody class="divide-y divide-slate-100">
                 <?php if (empty($requests)): ?>
                     <tr>
-                        <td colspan="6" class="py-8 text-center text-slate-400">Anda belum pernah mengajukan laporan perbaikan fasilitas.</td>
+                        <td colspan="6" class="py-12 text-center">
+                            <div class="max-w-sm mx-auto space-y-3">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto shadow-xs">
+                                    <i data-lucide="wrench" class="w-6 h-6"></i>
+                                </div>
+                                <div class="text-sm font-bold text-slate-800">Belum Ada Laporan Kerusakan</div>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    Semua fasilitas kamar Anda dalam kondisi baik. Jika ada kendala (AC, air, lampu, dll), buat laporan langsung di sini.
+                                </p>
+                                <div class="pt-1">
+                                    <a href="<?= url('tenant/maintenance/create') ?>" class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl border border-blue-200 transition">
+                                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                        <span>Laporkan Kerusakan Sekarang</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($requests as $r): ?>

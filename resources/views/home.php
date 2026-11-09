@@ -348,17 +348,17 @@
                         $hasLocalPhoto = file_exists(BASE_PATH . '/public/' . $localPhotoPath);
                         $photoUrl = $hasLocalPhoto ? url($localPhotoPath) : 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80';
                     ?>
-                    <div class="room-inventory-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400/70 transition-all duration-300 overflow-hidden flex flex-col justify-between group reveal-on-scroll stagger-<?= ($index % 4) + 1 ?>"
+                    <div class="room-inventory-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400/70 transition-all duration-300 overflow-hidden flex flex-col justify-between group reveal-on-scroll stagger-<?= ($index % 4) + 1 ?> h-full"
                          data-floor="<?= $floor ?>"
                          data-status="<?= $isAvailable ? 'available' : 'occupied' ?>">
 
-                        <!-- Image Showcase Header -->
-                        <div class="relative aspect-4/3 overflow-hidden bg-slate-100 skeleton">
+                        <!-- Image Showcase Header (Strict Uniform Height & Center Cropped) -->
+                        <div class="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 skeleton shrink-0">
                             <img src="<?= e($photoUrl) ?>" 
                                  alt="Kamar <?= e($rNum) ?> - <?= e($typeName) ?>" 
                                  loading="lazy"
                                  onload="this.classList.remove('opacity-0'); this.closest('.skeleton')?.classList.remove('skeleton')"
-                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-0">
+                                 class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108 opacity-0">
 
                             <!-- Top Gradient for Header Contrast -->
                             <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950/70 to-transparent pointer-events-none"></div>
