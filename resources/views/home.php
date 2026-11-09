@@ -142,10 +142,10 @@
                 <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Alur Reservasi Praktis
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Hunian Nyaman dalam 3 Langkah Mudah
+                <?= e(setting('landing_steps_title', 'Hunian Nyaman dalam 3 Langkah Mudah')) ?>
             </h2>
             <p class="text-slate-500 text-xs sm:text-sm">
-                Seluruh proses mulai dari pemilihan kamar, kontrak resmi, hingga pembayaran dikelola secara digital dan transparan.
+                <?= e(setting('landing_steps_subtitle', 'Seluruh proses mulai dari pemilihan kamar, kontrak resmi, hingga pembayaran dikelola secara digital dan transparan.')) ?>
             </p>
         </div>
 
@@ -161,9 +161,11 @@
                             Pilih Unit
                         </span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Eksplorasi Kamar Siap Huni</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">
+                        <?= e(setting('landing_step1_title', 'Eksplorasi Kamar Siap Huni')) ?>
+                    </h3>
                     <p class="text-xs text-slate-500 leading-relaxed mb-4">
-                        Tinjau ketersediaan kamar secara real-time, foto interior asli, fasilitas lengkap (AC, Kamar Mandi Dalam, Springbed), dan harga sewa transparan tanpa biaya tersembunyi.
+                        <?= e(setting('landing_step1_desc', 'Tinjau ketersediaan kamar secara real-time, foto interior asli, fasilitas lengkap (AC, Kamar Mandi Dalam, Springbed), dan harga sewa transparan tanpa biaya tersembunyi.')) ?>
                     </p>
                 </div>
                 <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
@@ -184,9 +186,11 @@
                             Kontrak Resmi
                         </span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Booking & Kontrak Digital</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">
+                        <?= e(setting('landing_step2_title', 'Booking & Kontrak Digital')) ?>
+                    </h3>
                     <p class="text-xs text-slate-500 leading-relaxed mb-4">
-                        Reservasi kamar aman dengan validasi anti-bentrok tanggal. Kontrak sewa resmi diterbitkan otomatis lengkap dengan masa aktif dan tanggal tagihan rutin.
+                        <?= e(setting('landing_step2_desc', 'Reservasi kamar aman dengan validasi anti-bentrok tanggal. Kontrak sewa resmi diterbitkan otomatis lengkap dengan masa aktif dan tanggal tagihan rutin.')) ?>
                     </p>
                 </div>
                 <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
@@ -207,9 +211,11 @@
                             Tinggal Nyaman
                         </span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Portal Mandiri & Notifikasi WA</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">
+                        <?= e(setting('landing_step3_title', 'Portal Mandiri & Notifikasi WA')) ?>
+                    </h3>
                     <p class="text-xs text-slate-500 leading-relaxed mb-4">
-                        Penghuni menikmati portal khusus untuk cek tagihan, unggah bukti transfer kamera, ajukan perpanjangan sewa, dan lapor kendala kamar via tiket teknisi.
+                        <?= e(setting('landing_step3_desc', 'Penghuni menikmati portal khusus untuk cek tagihan, unggah bukti transfer kamera, ajukan perpanjangan sewa, dan lapor kendala kamar via tiket teknisi.')) ?>
                     </p>
                 </div>
                 <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
@@ -228,10 +234,10 @@
                 <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Standar Kenyamanan Maksimal
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Fasilitas Terintegrasi untuk Ketenangan Tinggal
+                <?= e(setting('landing_fac_title', 'Fasilitas Terintegrasi untuk Ketenangan Tinggal')) ?>
             </h2>
             <p class="text-slate-500 text-xs sm:text-sm">
-                Semua unit kos dirawat secara berkala untuk menjamin kenyamanan profesional muda dan mahasiswa.
+                <?= e(setting('landing_fac_subtitle', 'Semua unit kos dirawat secara berkala untuk menjamin kenyamanan profesional muda dan mahasiswa.')) ?>
             </p>
         </div>
 
@@ -241,8 +247,12 @@
                 <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
                     <i data-lucide="wifi" class="w-5 h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">Internet Fiber 100 Mbps</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Unlimited kecepatan tinggi tanpa buffering untuk meeting, streaming, & gaming.</p>
+                <h4 class="font-bold text-slate-900 text-sm">
+                    <?= e(setting('landing_fac1_title', 'Internet Fiber 100 Mbps')) ?>
+                </h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    <?= e(setting('landing_fac1_desc', 'Unlimited kecepatan tinggi tanpa buffering untuk meeting, streaming, & gaming.')) ?>
+                </p>
             </div>
 
             <!-- 2. Keamanan -->
@@ -250,8 +260,12 @@
                 <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
                     <i data-lucide="shield-check" class="w-5 h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">Keamanan & CCTV 24 Jam</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Akses gerbang kartu/kunci aman dengan pengawasan kamera CCTV di seluruh koridor.</p>
+                <h4 class="font-bold text-slate-900 text-sm">
+                    <?= e(setting('landing_fac2_title', 'Keamanan & CCTV 24 Jam')) ?>
+                </h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    <?= e(setting('landing_fac2_desc', 'Akses gerbang kartu/kunci aman dengan pengawasan kamera CCTV di seluruh koridor.')) ?>
+                </p>
             </div>
 
             <!-- 3. Kamar Mandi & Water Heater -->
@@ -259,8 +273,12 @@
                 <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
                     <i data-lucide="droplets" class="w-5 h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">Water Heater & KM Dalam</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Air hangat instan, kloset duduk higienis, dan sirkulasi udara kamar mandi lancar.</p>
+                <h4 class="font-bold text-slate-900 text-sm">
+                    <?= e(setting('landing_fac3_title', 'Water Heater & KM Dalam')) ?>
+                </h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    <?= e(setting('landing_fac3_desc', 'Air hangat instan, kloset duduk higienis, dan sirkulasi udara kamar mandi lancar.')) ?>
+                </p>
             </div>
 
             <!-- 4. Area Bersama & Kebersihan -->
@@ -268,8 +286,12 @@
                 <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
                     <i data-lucide="sparkle" class="w-5 h-5"></i>
                 </div>
-                <h4 class="font-bold text-slate-900 text-sm">Dapur & Laundry Bersama</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Dilengkapi kompor gas, kulkas komunal, dispenser air minum, dan area jemur terlindung.</p>
+                <h4 class="font-bold text-slate-900 text-sm">
+                    <?= e(setting('landing_fac4_title', 'Dapur & Laundry Bersama')) ?>
+                </h4>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    <?= e(setting('landing_fac4_desc', 'Dilengkapi kompor gas, kulkas komunal, dispenser air minum, dan area jemur terlindung.')) ?>
+                </p>
             </div>
         </div>
     </section>
@@ -627,10 +649,10 @@
                     <span>Kenyamanan & Keamanan Bersama</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                    Tata Tertib & Aturan Tinggal di Kos
+                    <?= e(setting('landing_rules_title', 'Tata Tertib & Aturan Tinggal di Kos')) ?>
                 </h2>
                 <p class="text-slate-500 text-xs sm:text-sm">
-                    Dirancang demi menjaga privasi, ketenangan waktu istirahat, kebersihan, dan keselamatan seluruh penghuni kos.
+                    <?= e(setting('landing_rules_subtitle', 'Dirancang demi menjaga privasi, ketenangan waktu istirahat, kebersihan, dan keselamatan seluruh penghuni kos.')) ?>
                 </p>
             </div>
 
@@ -647,9 +669,11 @@
                                 Jam Tenang
                             </span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Jam Tenang & Kunjungan Tamu</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base">
+                            <?= e(setting('landing_rule1_title', 'Jam Tenang & Kunjungan Tamu')) ?>
+                        </h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Jam tenang berlaku pukul <strong>22.00 - 06.00 WIB</strong> untuk istirahat optimal. Tamu dipersilakan diterima di ruang tamu komunal dan mohon kembali sebelum pukul 22.00 WIB.
+                            <?= e(setting('landing_rule1_desc', 'Jam tenang berlaku pukul 22.00 - 06.00 WIB untuk istirahat optimal. Tamu dipersilakan diterima di ruang tamu komunal dan mohon kembali sebelum pukul 22.00 WIB.')) ?>
                         </p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
@@ -669,9 +693,11 @@
                                 Keamanan
                             </span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Keamanan & Kunci Akses</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base">
+                            <?= e(setting('landing_rule2_title', 'Keamanan & Kunci Akses')) ?>
+                        </h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Pintu utama dilengkapi <strong>Smart Access Lock 24 Jam</strong> dan pantauan kamera CCTV 24/7 di area publik serta parkiran. Kunci kamar bersifat pribadi dan dilarang dipinjamkan.
+                            <?= e(setting('landing_rule2_desc', 'Pintu utama dilengkapi Smart Access Lock 24 Jam dan pantauan kamera CCTV 24/7 di area publik serta parkiran. Kunci kamar bersifat pribadi dan dilarang dipinjamkan.')) ?>
                         </p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
@@ -691,9 +717,11 @@
                                 Kebersihan
                             </span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Kebersihan & Dapur Bersama</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base">
+                            <?= e(setting('landing_rule3_title', 'Kebersihan & Dapur Bersama')) ?>
+                        </h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Area bersama (dapur, dispenser, kulkas bersama, dan jemuran) wajib dirapikan dan dibersihkan kembali setelah digunakan. Sampah kamar diikat rapi dan diletakkan di tempat sampah utama.
+                            <?= e(setting('landing_rule3_desc', 'Area bersama (dapur, dispenser, kulkas bersama, dan jemuran) wajib dirapikan dan dibersihkan kembali setelah digunakan. Sampah kamar diikat rapi dan diletakkan di tempat sampah utama.')) ?>
                         </p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
@@ -713,9 +741,11 @@
                                 Pembayaran
                             </span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Sewa & Pemberitahuan Checkout</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base">
+                            <?= e(setting('landing_rule4_title', 'Sewa & Pemberitahuan Checkout')) ?>
+                        </h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Sewa bulanan dibayarkan tepat waktu sebelum tanggal jatuh tempo (*billing anchor*). Jika berencana selesai sewa / keluar, mohon konfirmasi ke pengelola minimal <strong>H-14 sebelum tanggal tagihan</strong>.
+                            <?= e(setting('landing_rule4_desc', 'Sewa bulanan dibayarkan tepat waktu sebelum tanggal jatuh tempo (billing anchor). Jika berencana selesai sewa / keluar, mohon konfirmasi ke pengelola minimal H-14 sebelum tanggal tagihan.')) ?>
                         </p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
@@ -735,9 +765,11 @@
                                 Fasilitas
                             </span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Penggunaan Listrik & Elektronik</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base">
+                            <?= e(setting('landing_rule5_title', 'Penggunaan Listrik & Elektronik')) ?>
+                        </h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Mohon matikan AC, lampu, dan peralatan elektronik saat meninggalkan kamar demi keselamatan bersama. Penggunaan alat daya tinggi (seperti dispenser pemanas/oven pribadi) harap dikonfirmasikan ke pengelola.
+                            <?= e(setting('landing_rule5_desc', 'Mohon matikan AC, lampu, dan peralatan elektronik saat meninggalkan kamar demi keselamatan bersama. Penggunaan alat daya tinggi (seperti dispenser pemanas/oven pribadi) harap dikonfirmasikan ke pengelola.')) ?>
                         </p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-slate-600">
@@ -757,9 +789,11 @@
                                 Larangan Mutlak
                             </span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Bebas Asap Rokok & Narkoba</h3>
+                        <h3 class="font-extrabold text-slate-900 text-base">
+                            <?= e(setting('landing_rule6_title', 'Bebas Asap Rokok & Narkoba')) ?>
+                        </h3>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Dilarang keras membawa narkotika, minuman keras, zat berbahaya, senjata tajam, atau berjudi. Seluruh kamar ber-AC bersifat <strong>Non-Smoking Room (Bebas Asap Rokok)</strong>; area merokok khusus tersedia di luar.
+                            <?= e(setting('landing_rule6_desc', 'Dilarang keras membawa narkotika, minuman keras, zat berbahaya, senjata tajam, atau berjudi. Seluruh kamar ber-AC bersifat Non-Smoking Room (Bebas Asap Rokok); area merokok khusus tersedia di luar.')) ?>
                         </p>
                     </div>
                     <div class="pt-3 border-t border-slate-100 flex items-center gap-2 text-[11px] font-semibold text-rose-600">
