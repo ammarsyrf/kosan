@@ -397,13 +397,28 @@
         <?= $content ?? '' ?>
     </main>
 
-    <footer class="bg-white border-t border-slate-200/80 mt-auto py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-            <div>&copy; <?= date('Y') ?> <?= e(config('app.name', 'Kost Management System')) ?> — Personal Monolith.</div>
-            <div class="flex items-center gap-3 text-slate-400">
-                <span>Fonnte WhatsApp API</span>
+    <footer class="bg-slate-950 text-slate-400 border-t border-slate-800/80 mt-auto py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-500 to-teal-400 p-0.5 shadow-sm">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center text-teal-300">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-bold text-white text-sm block"><?= e(config('app.name', 'Kost Management System')) ?></span>
+                    <span class="text-[11px] text-slate-500">Sistem Operasional Kos Modern &bull; Personal Monolith Edition</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-4 text-slate-400 text-xs">
+                <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Role Isolation Active</span>
                 <span>&bull;</span>
-                <span>MySQL PDO Prepared Statements</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="message-square" class="w-3.5 h-3.5 text-teal-400"></i> Fonnte WhatsApp API</span>
+                <span>&bull;</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i> MySQL PDO Prepared</span>
+            </div>
+            <div class="text-slate-500 text-[11px]">
+                &copy; <?= date('Y') ?> Hak Cipta Dilindungi.
             </div>
         </div>
     </footer>

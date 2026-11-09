@@ -531,13 +531,55 @@
                 </p>
             </div>
         </div>
-                <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+
+        <!-- Luxury Bottom Call-to-Action Section -->
+        <div class="mt-12 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-12 relative overflow-hidden border border-slate-800 shadow-2xl reveal-on-scroll">
+            <!-- Ambient Glow Blobs -->
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto text-center space-y-5">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/10 text-teal-300 border border-white/15 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                    Ekosistem Manajemen Kos Modern
                 </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Eksekutif Analitik & Ekspor CSV</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Visualisasi okupansi, pendapatan per kamar, arus kas, dan ekspor spreadsheet terenkripsi BOM UTF-8 yang kompatibel langsung dengan Microsoft Excel.
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                    Kelola Properti Kos Lebih Cerdas, Rapi, & Real-Time
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    Mulai dari pencatatan sewa, verifikasi pembayaran struk bank, pelaporan kerusakan kamar, hingga laporan keuangan laba/rugi eksekutif dalam satu platform terpadu.
                 </p>
+
+                <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+                    <a href="#demo-access" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-teal-300 to-emerald-400 hover:opacity-95 shadow-lg shadow-teal-500/25 transition transform active:scale-95">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>Coba Akun Demo Sekarang</span>
+                    </a>
+                    <a href="<?= url('login') ?>" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md transition active:scale-95">
+                        <i data-lucide="log-in" class="w-4 h-4"></i>
+                        <span>Masuk ke Portal</span>
+                    </a>
+                </div>
+
+                <!-- Feature Pillars Micro Badges -->
+                <div class="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+                    <div class="flex items-center gap-2 text-xs text-slate-300">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                        <span class="truncate">Validasi Role Ketat</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-300">
+                        <i data-lucide="message-square" class="w-4 h-4 text-teal-400 shrink-0"></i>
+                        <span class="truncate">WhatsApp Fonnte API</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-300">
+                        <i data-lucide="calculator" class="w-4 h-4 text-blue-400 shrink-0"></i>
+                        <span class="truncate">Arus Kas & Laba Bersih</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-300">
+                        <i data-lucide="download" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                        <span class="truncate">Ekspor BOM UTF-8 CSV</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
