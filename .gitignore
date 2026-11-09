@@ -7,6 +7,8 @@
 !/storage/cache/.gitkeep
 /storage/exports/*
 !/storage/exports/.gitkeep
+/storage/backups/*
+!/storage/backups/.gitkeep
 
 # IDE & OS
 .idea/

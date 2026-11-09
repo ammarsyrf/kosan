@@ -5,6 +5,12 @@ declare(strict_types=1);
 // CLI Cron Script: Booking Expiration Runner
 // Runs periodically (e.g. hourly or minutely) to expire pending bookings that exceeded expires_at.
 
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    echo "Forbidden: This script can only be executed through the CLI.\n";
+    exit(1);
+}
+
 define('BASE_PATH', dirname(__DIR__));
 require_once BASE_PATH . '/vendor/autoload.php';
 
