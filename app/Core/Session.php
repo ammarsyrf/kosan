@@ -63,18 +63,51 @@ class Session
     public static function get(string $key, mixed $default = null): mixed
     {
         self::start();
+        if (str_contains($key, '.')) {
+            $array = $_SESSION;
+            foreach (explode('.', $key) as $segment) {
+                if (!is_array($array) || !array_key_exists($segment, $array)) {
+                    return $default;
+                }
+                $array = $array[$segment];
+            }
+            return $array;
+        }
         return $_SESSION[$key] ?? $default;
     }
 
     public static function has(string $key): bool
     {
         self::start();
+        if (str_contains($key, '.')) {
+            $array = $_SESSION;
+            foreach (explode('.', $key) as $segment) {
+                if (!is_array($array) || !array_key_exists($segment, $array)) {
+                    return false;
+                }
+                $array = $array[$segment];
+            }
+            return true;
+        }
         return array_key_exists($key, $_SESSION);
     }
 
     public static function remove(string $key): void
     {
         self::start();
+        if (str_contains($key, '.')) {
+            $segments = explode('.', $key);
+            $target = &$_SESSION;
+            while (count($segments) > 1) {
+                $seg = array_shift($segments);
+                if (!isset($target[$seg]) || !is_array($target[$seg])) {
+                    return;
+                }
+                $target = &$target[$seg];
+            }
+            unset($target[array_shift($segments)]);
+            return;
+        }
         unset($_SESSION[$key]);
     }
 

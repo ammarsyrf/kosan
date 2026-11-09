@@ -9,17 +9,22 @@ $errors = session('_flash.errors') ?? [];
         <span class="flex items-center gap-1.5">
             <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-600"></i> Pilih Cepat Akun Demo:
         </span>
-        <span class="text-[10px] text-slate-400 font-normal">Klik untuk isi otomatis</span>
+        <span class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 1-Klik Masuk
+        </span>
     </div>
-    <div class="grid grid-cols-3 gap-1.5">
-        <button type="button" onclick="fillCreds('owner@kost.com', 'password123')" class="px-2 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-semibold text-center transition">
-            👑 Owner
+    <div class="grid grid-cols-3 gap-2">
+        <button type="button" onclick="autoLogin('owner@kost.com', 'password123')" class="px-2 py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 hover:border-amber-300 rounded-xl text-xs font-bold text-center transition flex flex-col items-center justify-center gap-0.5 active:scale-95 shadow-sm">
+            <span class="flex items-center gap-1">👑 Owner</span>
+            <span class="text-[9px] text-amber-700 font-normal">Masuk Eksekutif</span>
         </button>
-        <button type="button" onclick="fillCreds('admin@kost.com', 'password123')" class="px-2 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 rounded-xl text-xs font-semibold text-center transition">
-            🛡️ Admin
+        <button type="button" onclick="autoLogin('admin@kost.com', 'password123')" class="px-2 py-2 bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-200 hover:border-blue-300 rounded-xl text-xs font-bold text-center transition flex flex-col items-center justify-center gap-0.5 active:scale-95 shadow-sm">
+            <span class="flex items-center gap-1">🛡️ Admin</span>
+            <span class="text-[9px] text-blue-700 font-normal">Masuk Operasional</span>
         </button>
-        <button type="button" onclick="fillCreds('budi@gmail.com', 'password123')" class="px-2 py-1.5 bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 rounded-xl text-xs font-semibold text-center transition">
-            🏠 Penghuni
+        <button type="button" onclick="autoLogin('budi@gmail.com', 'password123')" class="px-2 py-2 bg-teal-50 hover:bg-teal-100 text-teal-900 border border-teal-200 hover:border-teal-300 rounded-xl text-xs font-bold text-center transition flex flex-col items-center justify-center gap-0.5 active:scale-95 shadow-sm">
+            <span class="flex items-center gap-1">🏠 Penghuni</span>
+            <span class="text-[9px] text-teal-700 font-normal">Masuk Penyewa</span>
         </button>
     </div>
 </div>
@@ -66,7 +71,7 @@ $errors = session('_flash.errors') ?? [];
     </div>
 
     <div class="pt-2">
-        <button type="submit"
+        <button id="submit-btn" type="submit"
             class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-md shadow-blue-500/25 text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition transform active:scale-98">
             <i data-lucide="log-in" class="w-4 h-4"></i> Masuk ke Sistem
         </button>
@@ -78,6 +83,24 @@ $errors = session('_flash.errors') ?? [];
 </div>
 
 <script>
+function autoLogin(email, password) {
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submit-btn');
+    if (emailInput && passwordInput) {
+        emailInput.value = email;
+        passwordInput.value = password;
+        if (submitBtn) {
+            submitBtn.innerHTML = '<span class="inline-flex items-center gap-2"><svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> Memproses Masuk...</span>';
+            submitBtn.classList.add('opacity-90', 'cursor-wait');
+        }
+        const form = emailInput.closest('form') || document.querySelector('form');
+        if (form) {
+            form.submit();
+        }
+    }
+}
+
 function fillCreds(email, password) {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
@@ -90,12 +113,17 @@ function fillCreds(email, password) {
 
 function togglePassword() {
     const pwd = document.getElementById('password');
+    const icon = document.getElementById('eye-icon');
     if (pwd) {
         if (pwd.type === 'password') {
             pwd.type = 'text';
+            if (icon) icon.setAttribute('data-lucide', 'eye-off');
         } else {
             pwd.type = 'password';
+            if (icon) icon.setAttribute('data-lucide', 'eye');
         }
+        if (window.lucide) lucide.createIcons();
     }
 }
+</script>
 </script>

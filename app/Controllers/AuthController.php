@@ -54,7 +54,27 @@ class AuthController extends Controller
         $intended = Session::get('intended_url');
         if ($intended) {
             Session::remove('intended_url');
-            return $this->redirect($intended);
+
+            $user = $this->authService->user();
+            $role = strtolower((string)($user['role'] ?? ''));
+
+            $isAdminOrOwnerRoute = str_starts_with($intended, '/admin') || str_starts_with($intended, '/owner');
+            $isTenantRoute = str_starts_with($intended, '/tenant');
+
+            // Only honor intended_url if it matches the authenticated user's role access
+            if ($role === 'tenant') {
+                if (!$isAdminOrOwnerRoute && $intended !== '/' && $intended !== '/login') {
+                    return $this->redirect($intended);
+                }
+                return $this->redirect('/tenant/dashboard');
+            }
+
+            if (in_array($role, ['admin', 'owner'], true)) {
+                if (!$isTenantRoute && $intended !== '/' && $intended !== '/login') {
+                    return $this->redirect($intended);
+                }
+                return $this->redirectBasedOnRole();
+            }
         }
 
         return $this->redirectBasedOnRole();

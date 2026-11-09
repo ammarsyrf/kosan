@@ -71,10 +71,30 @@ class TenantRepository
 
     public function findByUserId(int $userId): ?Tenant
     {
-        $stmt = $this->db->prepare("SELECT * FROM `tenants` WHERE `user_id` = :uid LIMIT 1");
+        $stmt = $this->db->prepare("
+            SELECT t.*, u.name, u.email, u.phone, u.status AS account_status,
+                   r.room_number
+            FROM `tenants` t
+            JOIN `users` u ON u.id = t.user_id
+            LEFT JOIN `rental_contracts` rc ON rc.tenant_id = t.id AND rc.status = 'active'
+            LEFT JOIN `rooms` r ON r.id = rc.room_id
+            WHERE t.user_id = :uid
+            LIMIT 1
+        ");
         $stmt->execute(['uid' => $userId]);
         $row = $stmt->fetch();
-        return $row ? new Tenant($row) : null;
+
+        if (!$row) {
+            return null;
+        }
+
+        $tenant = new Tenant($row);
+        $tenant->name = $row['name'];
+        $tenant->email = $row['email'];
+        $tenant->phone = $row['phone'];
+        $tenant->status = $row['account_status'];
+        $tenant->room_number = $row['room_number'] ?? null;
+        return $tenant;
     }
 
     public function createTenant(array $userData, array $tenantData): array
