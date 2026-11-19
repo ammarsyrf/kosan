@@ -1,17 +1,17 @@
 <!-- Interactive Room Detail Modal Partial -->
-<div id="room-detail-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-2.5 sm:p-4 md:p-6 overflow-hidden">
-    <!-- Backdrop -->
+<div id="room-detail-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto" role="dialog" aria-modal="true">
+    <!-- Backdrop with blur -->
     <div class="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity" onclick="closeRoomDetailModal()"></div>
 
-    <!-- Modal Box: Fixed Max-Height Flex Container (Strictly Viewport Responsive) -->
-    <div class="relative bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] flex flex-col overflow-hidden z-10 my-auto transform transition-all duration-300 scale-95 opacity-0" id="room-detail-modal-box">
+    <!-- Modal Box: Fixed Max-Height Flex Container (Strictly Viewport Responsive & Centered) -->
+    <div class="relative bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 max-w-2xl w-full max-h-[88vh] sm:max-h-[85vh] flex flex-col overflow-hidden z-10 m-auto transform transition-all duration-300 scale-95 opacity-0" id="room-detail-modal-box">
         <!-- Close Button (Absolute Top Right) -->
-        <button type="button" onclick="closeRoomDetailModal()" aria-label="Tutup Dialog" class="absolute top-3 right-3 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white flex items-center justify-center transition shadow-lg backdrop-blur-md">
+        <button type="button" onclick="closeRoomDetailModal()" aria-label="Tutup Dialog" class="absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white flex items-center justify-center transition shadow-lg backdrop-blur-md">
             <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </button>
 
         <!-- Modal Top Photo Showcase (Responsive Fixed Height) -->
-        <div class="relative shrink-0 w-full h-40 sm:h-52 md:h-60 overflow-hidden bg-slate-900">
+        <div class="relative shrink-0 w-full h-36 sm:h-44 md:h-48 overflow-hidden bg-slate-900">
             <img id="modal-room-photo" src="" alt="Room Photo" class="w-full h-full object-cover">
             <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950/70 to-transparent pointer-events-none"></div>
             <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent pointer-events-none"></div>
@@ -36,7 +36,7 @@
         </div>
 
         <!-- Modal Body Content (Scrollable & Responsive) -->
-        <div class="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 min-h-0 overscroll-contain">
+        <div class="p-4 sm:p-5 space-y-3.5 overflow-y-auto flex-1 min-h-0 overscroll-contain">
             <!-- Header Row -->
             <div class="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
                 <div class="min-w-0 flex-1">
@@ -94,7 +94,7 @@
                 <button type="button" onclick="closeRoomDetailModal()" class="w-1/3 sm:w-auto px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-bold transition">
                     Tutup
                 </button>
-                <a id="modal-room-book-btn" href="#" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:opacity-95 text-white text-xs font-black shadow-md shadow-blue-500/20 transition">
+                <a id="modal-room-book-btn" href="#" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:opacity-95 text-white text-xs font-black shadow-md shadow-blue-500/20 transition cursor-pointer">
                     <i data-lucide="calendar-check" class="w-4 h-4"></i>
                     <span id="modal-room-book-label">Pesan Unit</span>
                 </a>
@@ -104,7 +104,26 @@
 </div>
 
 <script>
+(function() {
+    function ensureModalInBody() {
+        const modal = document.getElementById('room-detail-modal');
+        if (modal && modal.parentElement !== document.body) {
+            document.body.appendChild(modal);
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ensureModalInBody);
+    } else {
+        ensureModalInBody();
+    }
+})();
+
 function openRoomDetailModal(id) {
+    const modal = document.getElementById('room-detail-modal');
+    if (modal && modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+    }
+
     const data = window.roomsData && window.roomsData[id];
     if (!data) return;
 
@@ -175,7 +194,6 @@ function openRoomDetailModal(id) {
         }
     }
 
-    const modal = document.getElementById('room-detail-modal');
     const box = document.getElementById('room-detail-modal-box');
     if (modal && box) {
         modal.classList.remove('hidden');

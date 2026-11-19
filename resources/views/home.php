@@ -587,7 +587,6 @@
             <script>
             window.roomsData = Object.assign(window.roomsData || {}, <?= json_encode($homeRoomsJsonMap ?? [], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>);
             </script>
-            <?php require BASE_PATH . '/resources/views/partials/room_detail_modal.php'; ?>
 
             <!-- CTA: Buka Halaman Katalog Lengkap -->
             <div class="mt-8 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 reveal-on-scroll">
@@ -1200,3 +1199,5 @@ document.addEventListener('DOMContentLoaded', function() {
     render();
 });
 </script>
+
+<?php require BASE_PATH . '/resources/views/partials/room_detail_modal.php'; ?>
