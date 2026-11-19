@@ -70,17 +70,43 @@ class TenantController extends Controller
 
     public function showActivationForm(Request $request): Response
     {
-        $token = (string)$request->query('token', '');
-        if (!$token) {
+        $raw = trim((string)$request->query('token', ''));
+
+        // Handle case where user pasted full URL in manual token box
+        if (str_contains($raw, 'token=')) {
+            $parsedUrl = parse_url($raw);
+            if (!empty($parsedUrl['query'])) {
+                parse_str($parsedUrl['query'], $qs);
+                if (!empty($qs['token'])) {
+                    $raw = (string)$qs['token'];
+                }
+            } else {
+                parse_str($raw, $qs);
+                if (!empty($qs['token'])) {
+                    $raw = (string)$qs['token'];
+                }
+            }
+        }
+
+        if (!$raw) {
             return $this->render('auth/activation_failed', [
                 'title' => 'Tautan Tidak Valid',
-                'error' => 'Token aktivasi tidak disertakan.',
+                'error' => 'Token aktivasi tidak disertakan. Silakan gunakan tautan yang dikirimkan oleh Admin kos atau masukkan kode token Anda di bawah.',
+            ], 'layouts/auth');
+        }
+
+        $tokenRecord = $this->tenantService->getActivationTokenRecord($raw);
+        if (!$tokenRecord) {
+            return $this->render('auth/activation_failed', [
+                'title' => 'Token Tidak Valid',
+                'error' => 'Token aktivasi tidak valid, telah kedaluwarsa (lebih dari 48 jam), atau sudah pernah digunakan.',
             ], 'layouts/auth');
         }
 
         return $this->render('auth/activate', [
             'title' => 'Aktivasi Akun Penghuni',
-            'token' => $token,
+            'token' => $raw,
+            'tenant' => $tokenRecord,
         ], 'layouts/auth');
     }
 
@@ -103,6 +129,22 @@ class TenantController extends Controller
             Session::flash('error', $e->getMessage());
             return $this->redirect('/activate?token=' . urlencode((string)$validated['token']));
         }
+    }
+
+    public function resendActivation(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        $user = Session::get('user');
+
+        try {
+            $actUrl = $this->tenantService->resendActivation($id, $user['name'] ?? 'Admin');
+            Session::flash('success', "Tautan aktivasi baru berhasil dibuat!");
+            Session::flash('activation_url', $actUrl);
+        } catch (\Throwable $e) {
+            Session::flash('error', $e->getMessage());
+        }
+
+        return $this->redirect('/admin/tenants');
     }
 
     public function edit(Request $request): Response

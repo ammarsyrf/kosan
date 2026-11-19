@@ -155,6 +155,21 @@ class TenantRepository
         });
     }
 
+    public function generateActivationToken(int $userId): string
+    {
+        $rawToken = bin2hex(random_bytes(32));
+        $tokenHash = hash('sha256', $rawToken);
+        $expiresAt = date('Y-m-d H:i:s', time() + (48 * 3600));
+
+        $stmt = $this->db->prepare("
+            INSERT INTO `account_activation_tokens` (`user_id`, `token_hash`, `expires_at`)
+            VALUES (?, ?, ?)
+        ");
+        $stmt->execute([$userId, $tokenHash, $expiresAt]);
+
+        return $rawToken;
+    }
+
     public function verifyActivationToken(string $rawToken): ?array
     {
         $tokenHash = hash('sha256', $rawToken);

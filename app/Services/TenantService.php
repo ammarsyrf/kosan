@@ -67,6 +67,31 @@ class TenantService
         return $result;
     }
 
+    public function getActivationTokenRecord(string $rawToken): ?array
+    {
+        return $this->tenantRepo->verifyActivationToken($rawToken);
+    }
+
+    public function resendActivation(int $tenantId, ?string $actor = 'Admin'): string
+    {
+        $tenant = $this->tenantRepo->findById($tenantId);
+        if (!$tenant) {
+            throw new RuntimeException("Penghuni tidak ditemukan.");
+        }
+        if ($tenant->status === 'active') {
+            throw new RuntimeException("Akun penghuni {$tenant->name} sudah berstatus aktif.");
+        }
+
+        $rawToken = $this->tenantRepo->generateActivationToken($tenant->user_id);
+        $activationUrl = url('activate?token=' . $rawToken);
+
+        Logger::audit((string)$actor, 'RESEND_ACTIVATION', 'tenants', $tenantId, [
+            'user_id' => $tenant->user_id,
+        ]);
+
+        return $activationUrl;
+    }
+
     public function activateTenant(string $rawToken, string $newPassword): bool
     {
         $tokenRecord = $this->tenantRepo->verifyActivationToken($rawToken);

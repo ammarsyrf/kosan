@@ -5,7 +5,13 @@ $errors = session('_flash.errors') ?? [];
 <div class="space-y-4">
     <div class="text-center pb-2">
         <h3 class="text-lg font-bold text-slate-900">Aktivasi Akun Penghuni</h3>
-        <p class="text-xs text-slate-500 mt-1">Buat kata sandi baru untuk mengaktifkan akun dan mengakses portal sewa kos Anda.</p>
+        <?php if (!empty($tenant['name'])): ?>
+            <div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-xs font-semibold text-blue-700">
+                <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                <span><?= e($tenant['name']) ?> (<?= e($tenant['email'] ?? '') ?>)</span>
+            </div>
+        <?php endif; ?>
+        <p class="text-xs text-slate-500 mt-2">Buat kata sandi baru untuk mengaktifkan akun dan mengakses portal sewa kos Anda.</p>
     </div>
 
     <form method="POST" action="<?= url('activate') ?>" class="space-y-4">

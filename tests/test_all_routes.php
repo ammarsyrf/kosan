@@ -146,6 +146,7 @@ $routesToTest = [
     ['uri' => '/', 'role' => null, 'user' => null, 'expected' => 200],
     ['uri' => '/katalog', 'role' => null, 'user' => null, 'expected' => 200],
     ['uri' => '/login', 'role' => null, 'user' => null, 'expected' => 200],
+    ['uri' => '/activate', 'role' => null, 'user' => null, 'expected' => 200],
     
     // Owner
     ['uri' => '/owner/dashboard', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],

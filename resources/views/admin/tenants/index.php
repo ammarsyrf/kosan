@@ -93,6 +93,14 @@
                                     <?= e($t->occupation ?: '-') ?>
                                 </td>
                                 <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
+                                    <?php if ($t->status === 'pending'): ?>
+                                        <form method="POST" action="<?= url("admin/tenants/{$t->id}/resend-activation") ?>" class="inline" onsubmit="return confirm('Buat tautan aktivasi baru untuk <?= e(addslashes($t->name)) ?>?')">
+                                            <?= csrf_field() ?>
+                                            <button type="submit" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded-lg border border-blue-200" title="Buat & salin tautan aktivasi baru">
+                                                <i data-lucide="link" class="w-3.5 h-3.5"></i> Tautan Aktivasi
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                     <button type="button" onclick="openResetPasswordModal(<?= $t->id ?>, '<?= e(addslashes($t->name)) ?>', '<?= e(addslashes($t->email)) ?>')" class="inline-flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-800 transition bg-amber-50 hover:bg-amber-100 px-2 py-1 rounded-lg border border-amber-200" title="Reset password jika anak kost lupa password">
                                         <i data-lucide="key" class="w-3.5 h-3.5"></i> Reset PW
                                     </button>

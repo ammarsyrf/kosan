@@ -132,6 +132,7 @@ Router::group([
     Router::post('/tenants/{id}', [TenantController::class, 'update'], [], 'admin.tenants.update');
     Router::put('/tenants/{id}', [TenantController::class, 'update'], [], 'admin.tenants.put');
     Router::post('/tenants/{id}/reset-password', [TenantController::class, 'resetPassword'], [], 'admin.tenants.reset_password');
+    Router::post('/tenants/{id}/resend-activation', [TenantController::class, 'resendActivation'], [], 'admin.tenants.resend_activation');
     Router::post('/tenants/{id}/delete', [TenantController::class, 'delete'], [], 'admin.tenants.delete');
 
     // Users & Access Management (Admin & Staff Accounts)
