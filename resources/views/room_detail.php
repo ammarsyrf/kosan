@@ -57,12 +57,13 @@ $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['
     <!-- Main Room Showcase Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <!-- Left: Image Showcase & Deep Details (8 cols) -->
-        <div class="lg:col-span-8 space-y-6">
+        <div class="lg:col-span-8 space-y-4 sm:space-y-6">
             <!-- Big Hero Image with Badges -->
             <div class="relative rounded-3xl overflow-hidden bg-slate-900 shadow-xl aspect-[16/10] sm:aspect-[16/9] w-full border border-slate-200/80">
-                <img src="<?= e($photoUrl) ?>" 
+                <img id="main-detail-photo"
+                     src="<?= e($photoUrl) ?>" 
                      alt="Kamar <?= e($rNum) ?> - <?= e($typeName) ?>" 
-                     class="w-full h-full object-cover object-center">
+                     class="w-full h-full object-cover object-center transition-opacity duration-300">
 
                 <!-- Gradients -->
                 <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-slate-950/80 to-transparent pointer-events-none"></div>
@@ -105,7 +106,30 @@ $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['
                             Luas <?= e($size) ?>
                         </span>
                     </div>
-                    <span class="text-xs text-slate-300 font-medium">Foto Asli Unit Siap Huni</span>
+                    <span id="main-detail-photo-caption" class="text-xs text-slate-300 font-medium">Foto Asli Unit Siap Huni</span>
+                </div>
+            </div>
+
+            <!-- Multi-Angle Gallery Thumbnails (1-Click Switch Angle) -->
+            <?php $galleryPhotos = $room->galleryPhotos(); ?>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs font-bold text-slate-600 px-1">
+                    <span class="flex items-center gap-1.5"><i data-lucide="camera" class="w-3.5 h-3.5 text-blue-600"></i> Pilihan Sudut Foto Kamar (Multi-Angle)</span>
+                    <span class="text-slate-400 font-normal">Klik untuk mengganti tampilan</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <?php foreach ($galleryPhotos as $gIndex => $gPhoto): ?>
+                        <button type="button" 
+                                onclick="switchDetailPagePhoto('<?= e($gPhoto['url']) ?>', '<?= e($gPhoto['title']) ?>', this)" 
+                                class="detail-gallery-thumb group relative rounded-2xl overflow-hidden border-2 <?= $gIndex === 0 ? 'border-blue-600 ring-2 ring-blue-500/30' : 'border-slate-200 hover:border-blue-400' ?> transition aspect-[16/10] bg-slate-900 text-left cursor-pointer">
+                            <img src="<?= e($gPhoto['url']) ?>" alt="<?= e($gPhoto['title']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+                            <div class="absolute bottom-2 left-2 right-2 text-[11px] font-bold text-white truncate flex items-center gap-1">
+                                <i data-lucide="<?= e($gPhoto['icon'] ?? 'camera') ?>" class="w-3 h-3 text-teal-300 shrink-0"></i>
+                                <span class="truncate"><?= e($gPhoto['tag']) ?></span>
+                            </div>
+                        </button>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -387,3 +411,28 @@ $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['
         </section>
     <?php endif; ?>
 </div>
+
+<script>
+function switchDetailPagePhoto(url, title, el) {
+    const mainImg = document.getElementById('main-detail-photo');
+    const caption = document.getElementById('main-detail-photo-caption');
+    if (mainImg) {
+        mainImg.style.opacity = '0.35';
+        setTimeout(() => {
+            mainImg.src = url;
+            mainImg.style.opacity = '1';
+        }, 80);
+    }
+    if (caption && title) {
+        caption.textContent = title;
+    }
+    document.querySelectorAll('.detail-gallery-thumb').forEach(t => {
+        t.classList.remove('border-blue-600', 'ring-2', 'ring-blue-500/30');
+        t.classList.add('border-slate-200');
+    });
+    if (el) {
+        el.classList.add('border-blue-600', 'ring-2', 'ring-blue-500/30');
+        el.classList.remove('border-slate-200');
+    }
+}
+</script>

@@ -229,6 +229,7 @@
                     'status' => $room->status ?? 'available',
                     'is_available' => $isAvailable,
                     'photo_url' => $photoUrl,
+                    'photos' => $room->galleryPhotos(),
                     'description' => $room->description ?: 'Kamar siap huni dengan pencahayaan alami yang optimal, lingkungan tenang, perabotan lengkap, dan ventilasi sejuk.',
                     'facilities' => !empty($facilityList) ? $facilityList : ['AC', 'Kamar Mandi Dalam', 'Kasur Springbed', 'WiFi Fiber', 'Lemari', 'Meja Belajar'],
                     'detail_url' => url('katalog/' . $room->id),

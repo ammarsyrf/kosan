@@ -1,23 +1,22 @@
-<!-- Interactive Room Detail Modal Partial -->
+<!-- Interactive Room Detail Modal Partial with Multi-Angle Photo Carousel -->
 <div id="room-detail-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto" role="dialog" aria-modal="true">
     <!-- Backdrop with blur -->
     <div class="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity" onclick="closeRoomDetailModal()"></div>
 
     <!-- Modal Box: Fixed Max-Height Flex Container (Strictly Viewport Responsive & Centered) -->
     <div class="relative bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-100 max-w-2xl w-full max-h-[88vh] sm:max-h-[85vh] flex flex-col overflow-hidden z-10 m-auto transform transition-all duration-300 scale-95 opacity-0" id="room-detail-modal-box">
-        <!-- Close Button (Absolute Top Right) -->
-        <button type="button" onclick="closeRoomDetailModal()" aria-label="Tutup Dialog" class="absolute top-3 right-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white flex items-center justify-center transition shadow-lg backdrop-blur-md">
-            <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-        </button>
+        
+        <!-- Modal Top Photo Carousel (Responsive Multi-Angle Gallery) -->
+        <div class="relative shrink-0 w-full h-40 sm:h-52 md:h-56 overflow-hidden bg-slate-950 select-none group" id="modal-carousel-container">
+            <!-- Active Photo Image -->
+            <img id="modal-room-photo" src="" alt="Room Photo Angle" class="w-full h-full object-cover transition-opacity duration-300">
+            
+            <!-- Vignette & Dark Gradients -->
+            <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950/80 to-transparent pointer-events-none"></div>
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none"></div>
 
-        <!-- Modal Top Photo Showcase (Responsive Fixed Height) -->
-        <div class="relative shrink-0 w-full h-36 sm:h-44 md:h-48 overflow-hidden bg-slate-900">
-            <img id="modal-room-photo" src="" alt="Room Photo" class="w-full h-full object-cover">
-            <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950/70 to-transparent pointer-events-none"></div>
-            <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent pointer-events-none"></div>
-
-            <!-- Top Badges -->
-            <div class="absolute top-3 left-3 sm:top-3.5 sm:left-3.5 flex items-center gap-2">
+            <!-- Top Left: Badges (Room Number & Status) -->
+            <div class="absolute top-3 left-3 sm:top-3.5 sm:left-3.5 z-20 flex items-center gap-2">
                 <span id="modal-room-badge" class="bg-slate-950/80 backdrop-blur-md border border-white/20 text-white text-[11px] sm:text-xs font-black px-2.5 sm:px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
                     <i data-lucide="key" class="w-3.5 h-3.5 text-amber-400"></i>
                     <span id="modal-room-number-badge">KAMAR 101</span>
@@ -25,15 +24,38 @@
                 <span id="modal-room-status-badge"></span>
             </div>
 
-            <!-- Bottom Badges inside photo -->
-            <div class="absolute bottom-2.5 left-3 right-3 sm:bottom-3 sm:left-3.5 sm:right-3.5 flex items-center justify-between text-white text-xs">
-                <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span id="modal-room-floor" class="bg-slate-900/80 backdrop-blur-md px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg border border-white/10 text-[11px] sm:text-xs font-medium">Lantai 1</span>
-                    <span id="modal-room-size" class="bg-slate-900/80 backdrop-blur-md px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg border border-white/10 text-[11px] sm:text-xs font-medium">3x4 m²</span>
+            <!-- Top Right: Photo Counter & Close Button -->
+            <div class="absolute top-3 right-3 sm:top-3.5 sm:right-3.5 z-30 flex items-center gap-2">
+                <span id="modal-carousel-counter" class="bg-slate-950/80 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+                    <i data-lucide="camera" class="w-3 h-3 text-teal-400"></i>
+                    <span id="modal-carousel-counter-text">1 / 4</span>
+                </span>
+                <button type="button" onclick="closeRoomDetailModal()" aria-label="Tutup Dialog" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white flex items-center justify-center transition shadow-lg backdrop-blur-md border border-white/10 hover:scale-105 active:scale-95 cursor-pointer">
+                    <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                </button>
+            </div>
+
+            <!-- Carousel Navigation Chevrons (< and >) -->
+            <button type="button" onclick="changeModalPhoto(-1)" aria-label="Foto Sebelumnya" class="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/60 hover:bg-slate-950/90 text-white flex items-center justify-center transition border border-white/20 shadow-lg backdrop-blur-md cursor-pointer hover:scale-110 active:scale-95">
+                <i data-lucide="chevron-left" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </button>
+            <button type="button" onclick="changeModalPhoto(1)" aria-label="Foto Berikutnya" class="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/60 hover:bg-slate-950/90 text-white flex items-center justify-center transition border border-white/20 shadow-lg backdrop-blur-md cursor-pointer hover:scale-110 active:scale-95">
+                <i data-lucide="chevron-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </button>
+
+            <!-- Bottom Inside Photo: Angle Title & Dots Pagination -->
+            <div class="absolute bottom-2.5 left-3 right-3 sm:bottom-3 sm:left-3.5 sm:right-3.5 z-20 flex items-center justify-between text-white text-xs">
+                <div class="flex items-center gap-1.5 bg-slate-900/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/15 text-[11px] sm:text-xs font-semibold shadow-md max-w-[70%] truncate">
+                    <i data-lucide="eye" class="w-3.5 h-3.5 text-teal-300 shrink-0"></i>
+                    <span id="modal-carousel-angle-title" class="truncate">Tampak Utama & Kasur Springbed</span>
                 </div>
-                <span class="text-[10px] sm:text-[11px] text-slate-300 hidden sm:inline">Foto Asli Unit Siap Huni</span>
+                <!-- Interactive Dots -->
+                <div id="modal-carousel-dots" class="flex items-center gap-1.5 pointer-events-auto"></div>
             </div>
         </div>
+
+        <!-- Angle Selector Quick Pills (1-Click Switch between Angles) -->
+        <div class="bg-slate-50 border-b border-slate-100 p-2 sm:px-4 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0" id="modal-carousel-pills"></div>
 
         <!-- Modal Body Content (Scrollable & Responsive) -->
         <div class="p-4 sm:p-5 space-y-3.5 overflow-y-auto flex-1 min-h-0 overscroll-contain">
@@ -41,7 +63,13 @@
             <div class="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
                 <div class="min-w-0 flex-1">
                     <h3 id="modal-room-title" class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight truncate">Kamar 101</h3>
-                    <p class="text-xs text-slate-500 mt-0.5 truncate"><?= e(setting('business_name', 'Kost Zenerie')) ?> &bull; Unit Bersih & Terawat</p>
+                    <div class="flex items-center gap-2 mt-0.5 text-xs text-slate-500">
+                        <span id="modal-room-floor" class="font-semibold text-slate-700">Lantai 1</span>
+                        <span>&bull;</span>
+                        <span id="modal-room-size" class="font-semibold text-slate-700">3x4 m²</span>
+                        <span>&bull;</span>
+                        <span class="truncate"><?= e(setting('business_name', 'Kost Zenerie')) ?></span>
+                    </div>
                 </div>
                 <div class="text-right shrink-0">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tarif Sewa</div>
@@ -104,6 +132,10 @@
 </div>
 
 <script>
+// State for current modal multi-angle gallery
+let currentModalPhotos = [];
+let currentModalPhotoIndex = 0;
+
 (function() {
     function ensureModalInBody() {
         const modal = document.getElementById('room-detail-modal');
@@ -116,7 +148,99 @@
     } else {
         ensureModalInBody();
     }
+
+    // Touch Swipe Gesture on Carousel
+    const container = document.getElementById('modal-carousel-container');
+    if (container) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 40) {
+                changeModalPhoto(1);
+            } else if (touchEndX > touchStartX + 40) {
+                changeModalPhoto(-1);
+            }
+        }, { passive: true });
+    }
 })();
+
+function renderModalPhoto(index) {
+    if (!currentModalPhotos || currentModalPhotos.length === 0) return;
+    
+    // Bounds wrap
+    if (index < 0) index = currentModalPhotos.length - 1;
+    if (index >= currentModalPhotos.length) index = 0;
+    currentModalPhotoIndex = index;
+
+    const cur = currentModalPhotos[currentModalPhotoIndex];
+    const photoEl = document.getElementById('modal-room-photo');
+    const angleTitleEl = document.getElementById('modal-carousel-angle-title');
+    const counterTextEl = document.getElementById('modal-carousel-counter-text');
+
+    if (photoEl && cur) {
+        photoEl.style.opacity = '0.35';
+        setTimeout(() => {
+            photoEl.src = cur.url;
+            photoEl.style.opacity = '1';
+        }, 80);
+    }
+
+    if (angleTitleEl && cur) {
+        angleTitleEl.textContent = cur.title || 'Sudut Kamar';
+    }
+
+    if (counterTextEl) {
+        counterTextEl.textContent = `${currentModalPhotoIndex + 1} / ${currentModalPhotos.length}`;
+    }
+
+    // Update Dots
+    const dotsContainer = document.getElementById('modal-carousel-dots');
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        currentModalPhotos.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.setAttribute('aria-label', `Lihat Sudut ${i + 1}`);
+            dot.className = (i === currentModalPhotoIndex)
+                ? 'w-6 h-2 rounded-full bg-teal-400 transition-all duration-300 shadow-sm cursor-pointer'
+                : 'w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-all duration-200 cursor-pointer';
+            dot.onclick = () => renderModalPhoto(i);
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    // Update Pills
+    const pillsContainer = document.getElementById('modal-carousel-pills');
+    if (pillsContainer) {
+        pillsContainer.innerHTML = '';
+        currentModalPhotos.forEach((item, i) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            const isActive = (i === currentModalPhotoIndex);
+            btn.className = isActive
+                ? 'px-3 py-1.5 rounded-xl text-xs font-black bg-blue-600 text-white shadow-xs flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer'
+                : 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-300 flex items-center gap-1.5 whitespace-nowrap transition cursor-pointer';
+            
+            const iconName = item.icon || (i === 0 ? 'bed' : (i === 1 ? 'laptop' : (i === 2 ? 'bath' : 'door-closed')));
+            btn.innerHTML = `<i data-lucide="${iconName}" class="w-3.5 h-3.5"></i><span>${item.tag || item.title}</span>`;
+            btn.onclick = () => renderModalPhoto(i);
+            pillsContainer.appendChild(btn);
+        });
+    }
+
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+    }
+}
+
+function changeModalPhoto(direction) {
+    renderModalPhoto(currentModalPhotoIndex + direction);
+}
 
 function openRoomDetailModal(id) {
     const modal = document.getElementById('room-detail-modal');
@@ -127,8 +251,29 @@ function openRoomDetailModal(id) {
     const data = window.roomsData && window.roomsData[id];
     if (!data) return;
 
-    const photoEl = document.getElementById('modal-room-photo');
-    if (photoEl) photoEl.src = data.photo_url;
+    // Load multi-angle photos or fallback
+    if (Array.isArray(data.photos) && data.photos.length > 0) {
+        currentModalPhotos = data.photos;
+    } else {
+        currentModalPhotos = [
+            {
+                url: data.photo_url,
+                title: 'Tampak Utama & Kasur',
+                tag: 'Kasur & Utama',
+                icon: 'bed'
+            }
+        ];
+    }
+
+    // Preload gallery images for zero-lag switching
+    currentModalPhotos.forEach(p => {
+        if (p.url) {
+            const img = new Image();
+            img.src = p.url;
+        }
+    });
+
+    renderModalPhoto(0);
     
     const numBadge = document.getElementById('modal-room-number-badge');
     if (numBadge) numBadge.textContent = 'KAMAR ' + data.room_number;
@@ -225,6 +370,11 @@ function closeRoomDetailModal() {
 }
 
 document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('room-detail-modal');
+    if (!modal || modal.classList.contains('hidden')) return;
+
     if (e.key === 'Escape') closeRoomDetailModal();
+    if (e.key === 'ArrowLeft') changeModalPhoto(-1);
+    if (e.key === 'ArrowRight') changeModalPhoto(1);
 });
 </script>
