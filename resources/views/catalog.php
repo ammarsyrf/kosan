@@ -314,7 +314,7 @@
                                 <?= e($size) ?>
                             </span>
                         </div>
-                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed min-h-[2.25rem]">
                             <?= e($room->description ?: 'Kamar siap huni dengan ventilasi alami, lingkungan tenang, dan fasilitas lengkap.') ?>
                         </p>
                     </div>
@@ -343,31 +343,55 @@
                         </div>
                     </div>
 
-                    <!-- Price & Action Footer -->
-                    <div class="pt-2.5 sm:pt-3 border-t border-slate-100 flex items-center justify-between gap-2 sm:gap-3">
-                        <div>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Tarif Sewa</div>
-                            <div class="text-sm sm:text-base lg:text-lg font-black text-slate-900 tracking-tight font-mono mt-0.5 whitespace-nowrap">
-                                <?= $room->formattedPrice() ?><span class="text-[10px] sm:text-[11px] font-semibold text-slate-400">/bln</span>
+                    <!-- Price & Action Footer (UI/UX Pro Max 2-Tier Symmetrical Layout) -->
+                    <div class="pt-3 border-t border-slate-100 mt-auto space-y-2.5">
+                        <!-- Price & Status Row -->
+                        <div class="flex items-baseline justify-between gap-2">
+                            <div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Tarif Sewa</div>
+                                <div class="text-base sm:text-lg font-black text-slate-900 tracking-tight font-mono mt-0.5 whitespace-nowrap">
+                                    <?= $room->formattedPrice() ?><span class="text-[10px] sm:text-[11px] font-semibold text-slate-400">/bln</span>
+                                </div>
+                            </div>
+                            <div>
+                                <?php if ($isAvailable): ?>
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs whitespace-nowrap">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        Tersedia
+                                    </span>
+                                <?php else: ?>
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-500 border border-slate-200 whitespace-nowrap">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                                        Terisi
+                                    </span>
+                                <?php endif; ?>
                             </div>
                         </div>
 
-                        <div class="shrink-0">
+                        <!-- Action Buttons: 50/50 Dual Action Grid -->
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" 
+                                    onclick="openRoomDetailModal(<?= $room->id ?>)"
+                                    class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/90 text-slate-700 hover:text-blue-600 font-bold text-xs transition active:scale-95 cursor-pointer shadow-2xs">
+                                <i data-lucide="eye" class="w-3.5 h-3.5 text-blue-600 shrink-0"></i>
+                                <span>Detail</span>
+                            </button>
+
                             <?php if ($isAvailable): ?>
                                 <a href="<?= e($bookingUrl) ?>" <?= $targetAttr ?>
-                                   class="inline-flex items-center gap-1.5 <?= auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true) ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 shadow-blue-500/20' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' ?> text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
+                                   class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl <?= auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true) ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:opacity-95 shadow-blue-500/20' : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:opacity-95 shadow-emerald-500/20' ?> text-white font-bold text-xs shadow-sm hover:shadow-md transition active:scale-95 whitespace-nowrap">
                                     <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
                                         <span>Pesan Unit</span>
-                                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 shrink-0"></i>
                                     <?php else: ?>
-                                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-                                        <span>Pesan via WA</span>
+                                        <i data-lucide="message-circle" class="w-3.5 h-3.5 shrink-0"></i>
+                                        <span>Pesan WA</span>
                                     <?php endif; ?>
                                 </a>
                             <?php else: ?>
-                                <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
-                                    <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
-                                    <span>Terisi</span>
+                                <span class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs border border-slate-200 cursor-not-allowed">
+                                    <i data-lucide="lock" class="w-3.5 h-3.5 shrink-0"></i>
+                                    <span>Penuh</span>
                                 </span>
                             <?php endif; ?>
                         </div>
