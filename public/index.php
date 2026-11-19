@@ -48,6 +48,10 @@ Router::use(new CsrfMiddleware());
 Router::get('/', [HomeController::class, 'index'], [], 'home');
 Router::get('/katalog', [HomeController::class, 'catalog'], [], 'catalog');
 Router::get('/catalog', [HomeController::class, 'catalog'], [], 'catalog.alt');
+Router::get('/katalog/{id}', [HomeController::class, 'roomDetail'], [], 'catalog.detail');
+Router::get('/rooms/{id}', function(Request $req) {
+    return Response::redirect('/katalog/' . $req->param('id'));
+});
 Router::get('/login', [AuthController::class, 'showLogin'], [], 'login');
 Router::post('/login', [AuthController::class, 'login'], [], 'login.post');
 Router::post('/logout', [AuthController::class, 'logout'], [], 'logout');

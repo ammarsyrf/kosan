@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Core\Request;
 use App\Core\Response;
 use App\Core\Session;
 
@@ -100,6 +101,42 @@ class HomeController extends Controller
             'rooms' => $rooms,
             'facilities' => $facilities,
             'stats' => $stats,
+            'user' => Session::get('user'),
+            'is_landing' => true,
+        ]);
+    }
+
+    public function roomDetail(Request $request): Response
+    {
+        $idOrNum = $request->param('id');
+        $roomRepo = new \App\Repositories\RoomRepository();
+
+        $room = is_numeric($idOrNum)
+            ? ($roomRepo->findById((int)$idOrNum) ?? $roomRepo->findByNumber((string)$idOrNum))
+            : $roomRepo->findByNumber((string)$idOrNum);
+
+        if (!$room) {
+            Session::flash('error', 'Kamar tidak ditemukan.');
+            return $this->redirect('/katalog');
+        }
+
+        if ($request->isJson() || $request->query('format') === 'json') {
+            return Response::json([
+                'success' => true,
+                'room' => $room,
+            ]);
+        }
+
+        $allRooms = $roomRepo->getAll();
+        $recommendations = array_values(array_filter(
+            $allRooms,
+            fn($r) => $r->id !== $room->id && ($r->status ?? '') === 'available'
+        ));
+
+        return $this->render('room_detail', [
+            'title' => "{$room->name} — " . setting('business_name', 'Kost Management System'),
+            'room' => $room,
+            'recommendations' => array_slice($recommendations, 0, 4),
             'user' => Session::get('user'),
             'is_landing' => true,
         ]);

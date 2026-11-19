@@ -27,6 +27,7 @@ Router::clear();
 // Public Routes
 Router::get('/', [HomeController::class, 'index'], [], 'home');
 Router::get('/katalog', [HomeController::class, 'catalog'], [], 'catalog');
+Router::get('/katalog/{id}', [HomeController::class, 'roomDetail'], [], 'catalog.detail');
 Router::get('/login', [AuthController::class, 'showLogin'], [], 'login');
 Router::get('/activate', [TenantController::class, 'showActivationForm'], [], 'tenant.activate');
 
@@ -145,6 +146,7 @@ $routesToTest = [
     // Guest
     ['uri' => '/', 'role' => null, 'user' => null, 'expected' => 200],
     ['uri' => '/katalog', 'role' => null, 'user' => null, 'expected' => 200],
+    ['uri' => '/katalog/1', 'role' => null, 'user' => null, 'expected' => 200],
     ['uri' => '/login', 'role' => null, 'user' => null, 'expected' => 200],
     ['uri' => '/activate', 'role' => null, 'user' => null, 'expected' => 200],
     

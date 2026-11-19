@@ -161,6 +161,7 @@
     </div>
 
     <!-- ROOM INVENTORY GRID -->
+    <?php $roomsJsonMap = []; ?>
     <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <?php foreach ($rooms as $index => $room): ?>
             <?php
@@ -173,7 +174,7 @@
 
                 $facilityList = !empty($room->facilities) 
                     ? array_column($room->facilities, 'name') 
-                    : ['AC', 'KM Dalam', 'WiFi Fiber', 'Springbed'];
+                    : ['Air Conditioner (AC)', 'Kamar Mandi Dalam', 'WiFi Fiber', 'Kasur Springbed'];
                 $facSearchString = strtolower(implode(' ', $facilityList));
 
                 $facMap = [
@@ -216,6 +217,24 @@
                     ? url('admin/bookings/create?room_id=' . $room->id)
                     : "https://wa.me/{$bizPhone}?text=" . rawurlencode($waMsg);
                 $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true) ? '' : 'target="_blank"';
+
+                // Map to JSON for Instant Modal Preview
+                $roomsJsonMap[$room->id] = [
+                    'id' => $room->id,
+                    'room_number' => $rNum,
+                    'name' => $typeName,
+                    'floor' => $floor,
+                    'size' => $size,
+                    'price_formatted' => $room->formattedPrice(),
+                    'status' => $room->status ?? 'available',
+                    'is_available' => $isAvailable,
+                    'photo_url' => $photoUrl,
+                    'description' => $room->description ?: 'Kamar siap huni dengan pencahayaan alami yang optimal, lingkungan tenang, perabotan lengkap, dan ventilasi sejuk.',
+                    'facilities' => !empty($facilityList) ? $facilityList : ['AC', 'Kamar Mandi Dalam', 'Kasur Springbed', 'WiFi Fiber', 'Lemari', 'Meja Belajar'],
+                    'detail_url' => url('katalog/' . $room->id),
+                    'booking_url' => $bookingUrl,
+                    'is_admin' => auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true),
+                ];
             ?>
             <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-400/80 transition-all duration-300 overflow-hidden flex flex-col justify-between group h-full relative hover:z-10"
                  data-room-number="<?= e($rNum) ?>"
@@ -225,26 +244,36 @@
                  data-price="<?= $price ?>"
                  data-facilities="<?= e($facSearchString) ?>">
 
-                <!-- Image Showcase Header (Strict Uniform Aspect Ratio) -->
-                <div class="relative aspect-[16/10] sm:aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0">
+                <!-- Image Showcase Header (Strict Uniform Aspect Ratio, Clickable) -->
+                <div class="relative aspect-[16/10] sm:aspect-[3/2] w-full overflow-hidden bg-slate-100 skeleton shrink-0 cursor-pointer"
+                     onclick="openRoomDetailModal(<?= $room->id ?>)"
+                     title="Klik untuk melihat detail Kamar <?= e($rNum) ?>">
                     <img src="<?= e($photoUrl) ?>" 
                          alt="Kamar <?= e($rNum) ?> - <?= e($typeName) ?>" 
                          loading="lazy"
                          onload="this.classList.remove('opacity-0'); this.closest('.skeleton')?.classList.remove('skeleton')"
                          class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108 opacity-0">
 
+                    <!-- Hover Quick Preview Overlay -->
+                    <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 text-slate-900 text-xs font-black shadow-lg backdrop-blur-md transform translate-y-2 group-hover:translate-y-0 transition-all">
+                            <i data-lucide="eye" class="w-3.5 h-3.5 text-blue-600"></i>
+                            <span>Buka Detail Kamar</span>
+                        </span>
+                    </div>
+
                     <!-- Top & Bottom Gradients -->
                     <div class="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950/70 to-transparent pointer-events-none"></div>
                     <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent pointer-events-none"></div>
 
                     <!-- Room Badge -->
-                    <div class="absolute top-3 left-3 bg-slate-950/75 backdrop-blur-md border border-white/20 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+                    <div class="absolute top-3 left-3 bg-slate-950/75 backdrop-blur-md border border-white/20 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5 z-20">
                         <i data-lucide="key" class="w-3 h-3 text-amber-400"></i>
                         <span>KAMAR <?= e($rNum) ?></span>
                     </div>
 
                     <!-- Availability Pill -->
-                    <div class="absolute top-3 right-3">
+                    <div class="absolute top-3 right-3 z-20">
                         <?php if ($isAvailable): ?>
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/90 backdrop-blur-md text-white border border-emerald-300 shadow-md">
                                 <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
@@ -259,7 +288,7 @@
                     </div>
 
                     <!-- Room Type & Floor Tag -->
-                    <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                    <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white z-20">
                         <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border <?= $badgeStyle ?>">
                             <?= e($typeName) ?>
                         </span>
@@ -274,9 +303,12 @@
                 <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
                     <div>
                         <div class="flex items-center justify-between gap-2">
-                            <h3 class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition-colors">
+                            <a href="<?= url('katalog/' . $room->id) ?>" 
+                               onclick="event.preventDefault(); openRoomDetailModal(<?= $room->id ?>)"
+                               class="font-bold text-slate-900 text-sm hover:text-blue-600 transition-colors cursor-pointer"
+                               title="Lihat Detail Kamar <?= e($rNum) ?>">
                                 <?= e($room->name) ?>
-                            </h3>
+                            </a>
                             <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md shrink-0 flex items-center gap-1">
                                 <i data-lucide="maximize-2" class="w-3 h-3 text-slate-400"></i>
                                 <?= e($size) ?>
@@ -302,7 +334,9 @@
                                 </span>
                             <?php endforeach; ?>
                             <?php if ($remainingCount > 0): ?>
-                                <span title="<?= e($remainingNames) ?>" class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200/80 cursor-help whitespace-nowrap">
+                                <span title="<?= e($remainingNames) ?>" 
+                                      onclick="openRoomDetailModal(<?= $room->id ?>)"
+                                      class="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-200/80 cursor-pointer hover:bg-blue-100 whitespace-nowrap">
                                     +<?= $remainingCount ?> lainnya
                                 </span>
                             <?php endif; ?>
@@ -318,15 +352,22 @@
                             </div>
                         </div>
 
-                        <div class="shrink-0">
+                        <div class="shrink-0 flex items-center gap-1.5">
+                            <button type="button" 
+                                    onclick="openRoomDetailModal(<?= $room->id ?>)"
+                                    class="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-2.5 py-2 rounded-xl text-xs transition border border-slate-200/80" 
+                                    title="Lihat Detail Kamar">
+                                <i data-lucide="eye" class="w-3.5 h-3.5 text-blue-600"></i>
+                                <span class="hidden xs:inline">Detail</span>
+                            </button>
                             <?php if ($isAvailable): ?>
                                 <a href="<?= e($bookingUrl) ?>" <?= $targetAttr ?>
-                                   class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
-                                    <span>Pesan Unit</span>
+                                   class="inline-flex items-center gap-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
+                                    <span>Pesan</span>
                                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                                 </a>
                             <?php else: ?>
-                                <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
+                                <span class="inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
                                     <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
                                     <span>Terisi</span>
                                 </span>
@@ -493,4 +534,10 @@ document.addEventListener('DOMContentLoaded', () => {
     applyCatalogFilters();
 });
 </script>
+
+<script>
+window.roomsData = <?= json_encode($roomsJsonMap ?? [], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+</script>
+
+<?php require BASE_PATH . '/resources/views/partials/room_detail_modal.php'; ?>
 
