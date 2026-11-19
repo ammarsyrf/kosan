@@ -221,37 +221,45 @@ $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['
 
             <!-- House Rules & Notes -->
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-4">
-                <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2 pb-3 border-b border-slate-100">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-indigo-600"></i>
-                    <span>Ketentuan Sewa & Tata Tertib</span>
-                </h3>
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-indigo-600"></i>
+                        <span><?= e(setting('landing_rules_title', 'Ketentuan Sewa & Tata Tertib')) ?></span>
+                    </h3>
+                    <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
+                        <a href="<?= url('admin/settings#section-rules') ?>" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold transition">
+                            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                            <span>Edit Tata Tertib</span>
+                        </a>
+                    <?php endif; ?>
+                </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
                     <div class="flex items-start gap-2.5">
                         <i data-lucide="clock" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i>
                         <div>
-                            <strong class="text-slate-800 block mb-0.5">Akses Masuk & Jam Malam</strong>
-                            Gerbang kos menggunakan akses kartu/kunci mandiri 24 jam. Tamu berkunjung maksimal pukul 22.00 WIB.
+                            <strong class="text-slate-800 block mb-0.5"><?= e(setting('landing_rule1_title', 'Akses Masuk & Jam Malam')) ?></strong>
+                            <?= e(setting('landing_rule1_desc', 'Gerbang kos menggunakan akses kartu/kunci mandiri 24 jam. Tamu berkunjung maksimal pukul 22.00 WIB.')) ?>
                         </div>
                     </div>
                     <div class="flex items-start gap-2.5">
                         <i data-lucide="zap" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5"></i>
                         <div>
-                            <strong class="text-slate-800 block mb-0.5">Listrik & Utilitas</strong>
-                            Air bersih dan WiFi fiber sudah gratis (termasuk tarif sewa). Pemakaian listrik sesuai ketentuan pengelola kos.
+                            <strong class="text-slate-800 block mb-0.5"><?= e(setting('landing_rule5_title', 'Listrik & Utilitas')) ?></strong>
+                            <?= e(setting('landing_rule5_desc', 'Air bersih dan WiFi fiber sudah gratis (termasuk tarif sewa). Pemakaian listrik sesuai ketentuan pengelola kos.')) ?>
                         </div>
                     </div>
                     <div class="flex items-start gap-2.5">
                         <i data-lucide="calendar" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i>
                         <div>
-                            <strong class="text-slate-800 block mb-0.5">Periode Sewa</strong>
-                            Minimal kontrak sewa 1 bulan dengan sistem pembayaran otomatis diawal periode sewa.
+                            <strong class="text-slate-800 block mb-0.5"><?= e(setting('landing_rule2_title', 'Periode Sewa')) ?></strong>
+                            <?= e(setting('landing_rule2_desc', 'Minimal kontrak sewa 1 bulan dengan sistem pembayaran otomatis diawal periode sewa.')) ?>
                         </div>
                     </div>
                     <div class="flex items-start gap-2.5">
-                        <i data-lucide="shield" class="w-4 h-4 text-purple-600 shrink-0 mt-0.5"></i>
+                        <i data-lucide="sparkles" class="w-4 h-4 text-purple-600 shrink-0 mt-0.5"></i>
                         <div>
-                            <strong class="text-slate-800 block mb-0.5">Kebersihan & Kerapian</strong>
-                            Dapur bersama dan fasilitas umum dibersihkan setiap hari oleh staf kebersihan internal kos.
+                            <strong class="text-slate-800 block mb-0.5"><?= e(setting('landing_rule3_title', 'Kebersihan & Kerapian')) ?></strong>
+                            <?= e(setting('landing_rule3_desc', 'Dapur bersama dan fasilitas umum dibersihkan setiap hari oleh staf kebersihan internal kos.')) ?>
                         </div>
                     </div>
                 </div>
