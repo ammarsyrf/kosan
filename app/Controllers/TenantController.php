@@ -46,12 +46,24 @@ class TenantController extends Controller
 
         $user = Session::get('user');
 
+        $idCardPhoto = null;
+        if (!empty($_FILES['id_card_photo']['tmp_name']) && (is_uploaded_file($_FILES['id_card_photo']['tmp_name']) || file_exists($_FILES['id_card_photo']['tmp_name']))) {
+            $ext = strtolower(pathinfo($_FILES['id_card_photo']['name'], PATHINFO_EXTENSION)) ?: 'jpg';
+            $filename = 'ktp_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+            $targetDir = BASE_PATH . '/public/uploads/tenants';
+            if (!is_dir($targetDir)) @mkdir($targetDir, 0777, true);
+            if (@move_uploaded_file($_FILES['id_card_photo']['tmp_name'], $targetDir . '/' . $filename) || @copy($_FILES['id_card_photo']['tmp_name'], $targetDir . '/' . $filename)) {
+                $idCardPhoto = 'uploads/tenants/' . $filename;
+            }
+        }
+
         try {
             $result = $this->tenantService->createTenant([
                 'name' => (string)$validated['name'],
                 'email' => (string)$validated['email'],
                 'phone' => (string)$validated['phone'],
                 'id_card_number' => (string)$request->post('id_card_number', ''),
+                'id_card_photo' => $idCardPhoto,
                 'emergency_contact_name' => (string)$request->post('emergency_contact_name', ''),
                 'emergency_contact_phone' => (string)$request->post('emergency_contact_phone', ''),
                 'occupation' => (string)$request->post('occupation', ''),
@@ -176,6 +188,17 @@ class TenantController extends Controller
         $user = Session::get('user');
         $password = (string)$request->post('password', '');
 
+        $idCardPhoto = null;
+        if (!empty($_FILES['id_card_photo']['tmp_name']) && (is_uploaded_file($_FILES['id_card_photo']['tmp_name']) || file_exists($_FILES['id_card_photo']['tmp_name']))) {
+            $ext = strtolower(pathinfo($_FILES['id_card_photo']['name'], PATHINFO_EXTENSION)) ?: 'jpg';
+            $filename = 'ktp_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+            $targetDir = BASE_PATH . '/public/uploads/tenants';
+            if (!is_dir($targetDir)) @mkdir($targetDir, 0777, true);
+            if (@move_uploaded_file($_FILES['id_card_photo']['tmp_name'], $targetDir . '/' . $filename) || @copy($_FILES['id_card_photo']['tmp_name'], $targetDir . '/' . $filename)) {
+                $idCardPhoto = 'uploads/tenants/' . $filename;
+            }
+        }
+
         try {
             $payload = [
                 'name' => (string)$validated['name'],
@@ -188,6 +211,9 @@ class TenantController extends Controller
                 'occupation' => (string)$request->post('occupation', ''),
                 'notes' => (string)$request->post('notes', ''),
             ];
+            if ($idCardPhoto !== null) {
+                $payload['id_card_photo'] = $idCardPhoto;
+            }
 
             if (!empty($password)) {
                 if (strlen($password) < 6) {

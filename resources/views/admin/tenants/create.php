@@ -14,7 +14,7 @@ $errors = session('_flash.errors') ?? [];
         </a>
     </div>
 
-    <form method="POST" action="<?= url('admin/tenants') ?>" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+    <form method="POST" action="<?= url('admin/tenants') ?>" enctype="multipart/form-data" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
         <?= csrf_field() ?>
 
         <div class="space-y-4">
@@ -61,6 +61,14 @@ $errors = session('_flash.errors') ?? [];
                         placeholder="3201xxxxxxxxxxxx"
                         value="<?= e($old['id_card_number'] ?? '') ?>"
                         class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
+                </div>
+
+                <div>
+                    <label for="id_card_photo" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                        Foto Dokumen KTP (Opsional, JPG/PNG)
+                    </label>
+                    <input type="file" id="id_card_photo" name="id_card_photo" accept="image/*"
+                        class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-700 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition">
                 </div>
             </div>
         </div>

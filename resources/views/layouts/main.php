@@ -241,6 +241,10 @@
                         <!-- SECTION 4: OPERASIONAL & BIAYA -->
                         <div class="space-y-1">
                             <div class="px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Operasional</div>
+                            <a href="<?= url('admin/announcements') ?>" class="<?= $linkClass('admin/announcements') ?>">
+                                <i data-lucide="megaphone" class="w-4 h-4"></i>
+                                <span>Pengumuman Kost</span>
+                            </a>
                             <a href="<?= url('admin/notifications') ?>" class="<?= $linkClass('admin/notifications') ?>">
                                 <i data-lucide="message-square" class="w-4 h-4"></i>
                                 <span>WhatsApp Automation</span>

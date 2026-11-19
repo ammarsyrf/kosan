@@ -535,6 +535,37 @@
             </div>
         </div>
 
+        <!-- SECTION 7: CADANGAN DATABASE (BACKUP) -->
+        <div id="section-backup" class="bg-white rounded-3xl border border-slate-200 shadow-xs p-6 sm:p-7 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                        <i data-lucide="database" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Cadangan Database (Database Backup)</h2>
+                        <p class="text-xs text-slate-500">Unduh salinan arsip data database lengkap (.sql) untuk keperluan keamanan dan pencadangan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="space-y-1">
+                    <h4 class="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                        <span>Pencadangan Instan 1-Klik</span>
+                    </h4>
+                    <p class="text-xs text-emerald-800 leading-relaxed max-w-xl">
+                        Mencakup seluruh tabel: data kamar, penyewa, kontrak, tagihan invoice, log pembayaran, riwayat transaksi, hingga tiket operasional.
+                    </p>
+                </div>
+                <a href="<?= url('admin/backup') ?>" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition cursor-pointer shrink-0">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span>Unduh Backup SQL</span>
+                </a>
+            </div>
+        </div>
+
         <!-- Sticky Bottom Save Bar -->
         <div class="sticky bottom-4 z-20 p-4 rounded-2xl bg-slate-900/95 backdrop-blur-md text-white border border-slate-800 shadow-2xl flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">

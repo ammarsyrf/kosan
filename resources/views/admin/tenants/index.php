@@ -59,7 +59,14 @@
                             <tr class="hover:bg-slate-50/50 transition">
                                 <td class="px-6 py-4">
                                     <div class="font-semibold text-slate-900"><?= e($t->name) ?></div>
-                                    <div class="text-xs text-slate-400 mt-0.5">NIK: <?= e($t->id_card_number ?: '-') ?></div>
+                                    <div class="text-xs text-slate-400 mt-0.5 flex items-center gap-1.5 flex-wrap">
+                                        <span>NIK: <?= e($t->id_card_number ?: '-') ?></span>
+                                        <?php if (!empty($t->id_card_photo)): ?>
+                                            <a href="<?= url($t->id_card_photo) ?>" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-1.5 py-0.5 rounded hover:bg-teal-100 transition">
+                                                <i data-lucide="image" class="w-3 h-3"></i> KTP
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-xs text-slate-800"><?= e($t->email) ?></div>

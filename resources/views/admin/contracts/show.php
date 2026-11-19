@@ -8,8 +8,12 @@
             <p class="text-slate-500 text-sm">Status: <span class="font-semibold uppercase text-blue-600"><?= e($contract->status) ?></span></p>
         </div>
 
-        <?php if ($contract->isActive()): ?>
-            <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2">
+            <a href="<?= url("admin/contracts/{$contract->id}/print") ?>" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 hover:text-blue-600 hover:bg-slate-50 border border-slate-300 shadow-sm transition active:scale-95 cursor-pointer">
+                <i data-lucide="printer" class="w-4 h-4 text-blue-600"></i>
+                <span>Cetak Surat Perjanjian</span>
+            </a>
+            <?php if ($contract->isActive()): ?>
                 <button type="button" onclick="document.getElementById('modal-transfer-room').classList.remove('hidden')" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 shadow-sm transition active:scale-95 cursor-pointer">
                     <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
                     <span>Mutasi / Pindah Kamar</span>
@@ -18,8 +22,8 @@
                     <i data-lucide="log-out" class="w-4 h-4"></i>
                     <span>Selesai Sewa (Checkout)</span>
                 </button>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
 
     <!-- Contract Overview Card -->

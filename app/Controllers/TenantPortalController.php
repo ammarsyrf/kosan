@@ -102,6 +102,15 @@ class TenantPortalController extends Controller
             }
         }
 
+        $db = \App\Core\Database::connect();
+        $announcements = $db->query("
+            SELECT a.*, u.name AS creator_name 
+            FROM `announcements` a 
+            JOIN `users` u ON u.id = a.created_by 
+            WHERE a.is_active = 1 
+            ORDER BY a.created_at DESC
+        ")->fetchAll(\PDO::FETCH_ASSOC) ?: [];
+
         return $this->render('tenant/dashboard', [
             'title' => 'Portal Penyewa',
             'tenant' => $tenant,
@@ -115,6 +124,7 @@ class TenantPortalController extends Controller
             'invoices' => $invoices,
             'payments' => $payments,
             'maintenanceRequests' => $maintRequests,
+            'announcements' => $announcements,
         ]);
     }
 

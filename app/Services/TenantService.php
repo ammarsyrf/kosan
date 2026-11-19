@@ -48,6 +48,7 @@ class TenantService
 
         $tenantData = [
             'id_card_number' => $data['id_card_number'] ?? null,
+            'id_card_photo' => $data['id_card_photo'] ?? null,
             'emergency_contact_name' => $data['emergency_contact_name'] ?? null,
             'emergency_contact_phone' => $data['emergency_contact_phone'] ?? null,
             'occupation' => $data['occupation'] ?? null,
@@ -136,6 +137,7 @@ class TenantService
 
         $tenantData = [
             'id_card_number' => $data['id_card_number'] ?? null,
+            'id_card_photo' => $data['id_card_photo'] ?? null,
             'emergency_contact_name' => $data['emergency_contact_name'] ?? null,
             'emergency_contact_phone' => $data['emergency_contact_phone'] ?? null,
             'occupation' => $data['occupation'] ?? null,

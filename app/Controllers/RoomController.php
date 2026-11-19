@@ -103,11 +103,26 @@ class RoomController extends Controller
         $facilities = $this->facilityRepo->getAll();
         $assignedIds = array_column($room->facilities, 'id');
 
+        $db = \App\Core\Database::connect();
+        $stmtHistory = $db->prepare("
+            SELECT rc.*, u.name AS tenant_name, u.email AS tenant_email, u.phone AS tenant_phone,
+                   (SELECT COALESCE(SUM(total_amount), 0) FROM invoices WHERE rental_contract_id = rc.id) AS total_invoiced,
+                   (SELECT COALESCE(SUM(paid_amount), 0) FROM invoices WHERE rental_contract_id = rc.id) AS total_paid
+            FROM rental_contracts rc
+            JOIN tenants t ON t.id = rc.tenant_id
+            JOIN users u ON u.id = t.user_id
+            WHERE rc.room_id = :room_id
+            ORDER BY rc.created_at DESC
+        ");
+        $stmtHistory->execute(['room_id' => $id]);
+        $occupantHistory = $stmtHistory->fetchAll(\PDO::FETCH_ASSOC) ?: [];
+
         return $this->render('admin/rooms/edit', [
             'title' => "Ubah Kamar {$room->room_number}",
             'room' => $room,
             'facilities' => $facilities,
             'assignedIds' => $assignedIds,
+            'occupantHistory' => $occupantHistory,
         ]);
     }
 

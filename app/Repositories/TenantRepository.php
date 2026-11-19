@@ -122,12 +122,13 @@ class TenantRepository
 
             // 3. Create Tenant Profile
             $stmtTenant = $pdo->prepare("
-                INSERT INTO `tenants` (`user_id`, `id_card_number`, `emergency_contact_name`, `emergency_contact_phone`, `occupation`, `notes`)
-                VALUES (:user_id, :id_card_number, :emergency_contact_name, :emergency_contact_phone, :occupation, :notes)
+                INSERT INTO `tenants` (`user_id`, `id_card_number`, `id_card_photo`, `emergency_contact_name`, `emergency_contact_phone`, `occupation`, `notes`)
+                VALUES (:user_id, :id_card_number, :id_card_photo, :emergency_contact_name, :emergency_contact_phone, :occupation, :notes)
             ");
             $stmtTenant->execute([
                 'user_id' => $userId,
                 'id_card_number' => trim($tenantData['id_card_number'] ?? ''),
+                'id_card_photo' => !empty($tenantData['id_card_photo']) ? trim($tenantData['id_card_photo']) : null,
                 'emergency_contact_name' => trim($tenantData['emergency_contact_name'] ?? ''),
                 'emergency_contact_phone' => trim($tenantData['emergency_contact_phone'] ?? ''),
                 'occupation' => trim($tenantData['occupation'] ?? ''),
@@ -261,6 +262,20 @@ class TenantRepository
             $stmtUser = $pdo->prepare($userSql);
             $stmtUser->execute($userParams);
 
+            $tenantParams = [
+                'id_card_number' => trim($tenantData['id_card_number'] ?? ''),
+                'emergency_contact_name' => trim($tenantData['emergency_contact_name'] ?? ''),
+                'emergency_contact_phone' => trim($tenantData['emergency_contact_phone'] ?? ''),
+                'occupation' => trim($tenantData['occupation'] ?? ''),
+                'notes' => trim($tenantData['notes'] ?? ''),
+                'id' => $tenantId,
+            ];
+            $photoSql = "";
+            if (array_key_exists('id_card_photo', $tenantData) && $tenantData['id_card_photo'] !== null) {
+                $photoSql = ", `id_card_photo` = :id_card_photo";
+                $tenantParams['id_card_photo'] = trim($tenantData['id_card_photo']);
+            }
+
             $stmtTenant = $pdo->prepare("
                 UPDATE `tenants`
                 SET `id_card_number` = :id_card_number,
@@ -268,16 +283,10 @@ class TenantRepository
                     `emergency_contact_phone` = :emergency_contact_phone,
                     `occupation` = :occupation,
                     `notes` = :notes
+                    {$photoSql}
                 WHERE `id` = :id
             ");
-            $stmtTenant->execute([
-                'id_card_number' => trim($tenantData['id_card_number'] ?? ''),
-                'emergency_contact_name' => trim($tenantData['emergency_contact_name'] ?? ''),
-                'emergency_contact_phone' => trim($tenantData['emergency_contact_phone'] ?? ''),
-                'occupation' => trim($tenantData['occupation'] ?? ''),
-                'notes' => trim($tenantData['notes'] ?? ''),
-                'id' => $tenantId,
-            ]);
+            $stmtTenant->execute($tenantParams);
 
             return true;
         });

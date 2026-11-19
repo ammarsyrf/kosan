@@ -250,4 +250,28 @@ class ContractController extends Controller
         $contractId = (int)$request->post('contract_id', 0);
         return $this->redirect($contractId ? "/admin/contracts/{$contractId}" : '/admin/contracts');
     }
+
+    public function printContract(Request $request): Response
+    {
+        $id = (int)$request->param('id');
+        $contract = $this->contractService->getContractById($id);
+
+        if (!$contract) {
+            Session::flash('error', 'Kontrak tidak ditemukan.');
+            return $this->redirect('/admin/contracts');
+        }
+
+        $tenantRepo = new \App\Repositories\TenantRepository();
+        $tenant = $tenantRepo->findById((int)$contract->tenant_id);
+
+        $roomRepo = new \App\Repositories\RoomRepository();
+        $room = $roomRepo->findById((int)$contract->room_id);
+
+        return $this->render('admin/contracts/print', [
+            'title' => "Surat Perjanjian Sewa #{$contract->contract_number}",
+            'contract' => $contract,
+            'tenant' => $tenant,
+            'room' => $room,
+        ], null);
+    }
 }

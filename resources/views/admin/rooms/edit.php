@@ -144,5 +144,83 @@
             </button>
         </div>
     </form>
+
+    <!-- Riwayat Penghuni Kamar Ini -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="history" class="w-4 h-4 text-indigo-600"></i>
+                    <span>Riwayat Penghuni Kamar <?= e($room->room_number) ?></span>
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">Daftar anak kost yang sedang atau pernah menyewa unit kamar ini.</p>
+            </div>
+            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+                <?= count($occupantHistory ?? []) ?> Kontrak
+            </span>
+        </div>
+
+        <?php if (empty($occupantHistory)): ?>
+            <div class="p-8 text-center text-slate-400 text-xs bg-slate-50 rounded-xl border border-dashed border-slate-200">
+                <i data-lucide="user-x" class="w-8 h-8 text-slate-300 mx-auto mb-2"></i>
+                <span>Belum ada riwayat penghuni yang tercatat di kamar ini.</span>
+            </div>
+        <?php else: ?>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
+                            <th class="py-2.5 px-3">Penghuni</th>
+                            <th class="py-2.5 px-3">No. Kontrak</th>
+                            <th class="py-2.5 px-3">Periode Sewa</th>
+                            <th class="py-2.5 px-3">Status Kontrak</th>
+                            <th class="py-2.5 px-3">Terbayar</th>
+                            <th class="py-2.5 px-3 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <?php foreach ($occupantHistory as $h): ?>
+                            <tr class="hover:bg-slate-50/60 transition">
+                                <td class="py-3 px-3">
+                                    <div class="font-bold text-slate-800"><?= e($h['tenant_name']) ?></div>
+                                    <div class="text-[11px] text-slate-400"><?= e($h['tenant_phone'] ?: $h['tenant_email']) ?></div>
+                                </td>
+                                <td class="py-3 px-3 font-mono font-bold text-blue-600">
+                                    #<?= e($h['contract_number']) ?>
+                                </td>
+                                <td class="py-3 px-3 text-slate-600">
+                                    <?= date('d M Y', strtotime($h['start_date'])) ?> s/d <?= date('d M Y', strtotime($h['end_date'])) ?>
+                                </td>
+                                <td class="py-3 px-3">
+                                    <?php if ($h['status'] === 'active'): ?>
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Aktif
+                                        </span>
+                                    <?php elseif ($h['status'] === 'terminated'): ?>
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-50 text-rose-700 border border-rose-200">
+                                            Checkout
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-600 border border-slate-200">
+                                            <?= e(strtoupper($h['status'])) ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="py-3 px-3 font-mono font-bold text-slate-800">
+                                    Rp <?= number_format((float)$h['total_paid'], 0, ',', '.') ?>
+                                </td>
+                                <td class="py-3 px-3 text-right">
+                                    <a href="<?= url("admin/contracts/{$h['id']}") ?>" class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 hover:underline">
+                                        <span>Detail</span>
+                                        <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>
 

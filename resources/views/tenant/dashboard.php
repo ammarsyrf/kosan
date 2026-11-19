@@ -16,7 +16,32 @@
         </div>
     </div>
 
-
+    <!-- Broadcast Announcements from Admin -->
+    <?php if (!empty($announcements)): ?>
+        <div class="space-y-3">
+            <?php foreach ($announcements as $ann): ?>
+                <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 text-white border border-indigo-700/50 shadow-lg relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 text-teal-300 flex items-center justify-center shrink-0 mt-0.5">
+                            <i data-lucide="megaphone" class="w-5 h-5"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase tracking-wider bg-teal-400 text-slate-950 px-2 py-0.5 rounded-full">
+                                    PENGUMUMAN RESMI
+                                </span>
+                                <span class="text-[11px] text-indigo-200">
+                                    <?= date('d M Y, H:i', strtotime($ann['created_at'])) ?>
+                                </span>
+                            </div>
+                            <h3 class="font-extrabold text-sm sm:text-base text-white"><?= e($ann['title']) ?></h3>
+                            <p class="text-xs text-indigo-100/90 leading-relaxed max-w-3xl whitespace-pre-line"><?= e($ann['content']) ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
     <?php if (!$activeContract): ?>
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 text-center max-w-lg mx-auto">

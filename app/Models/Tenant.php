@@ -11,6 +11,7 @@ class Tenant extends Model
     public int $id;
     public int $user_id;
     public ?string $id_card_number;
+    public ?string $id_card_photo = null;
     public ?string $emergency_contact_name;
     public ?string $emergency_contact_phone;
     public ?string $occupation;

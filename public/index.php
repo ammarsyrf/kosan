@@ -82,6 +82,8 @@ $rootAliases = [
     '/notifications' => '/admin/notifications',
     '/notifications/templates' => '/admin/notifications/templates',
     '/notifications/settings' => '/admin/notifications/settings',
+    '/announcements' => '/admin/announcements',
+    '/backup' => '/admin/backup',
     '/settings' => '/admin/settings',
 ];
 foreach ($rootAliases as $from => $to) {
@@ -161,6 +163,7 @@ Router::group([
     Router::get('/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
     Router::post('/contracts', [\App\Controllers\ContractController::class, 'store'], [], 'admin.contracts.store');
     Router::get('/contracts/{id}', [\App\Controllers\ContractController::class, 'show'], [], 'admin.contracts.show');
+    Router::get('/contracts/{id}/print', [\App\Controllers\ContractController::class, 'printContract'], [], 'admin.contracts.print');
     Router::post('/contracts/{id}/transfer-room', [\App\Controllers\ContractController::class, 'transferRoom'], [], 'admin.contracts.transfer_room');
     Router::post('/contracts/{id}/terminate', [\App\Controllers\ContractController::class, 'terminate'], [], 'admin.contracts.terminate');
     Router::post('/contracts/extensions/{id}/review', [\App\Controllers\ContractController::class, 'reviewExtension'], [], 'admin.contracts.review_extension');
@@ -216,9 +219,17 @@ Router::group([
     Router::post('/maintenance/{id}/updates', [\App\Controllers\MaintenanceController::class, 'addUpdate'], [], 'admin.maintenance.updates');
     Router::get('/maintenance/attachments/{id}', [\App\Controllers\MaintenanceController::class, 'downloadAttachment'], [], 'admin.maintenance.attachment');
 
+    // Announcements & Broadcast
+    Router::get('/announcements', [\App\Controllers\AnnouncementController::class, 'index'], [], 'admin.announcements');
+    Router::post('/announcements', [\App\Controllers\AnnouncementController::class, 'store'], [], 'admin.announcements.store');
+    Router::post('/announcements/{id}/delete', [\App\Controllers\AnnouncementController::class, 'destroy'], [], 'admin.announcements.delete');
+
     // General & Landing Settings
     Router::get('/settings', [\App\Controllers\SettingController::class, 'index'], [], 'admin.settings');
     Router::post('/settings', [\App\Controllers\SettingController::class, 'update'], [], 'admin.settings.update');
+
+    // Database Backup
+    Router::get('/backup', [\App\Controllers\BackupController::class, 'download'], [], 'admin.backup');
 });
 
 // Tenant Protected Routes

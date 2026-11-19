@@ -94,6 +94,7 @@ Router::group([
 
     Router::get('/contracts', [\App\Controllers\ContractController::class, 'index'], [], 'admin.contracts');
     Router::get('/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
+    Router::get('/contracts/{id}/print', [\App\Controllers\ContractController::class, 'printContract'], [], 'admin.contracts.print');
 
     Router::get('/invoices', [\App\Controllers\InvoiceController::class, 'index'], [], 'admin.invoices');
     Router::get('/invoices/export', [\App\Controllers\InvoiceController::class, 'export'], [], 'admin.invoices.export');
@@ -114,6 +115,7 @@ Router::group([
     Router::get('/expenses/categories', [\App\Controllers\ExpenseController::class, 'categories'], [], 'admin.expenses.categories');
 
     Router::get('/maintenance', [\App\Controllers\MaintenanceController::class, 'index'], [], 'admin.maintenance');
+    Router::get('/announcements', [\App\Controllers\AnnouncementController::class, 'index'], [], 'admin.announcements');
     Router::get('/settings', [\App\Controllers\SettingController::class, 'index'], [], 'admin.settings');
     Router::post('/settings', [\App\Controllers\SettingController::class, 'update'], [], 'admin.settings.update');
     Router::get('/users', [\App\Controllers\UserController::class, 'index'], [], 'admin.users');
@@ -191,6 +193,8 @@ $routesToTest = [
     ['uri' => '/admin/expenses/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/expenses/categories', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/maintenance', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/announcements', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/contracts/100032/print', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/settings', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/users', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],
     ['uri' => '/admin/users/create', 'role' => 'owner', 'user' => $ownerSession, 'expected' => 200],

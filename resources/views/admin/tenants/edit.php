@@ -13,7 +13,7 @@ $errors = session('_flash.errors') ?? [];
         </a>
     </div>
 
-    <form method="POST" action="<?= url("admin/tenants/{$tenant->id}") ?>" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+    <form method="POST" action="<?= url("admin/tenants/{$tenant->id}") ?>" enctype="multipart/form-data" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
         <?= csrf_field() ?>
 
         <div class="space-y-4">
@@ -85,6 +85,33 @@ $errors = session('_flash.errors') ?? [];
                         value="<?= e($tenant->occupation ?? '') ?>"
                         class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
                 </div>
+            </div>
+
+            <!-- Upload Dokumen KTP -->
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/90 space-y-3">
+                <div class="flex items-center justify-between">
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                        Berkas Foto KTP / Dokumen Identitas
+                    </label>
+                    <?php if (!empty($tenant->id_card_photo)): ?>
+                        <a href="<?= url($tenant->id_card_photo) ?>" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:underline">
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Lihat Berkas Saat Ini
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <?php if (!empty($tenant->id_card_photo)): ?>
+                    <div class="relative w-48 h-28 rounded-lg overflow-hidden border border-slate-300 shadow-xs group">
+                        <img src="<?= url($tenant->id_card_photo) ?>" alt="KTP <?= e($tenant->name) ?>" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-semibold">
+                            <a href="<?= url($tenant->id_card_photo) ?>" target="_blank" class="underline">Buka Foto Asli</a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <input type="file" id="id_card_photo" name="id_card_photo" accept="image/*"
+                    class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-700 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition">
+                <p class="text-[11px] text-slate-400">Unggah foto KTP baru untuk mengganti berkas yang tersimpan.</p>
             </div>
         </div>
 
