@@ -352,22 +352,20 @@
                             </div>
                         </div>
 
-                        <div class="shrink-0 flex items-center gap-1.5">
-                            <button type="button" 
-                                    onclick="openRoomDetailModal(<?= $room->id ?>)"
-                                    class="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-2.5 py-2 rounded-xl text-xs transition border border-slate-200/80" 
-                                    title="Lihat Detail Kamar">
-                                <i data-lucide="eye" class="w-3.5 h-3.5 text-blue-600"></i>
-                                <span class="hidden xs:inline">Detail</span>
-                            </button>
+                        <div class="shrink-0">
                             <?php if ($isAvailable): ?>
                                 <a href="<?= e($bookingUrl) ?>" <?= $targetAttr ?>
-                                   class="inline-flex items-center gap-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
-                                    <span>Pesan</span>
-                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                   class="inline-flex items-center gap-1.5 <?= auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true) ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 shadow-blue-500/20' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' ?> text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
+                                    <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
+                                        <span>Pesan Unit</span>
+                                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                    <?php else: ?>
+                                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                        <span>Pesan via WA</span>
+                                    <?php endif; ?>
                                 </a>
                             <?php else: ?>
-                                <span class="inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
+                                <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
                                     <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
                                     <span>Terisi</span>
                                 </span>
