@@ -4,6 +4,11 @@
         <p class="text-slate-500 text-sm">Kelola tagihan sewa bulanan dan biaya operasional kos.</p>
     </div>
     <div class="flex items-center gap-3">
+        <?php $exportQs = !empty($currentStatus) ? '?status=' . urlencode((string)$currentStatus) : ''; ?>
+        <a href="<?= url('admin/invoices/export' . $exportQs) ?>" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2.5 rounded-lg text-sm shadow-sm transition">
+            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+            Export ke Excel
+        </a>
         <a href="<?= url('admin/invoices/create') ?>" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2.5 rounded-lg text-sm shadow-sm transition">
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
             Buat Invoice Manual
@@ -78,9 +83,17 @@
                                 </span>
                             </td>
                             <td class="py-3 px-4 text-right">
-                                <a href="<?= url('admin/invoices/' . $inv->id) ?>" class="px-3 py-1 text-xs font-medium rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-                                    Detail
-                                </a>
+                                <div class="inline-flex items-center gap-1.5 justify-end">
+                                    <a href="<?= url('admin/invoices/' . $inv->id) ?>" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition" title="Lihat Rincian Invoice">
+                                        Detail
+                                    </a>
+                                    <a href="<?= url('admin/invoices/' . $inv->id . '/print') ?>" target="_blank" class="p-1 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition" title="Cetak / Unduh PDF">
+                                        <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                    <a href="<?= url('admin/invoices/' . $inv->id . '/export') ?>" class="p-1 text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50 rounded-lg transition" title="Export Excel / CSV">
+                                        <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>

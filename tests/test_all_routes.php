@@ -95,7 +95,11 @@ Router::group([
     Router::get('/contracts/create', [\App\Controllers\ContractController::class, 'create'], [], 'admin.contracts.create');
 
     Router::get('/invoices', [\App\Controllers\InvoiceController::class, 'index'], [], 'admin.invoices');
+    Router::get('/invoices/export', [\App\Controllers\InvoiceController::class, 'export'], [], 'admin.invoices.export');
+    Router::get('/invoices/{id}/export', [\App\Controllers\InvoiceController::class, 'exportSingle'], [], 'admin.invoices.export_single');
+    Router::get('/invoices/{id}/print', [\App\Controllers\InvoiceController::class, 'printInvoice'], [], 'admin.invoices.print');
     Router::get('/invoices/create', [\App\Controllers\InvoiceController::class, 'create'], [], 'admin.invoices.create');
+    Router::get('/invoices/{id}', [\App\Controllers\InvoiceController::class, 'show'], [], 'admin.invoices.show');
 
     Router::get('/payments', [\App\Controllers\PaymentController::class, 'index'], [], 'admin.payments');
     Router::get('/payments/cash', [\App\Controllers\PaymentController::class, 'recordCash'], [], 'admin.payments.cash');
@@ -170,6 +174,10 @@ $routesToTest = [
     ['uri' => '/expenses', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
     ['uri' => '/maintenance', 'role' => 'admin', 'user' => $adminSession, 'expected' => 302],
     ['uri' => '/admin/invoices', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/invoices/export', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/invoices/100092', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/invoices/100092/export', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
+    ['uri' => '/admin/invoices/100092/print', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/invoices/create', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/payments', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],
     ['uri' => '/admin/payments/cash', 'role' => 'admin', 'user' => $adminSession, 'expected' => 200],

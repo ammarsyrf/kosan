@@ -107,8 +107,25 @@ class InvoiceRepository
         $inv->tenant_phone = $row['tenant_phone'] ?? '';
         $inv->contract_number = $row['contract_number'];
         $inv->items = $this->getItemsByInvoiceId($id);
+        $inv->payments = $this->getPaymentsByInvoiceId($id);
 
         return $inv;
+    }
+
+    public function getPaymentsByInvoiceId(int $invoiceId): array
+    {
+        $stmt = $this->db->prepare("
+            SELECT p.payment_number, p.payment_method, p.payment_date, p.status, p.notes,
+                   pa.allocated_amount, pa.allocated_at,
+                   u.name AS verifier_name
+            FROM `payment_allocations` pa
+            JOIN `payments` p ON p.id = pa.payment_id
+            LEFT JOIN `users` u ON u.id = p.verified_by
+            WHERE pa.invoice_id = :id
+            ORDER BY pa.allocated_at DESC
+        ");
+        $stmt->execute(['id' => $invoiceId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function findByInvoiceNumber(string $number): ?Invoice

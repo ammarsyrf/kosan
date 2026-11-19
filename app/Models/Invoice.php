@@ -32,6 +32,7 @@ class Invoice extends Model
     public string $tenant_phone = '';
     public string $contract_number = '';
     public array $items = [];
+    public array $payments = [];
 
     public function __construct(array $attributes = [])
     {

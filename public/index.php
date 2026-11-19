@@ -163,9 +163,12 @@ Router::group([
 
     // M4: Invoices Management
     Router::get('/invoices', [\App\Controllers\InvoiceController::class, 'index'], [], 'admin.invoices');
+    Router::get('/invoices/export', [\App\Controllers\InvoiceController::class, 'export'], [], 'admin.invoices.export');
     Router::get('/invoices/create', [\App\Controllers\InvoiceController::class, 'create'], [], 'admin.invoices.create');
     Router::post('/invoices', [\App\Controllers\InvoiceController::class, 'store'], [], 'admin.invoices.store');
     Router::get('/invoices/{id}', [\App\Controllers\InvoiceController::class, 'show'], [], 'admin.invoices.show');
+    Router::get('/invoices/{id}/export', [\App\Controllers\InvoiceController::class, 'exportSingle'], [], 'admin.invoices.export_single');
+    Router::get('/invoices/{id}/print', [\App\Controllers\InvoiceController::class, 'printInvoice'], [], 'admin.invoices.print');
     Router::post('/invoices/{id}/cancel', [\App\Controllers\InvoiceController::class, 'cancel'], [], 'admin.invoices.cancel');
 
     // M4: Payments Management
