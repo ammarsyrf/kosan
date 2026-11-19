@@ -627,90 +627,9 @@
         </script>
     <?php endif; ?>
 
-    <!-- ARCHITECTURE & OPERATIONAL OVERVIEW SECTION -->
+    <!-- TATA TERTIB & ATURAN HUNIAN KOS (HOUSE RULES) -->
     <section class="space-y-6 pt-4 reveal-on-scroll">
-        <div class="text-center max-w-2xl mx-auto space-y-2">
-            <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-                <i data-lucide="layers" class="w-3.5 h-3.5"></i> Fitur Unggulan
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Arsitektur Lengkap dari Reservasi hingga Laporan Kas
-            </h2>
-            <p class="text-slate-500 text-xs sm:text-sm">
-                Dirancang spesifik untuk kosan Indonesia dengan akurasi finansial dan keamanan level produksi.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 1. WhatsApp Automation -->
-            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 space-y-3 group reveal-on-scroll stagger-1">
-                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="message-circle" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Automasi WhatsApp (Fonnte API)</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Pengingat tagihan otomatis (H-7, H-3, H-1, Hari-H, H+1). Invoice lunas tidak akan terganggu, template dinamis, dan retry queue aman tanpa mengekspos token API.
-                </p>
-            </div>
-
-            <!-- 2. Booking & Kontrak Digital -->
-            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 space-y-3 group reveal-on-scroll stagger-2">
-                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="file-check" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Booking & Kontrak Sewa Digital</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Alur reservasi kamar dengan validasi bentrok tanggal (anti-double booking). Penerbitan kontrak sewa resmi, perpanjangan sewa (extension), dan permohonan early checkout.
-                </p>
-            </div>
-
-            <!-- 3. Billing & Payment Gateway Internal -->
-            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-300 space-y-3 group reveal-on-scroll stagger-3">
-                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="credit-card" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Penagihan & Verifikasi Pembayaran</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Dukungan Transfer Bank dan Tunai. Verifikasi struk transfer dengan validasi MIME, pencegahan alokasi ganda, pembayaran parsial, dan reversal transaksi aman.
-                </p>
-            </div>
-
-            <!-- 4. Expense Tracker -->
-            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-rose-300 transition-all duration-300 space-y-3 group reveal-on-scroll stagger-1">
-                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="receipt" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Pencatatan Biaya & Arus Kas Bersih</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Pencatatan pengeluaran operasional (listrik, air, kebersihan, pemeliharaan) dengan kategori, vendor, dan struk nota. Terhubung ke penghitungan laba bersih Owner.
-                </p>
-            </div>
-
-            <!-- 5. Maintenance Ticket System -->
-            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-300 transition-all duration-300 space-y-3 group reveal-on-scroll stagger-2">
-                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="wrench" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Tiket Kerusakan & Pemeliharaan</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Penghuni dapat melaporkan kerusakan kamar beserta lampiran foto. Admin dapat memperbarui status penanganan, estimasi biaya, dan riwayat tindakan teknisi.
-                </p>
-            </div>
-
-            <!-- 6. Executive Analytics & Export CSV -->
-            <div class="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 space-y-3 group reveal-on-scroll stagger-3">
-                <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 border border-teal-200 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-                    <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-base">Eksekutif Analitik & Ekspor CSV</h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Visualisasi okupansi, pendapatan per kamar, arus kas, dan ekspor spreadsheet terenkripsi BOM UTF-8 yang kompatibel langsung dengan Microsoft Excel.
-                </p>
-            </div>
-        </div>
-
-        <!-- TATA TERTIB & ATURAN HUNIAN KOS (HOUSE RULES) -->
-        <div id="aturan-kos" class="mt-14 space-y-6 reveal-on-scroll">
+        <div id="aturan-kos" class="space-y-6 reveal-on-scroll">
             <div class="text-center max-w-2xl mx-auto space-y-2">
                 <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 shadow-xs">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-600"></i>
