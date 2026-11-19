@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $data = $this->dashboardService->getOwnerDashboardData($dateFrom, $dateTo);
 
         return $this->render('admin/dashboard/owner', [
-            'title' => 'Executive Owner Dashboard — Kost Management',
+            'title' => 'Executive Owner Dashboard — ' . setting('business_name', 'Kost Zenerie'),
             'user' => $user,
             'filter' => $filter,
             'date_from' => $dateFrom,
@@ -92,7 +92,7 @@ class DashboardController extends Controller
         $data = $this->dashboardService->getAdminDashboardData();
 
         return $this->render('admin/dashboard/admin', [
-            'title' => 'Admin Operations Dashboard — Kost Management',
+            'title' => 'Admin Operations Dashboard — ' . setting('business_name', 'Kost Zenerie'),
             'user' => $user,
             'operations' => $data['operations'],
             'alerts' => $data['alerts'],

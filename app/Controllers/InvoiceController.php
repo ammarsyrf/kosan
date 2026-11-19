@@ -156,7 +156,7 @@ class InvoiceController extends Controller
         // UTF-8 BOM for Microsoft Excel compatibility
         fputs($output, "\xEF\xBB\xBF");
 
-        $bizName = setting('business_name', 'Kost Management System');
+        $bizName = setting('business_name', 'Kost Zenerie');
         fputcsv($output, ["DAFTAR INVOICE & TAGIHAN - {$bizName}"], ',', '"', "\\");
         fputcsv($output, ['Filter Status', !empty($status) ? strtoupper(str_replace('_', ' ', (string)$status)) : 'SEMUA STATUS'], ',', '"', "\\");
         fputcsv($output, ['Tanggal Unduh', date('Y-m-d H:i:s')], ',', '"', "\\");
@@ -261,7 +261,7 @@ class InvoiceController extends Controller
         // UTF-8 BOM for Microsoft Excel compatibility
         fputs($output, "\xEF\xBB\xBF");
 
-        $bizName = setting('business_name', 'Kost Management System');
+        $bizName = setting('business_name', 'Kost Zenerie');
         $bizAddress = setting('business_address', 'Properti Kos');
         $bizPhone = setting('business_phone', '-');
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Core\Config;
 
 return [
-    'name' => Config::env('APP_NAME', 'Kost Management System'),
+    'name' => Config::env('APP_NAME', 'Kost Zenerie'),
     'env' => Config::env('APP_ENV', 'production'),
     'debug' => (bool)Config::env('APP_DEBUG', false),
     'url' => rtrim((string)Config::env('APP_URL', 'http://localhost:8000'), '/'),

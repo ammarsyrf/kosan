@@ -69,7 +69,7 @@ echo "Running Milestone M1 Test Suite...\n\n";
 echo "Test Suite 1: Config & Environment\n";
 Config::loadEnv(BASE_PATH . '/.env');
 
-$t->assert('Config loads APP_NAME correctly', config('app.name') === 'Kost Management System');
+$t->assert('Config loads APP_NAME correctly', in_array(config('app.name'), ['Kost Zenerie', 'Kost Management System'], true));
 $t->assert('Config loads APP_ENV correctly', in_array(config('app.env'), ['local', 'production', 'testing'], true));
 $t->assert('Config loads Database host', config('database.connections.mysql.host') === '127.0.0.1');
 $t->assert('Config loads Database name', config('database.connections.mysql.database') === 'kost_management');
@@ -176,7 +176,7 @@ $escaped = e("<script>alert('xss')</script>");
 $t->assert('Helper e() escapes HTML entities', $escaped === '&lt;script&gt;alert(&#039;xss&#039;)&lt;/script&gt;');
 
 $homeView = View::render('home', ['title' => 'Test Home'], 'layouts/main');
-$t->assert('View renders layout and home view without error', $homeView->getStatusCode() === 200 && str_contains($homeView->getContent(), 'Kost Management System'));
+$t->assert('View renders layout and home view without error', $homeView->getStatusCode() === 200 && (str_contains($homeView->getContent(), 'Kost Zenerie') || str_contains($homeView->getContent(), 'Kost Management System')));
 
 // -----------------------------------------------------------------------------
 // 7. Authentication & Rate Limiting

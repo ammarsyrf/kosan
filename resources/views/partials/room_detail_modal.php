@@ -41,7 +41,7 @@
             <div class="flex items-start justify-between gap-3 pb-3 border-b border-slate-100">
                 <div class="min-w-0 flex-1">
                     <h3 id="modal-room-title" class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight truncate">Kamar 101</h3>
-                    <p class="text-xs text-slate-500 mt-0.5 truncate"><?= e(setting('business_name', 'Kost Management')) ?> &bull; Unit Bersih & Terawat</p>
+                    <p class="text-xs text-slate-500 mt-0.5 truncate"><?= e(setting('business_name', 'Kost Zenerie')) ?> &bull; Unit Bersih & Terawat</p>
                 </div>
                 <div class="text-right shrink-0">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tarif Sewa</div>

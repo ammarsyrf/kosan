@@ -211,7 +211,7 @@
                 // WhatsApp Booking Link
                 $bizPhone = preg_replace('/[^0-9]/', '', (string)setting('business_phone', '081234567890'));
                 if (str_starts_with($bizPhone, '0')) $bizPhone = '62' . substr($bizPhone, 1);
-                $bizName = setting('business_name', 'Kost Management');
+                $bizName = setting('business_name', 'Kost Zenerie');
                 $waMsg = "Halo Pengelola {$bizName}, saya tertarik untuk booking / survei Kamar {$rNum} ({$typeName}) seharga {$room->formattedPrice()}/bln. Apakah unit masih tersedia?";
                 $bookingUrl = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)
                     ? url('admin/bookings/create?room_id=' . $room->id)

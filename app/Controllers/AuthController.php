@@ -26,7 +26,7 @@ class AuthController extends Controller
         }
 
         return $this->render('auth/login', [
-            'title' => 'Masuk — Kost Management System',
+            'title' => 'Masuk — ' . setting('business_name', config('app.name', 'Kost Zenerie')),
         ], 'layouts/auth');
     }
 

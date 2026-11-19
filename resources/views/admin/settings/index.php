@@ -68,7 +68,7 @@
                         Nama Kos / Properti <span class="text-rose-500">*</span>
                     </label>
                     <input type="text" id="business_name" name="business_name" required
-                        value="<?= e($settings['business_name'] ?? 'Kost Management System') ?>"
+                        value="<?= e($settings['business_name'] ?? 'Kost Zenerie') ?>"
                         placeholder="Contoh: Kost Griya Harmoni Surabaya"
                         class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
                     <p class="mt-1 text-[11px] text-slate-400">Tampil pada logo navbar, judul halaman, dan header pesan WhatsApp.</p>
@@ -113,7 +113,7 @@
                     Teks Badge Mini di Atas Judul
                 </label>
                 <input type="text" id="landing_hero_badge" name="landing_hero_badge"
-                    value="<?= e($settings['landing_hero_badge'] ?? 'Kost Management Monolith • High-Performance Edition') ?>"
+                    value="<?= e($settings['landing_hero_badge'] ?? 'Kost Zenerie • High-Performance Edition') ?>"
                     placeholder="Contoh: Hunian Eksklusif Siap Huni • Nyaman & Strategis"
                     class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
             </div>

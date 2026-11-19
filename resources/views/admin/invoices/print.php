@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Invoice #<?= e($invoice->invoice_number) ?> - <?= e(setting('business_name', 'Kost Management')) ?></title>
+    <title>Cetak Invoice #<?= e($invoice->invoice_number) ?> - <?= e(setting('business_name', 'Kost Zenerie')) ?></title>
     <!-- Tailwind CSS Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -85,7 +85,7 @@
     </div>
 
     <?php
-        $bizName = setting('business_name', 'Kost Management Personal');
+        $bizName = setting('business_name', 'Kost Zenerie');
         $bizAddress = setting('business_address', 'Jl. Contoh Properti Kos No. 123, Indonesia');
         $bizPhone = setting('business_phone', '081234567890');
         $bizEmail = setting('business_email', 'admin@kostmanagement.com');

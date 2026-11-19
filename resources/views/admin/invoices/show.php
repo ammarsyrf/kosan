@@ -1,5 +1,5 @@
 <?php
-    $bizName = setting('business_name', 'Kost Management Personal');
+    $bizName = setting('business_name', 'Kost Zenerie');
     $bizAddress = setting('business_address', 'Jl. Contoh Properti Kos No. 123, Indonesia');
     $bizPhone = setting('business_phone', '081234567890');
     $bizEmail = setting('business_email', 'admin@kostmanagement.com');
@@ -180,7 +180,7 @@
                     </div>
                     <div>
                         <h2 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-none"><?= e($bizName) ?></h2>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600">Smart Living & Kost Management</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600">Smart Living & <?= e($bizName) ?></span>
                     </div>
                 </div>
                 <div class="text-xs text-slate-500 space-y-0.5 leading-relaxed pt-0.5">

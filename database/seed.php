@@ -219,7 +219,7 @@ Database::transaction(function (PDO $pdo) {
     // 9. Seed Settings
     echo "[SEED] General Settings...\n";
     $settings = [
-        ['key' => 'business_name', 'value' => 'Kost Management Personal', 'group' => 'general', 'description' => 'Nama usaha kos'],
+        ['key' => 'business_name', 'value' => 'Kost Zenerie', 'group' => 'general', 'description' => 'Nama usaha kos'],
         ['key' => 'business_address', 'value' => 'Jl. Kost Nyaman No. 10', 'group' => 'general', 'description' => 'Alamat usaha kos'],
         ['key' => 'business_phone', 'value' => '081234567890', 'group' => 'general', 'description' => 'Nomor WhatsApp admin/owner'],
         ['key' => 'booking_duration_hours', 'value' => '24', 'group' => 'booking', 'description' => 'Durasi default kedaluwarsa booking (jam)'],

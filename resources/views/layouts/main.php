@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= e($title ?? config('app.name', 'Kost Management System')) ?></title>
+    <title><?= e($title ?? (setting('business_name', config('app.name', 'Kost Zenerie')) . ' — Sistem Manajemen Kos')) ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -306,7 +306,7 @@
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
                     <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 truncate">
-                        <a href="<?= url() ?>" class="hidden sm:inline hover:text-blue-600 transition truncate">Kost Management</a>
+                        <a href="<?= url() ?>" class="hidden sm:inline hover:text-blue-600 transition truncate"><?= e(setting('business_name', 'Kost Zenerie')) ?></a>
                         <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400 hidden sm:inline shrink-0"></i>
                         <span class="text-slate-800 font-bold truncate"><?= e($title ?? 'Dashboard') ?></span>
                     </div>

@@ -103,7 +103,7 @@ class NotificationService
     public function buildInvoiceVariables(Invoice $invoice): array
     {
         $pdo = Database::connect();
-        $bizName = (string)$pdo->query("SELECT `value` FROM `settings` WHERE `key` = 'business_name'")->fetchColumn() ?: 'Kost Management';
+        $bizName = (string)$pdo->query("SELECT `value` FROM `settings` WHERE `key` = 'business_name'")->fetchColumn() ?: 'Kost Zenerie';
 
         return [
             'tenant_name' => $invoice->tenant_name,

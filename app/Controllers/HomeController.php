@@ -55,7 +55,7 @@ class HomeController extends Controller
         }
 
         return $this->render('home', [
-            'title' => 'Sistem Manajemen Kos Modern & Terpadu — ' . config('app.name', 'Kost Management System'),
+            'title' => 'Sistem Manajemen Kos Modern & Terpadu — ' . setting('business_name', config('app.name', 'Kost Zenerie')),
             'user' => $user,
             'rooms' => $rooms,
             'stats' => $stats,
@@ -97,7 +97,7 @@ class HomeController extends Controller
         }
 
         return $this->render('catalog', [
-            'title' => 'Katalog Lengkap Kamar Kost — ' . setting('business_name', config('app.name', 'Kost Management System')),
+            'title' => 'Katalog Lengkap Kamar Kost — ' . setting('business_name', config('app.name', 'Kost Zenerie')),
             'rooms' => $rooms,
             'facilities' => $facilities,
             'stats' => $stats,
@@ -134,7 +134,7 @@ class HomeController extends Controller
         ));
 
         return $this->render('room_detail', [
-            'title' => "{$room->name} — " . setting('business_name', 'Kost Management System'),
+            'title' => "{$room->name} — " . setting('business_name', 'Kost Zenerie'),
             'room' => $room,
             'recommendations' => array_slice($recommendations, 0, 4),
             'user' => Session::get('user'),

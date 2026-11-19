@@ -27,7 +27,7 @@ class RoomController extends Controller
         $rooms = $this->roomService->getAllRooms();
 
         return $this->render('admin/rooms/index', [
-            'title' => 'Manajemen Kamar — Kost Management',
+            'title' => 'Manajemen Kamar — ' . setting('business_name', 'Kost Zenerie'),
             'rooms' => $rooms,
         ]);
     }

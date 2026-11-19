@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= e($title ?? 'Autentikasi — Kost Management System') ?></title>
+    <title><?= e($title ?? ('Autentikasi — ' . setting('business_name', config('app.name', 'Kost Zenerie')))) ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -47,7 +47,7 @@
             </div>
         </a>
         <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            <?= e(config('app.name', 'Kost Management')) ?>
+            <?= e(setting('business_name', config('app.name', 'Kost Zenerie'))) ?>
         </h2>
         <p class="mt-1.5 text-xs sm:text-sm text-slate-400">
             Sistem Manajemen Kos Personal &bullet; Masuk ke Portal

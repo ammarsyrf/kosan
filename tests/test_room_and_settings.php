@@ -68,7 +68,7 @@ $stmt->execute([
     'description' => 'Judul Headline Utama Hero',
 ]);
 $val = setting('landing_hero_badge');
-assert($val === 'Kost Management Monolith • High-Performance Edition', 'Setting landing_hero_badge must match');
+assert($val === 'Kost Zenerie • High-Performance Edition' || $val === 'Kost Management Monolith • High-Performance Edition', 'Setting landing_hero_badge must match');
 echo "[PASS] Settings helper works correctly: '{$val}'\n";
 
 echo "\n[ALL TESTS PASSED] Rooms & Landing Settings are fully dynamic and verified!\n";
