@@ -299,8 +299,8 @@
     <!-- ROOM INVENTORY & SHOWCASE SECTION (UI/UX PRO MAX) -->
     <?php if (!empty($rooms)): ?>
         <section id="kamar-kost" class="space-y-6 pt-6 reveal-on-scroll">
-            <!-- Section Header & Filter Controls -->
-            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 pb-2">
+            <!-- Section Header & Action -->
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-2 border-b border-slate-100">
                 <div>
                     <div class="inline-flex items-center gap-1.5 text-xs font-extrabold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-200 shadow-xs">
                         <i data-lucide="door-closed" class="w-3.5 h-3.5 text-blue-600"></i>
@@ -314,29 +314,34 @@
                     </p>
                 </div>
 
-                <!-- Interactive Filter Tabs & Link to Dedicated Catalog -->
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
-                    <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold overflow-x-auto no-scrollbar max-w-full">
-                        <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap shrink-0 text-xs">
-                            Semua Unit (<?= count($rooms) ?>)
-                        </button>
-                        <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0 text-xs">
-                            Lantai 1
-                        </button>
-                        <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap shrink-0 text-xs">
-                            Lantai 2
-                        </button>
-                        <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0 text-xs">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
-                        </button>
-                    </div>
-
+                <div class="flex items-center gap-3 shrink-0">
                     <!-- Tombol Lihat Semua Kamar di Halaman Terpisah -->
-                    <a href="<?= url('katalog') ?>" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm hover:shadow-md transition whitespace-nowrap shrink-0">
-                        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                    <a href="<?= url('katalog') ?>" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:shadow-lg transition">
+                        <i data-lucide="layout-grid" class="w-4 h-4"></i>
                         <span>Lihat Semua Kamar</span>
-                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
+                </div>
+            </div>
+
+            <!-- Interactive Filter Tabs Bar (Neat, Left-aligned) -->
+            <div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar py-1">
+                <div class="flex items-center gap-1.5 bg-slate-100/90 p-1 rounded-2xl border border-slate-200/80 shadow-xs text-xs font-bold shrink-0">
+                    <button type="button" onclick="filterRoomInventory('all')" id="btn-filter-all" class="room-filter-btn active px-3.5 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs border border-slate-200 transition cursor-pointer whitespace-nowrap text-xs">
+                        Semua Unit (<?= count($rooms) ?>)
+                    </button>
+                    <button type="button" onclick="filterRoomInventory('floor-1')" id="btn-filter-floor-1" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap text-xs">
+                        Lantai 1
+                    </button>
+                    <button type="button" onclick="filterRoomInventory('floor-2')" id="btn-filter-floor-2" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-slate-600 hover:text-slate-900 transition cursor-pointer whitespace-nowrap text-xs">
+                        Lantai 2
+                    </button>
+                    <button type="button" onclick="filterRoomInventory('available')" id="btn-filter-available" class="room-filter-btn px-3.5 py-1.5 rounded-xl text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap text-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
+                    </button>
+                </div>
+                <div class="text-xs text-slate-400 font-medium hidden sm:block">
+                    Total <?= count($rooms) ?> Unit Siap Huni & Terawat
                 </div>
             </div>
 
@@ -352,10 +357,24 @@
                         $typeName = $room->name;
                         $size = !empty($room->size) ? $room->size : '3x4 m²';
                         
-                        // Dynamic facility list from room assignments
+                        // Dynamic facility list with clean shorthand
                         $facilityList = !empty($room->facilities) 
                             ? array_column($room->facilities, 'name') 
-                            : ['AC 1/2 PK', 'KM Dalam', 'WiFi Fiber', 'Kasur Springbed'];
+                            : ['AC', 'KM Dalam', 'WiFi Fiber', 'Springbed'];
+
+                        $facMap = [
+                            'Air Conditioner (AC)' => 'AC',
+                            'Air Conditioner' => 'AC',
+                            'Kamar Mandi Dalam' => 'KM Dalam',
+                            'Kasur Springbed' => 'Springbed',
+                            'Lemari Pakaian' => 'Lemari',
+                            'Meja & Kursi Belajar' => 'Meja Belajar',
+                            'WiFi Berkecepatan Tinggi' => 'WiFi Fiber',
+                            'Water Heater' => 'Water Heater',
+                            'Smart TV' => 'Smart TV',
+                            'Balkon Privat' => 'Balkon',
+                        ];
+                        $shortFacs = array_map(fn($f) => $facMap[$f] ?? preg_replace('/\s*\(.*?\)/', '', $f), $facilityList);
 
                         // Dynamic badge style based on tier / price
                         $badgeStyle = 'bg-blue-500/20 text-blue-200 border-blue-400/30';
@@ -374,7 +393,7 @@
                                 ? url("images/rooms/room-{$rNum}.jpg") 
                                 : 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80');
                     ?>
-                    <div class="room-inventory-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400/70 transition-all duration-300 overflow-hidden flex flex-col justify-between group reveal-on-scroll stagger-<?= ($index % 4) + 1 ?> h-full"
+                    <div class="room-inventory-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-400/80 transition-all duration-300 overflow-hidden flex flex-col justify-between group h-full relative hover:z-10"
                          data-floor="<?= $floor ?>"
                          data-status="<?= $isAvailable ? 'available' : 'occupied' ?>">
 
@@ -442,13 +461,13 @@
                                 </p>
                             </div>
 
-                            <!-- Facilities Chips (Compact & Tidy on Mobile & Desktop) -->
+                            <!-- Facilities Chips (Uniform, Compact & Tidy) -->
                             <div class="pt-2.5 sm:pt-3 border-t border-slate-100">
                                 <div class="flex flex-wrap gap-1.5 items-center">
                                     <?php 
-                                        $displayFacs = array_slice($facilityList, 0, 4);
-                                        $remainingCount = count($facilityList) - count($displayFacs);
-                                        $remainingNames = $remainingCount > 0 ? implode(', ', array_slice($facilityList, 4)) : '';
+                                        $displayFacs = array_slice($shortFacs, 0, 4);
+                                        $remainingCount = count($shortFacs) - count($displayFacs);
+                                        $remainingNames = $remainingCount > 0 ? implode(', ', array_slice($shortFacs, 4)) : '';
                                     ?>
                                     <?php foreach ($displayFacs as $fac): ?>
                                         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/80 whitespace-nowrap">
@@ -480,23 +499,18 @@
                                             if (str_starts_with($bizPhone, '0')) $bizPhone = '62' . substr($bizPhone, 1);
                                             $bizName = setting('business_name', 'Kost Management');
                                             $waMsg = "Halo Pengelola {$bizName}, saya tertarik untuk booking / survei Kamar {$rNum} ({$typeName}) seharga {$room->formattedPrice()}/bln. Apakah unit masih tersedia?";
-                                            $waBookingUrl = "https://wa.me/{$bizPhone}?text=" . rawurlencode($waMsg);
+                                            $bookingUrl = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)
+                                                ? url('admin/bookings/create?room_id=' . $room->id)
+                                                : "https://wa.me/{$bizPhone}?text=" . rawurlencode($waMsg);
+                                            $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true) ? '' : 'target="_blank"';
                                         ?>
-                                        <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
-                                            <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" 
-                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
-                                                <span>Booking Unit</span>
-                                                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                                            </a>
-                                        <?php else: ?>
-                                            <a href="<?= e($waBookingUrl) ?>" target="_blank"
-                                               class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
-                                                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-                                                <span>Pesan via WA</span>
-                                            </a>
-                                        <?php endif; ?>
+                                        <a href="<?= e($bookingUrl) ?>" <?= $targetAttr ?>
+                                           class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
+                                            <span>Pesan Unit</span>
+                                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                        </a>
                                     <?php else: ?>
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
+                                        <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
                                             <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
                                             <span>Terisi</span>
                                         </span>
@@ -560,7 +574,6 @@
 
                 if (match) {
                     card.style.display = 'flex';
-                    card.classList.add('reveal-on-scroll', 'is-revealed');
                 } else {
                     card.style.display = 'none';
                 }

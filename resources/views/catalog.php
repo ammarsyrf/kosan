@@ -171,10 +171,24 @@
                 $typeName = $room->name;
                 $size = !empty($room->size) ? $room->size : '3x4 m²';
 
-                $facList = !empty($room->facilities) 
+                $facilityList = !empty($room->facilities) 
                     ? array_column($room->facilities, 'name') 
-                    : ['AC 1/2 PK', 'KM Dalam', 'WiFi Fiber', 'Kasur Springbed'];
-                $facSearchString = strtolower(implode(' ', $facList));
+                    : ['AC', 'KM Dalam', 'WiFi Fiber', 'Springbed'];
+                $facSearchString = strtolower(implode(' ', $facilityList));
+
+                $facMap = [
+                    'Air Conditioner (AC)' => 'AC',
+                    'Air Conditioner' => 'AC',
+                    'Kamar Mandi Dalam' => 'KM Dalam',
+                    'Kasur Springbed' => 'Springbed',
+                    'Lemari Pakaian' => 'Lemari',
+                    'Meja & Kursi Belajar' => 'Meja Belajar',
+                    'WiFi Berkecepatan Tinggi' => 'WiFi Fiber',
+                    'Water Heater' => 'Water Heater',
+                    'Smart TV' => 'Smart TV',
+                    'Balkon Privat' => 'Balkon',
+                ];
+                $shortFacs = array_map(fn($f) => $facMap[$f] ?? preg_replace('/\s*\(.*?\)/', '', $f), $facilityList);
 
                 // Badge style
                 $badgeStyle = 'bg-blue-500/20 text-blue-200 border-blue-400/30';
@@ -198,9 +212,12 @@
                 if (str_starts_with($bizPhone, '0')) $bizPhone = '62' . substr($bizPhone, 1);
                 $bizName = setting('business_name', 'Kost Management');
                 $waMsg = "Halo Pengelola {$bizName}, saya tertarik untuk booking / survei Kamar {$rNum} ({$typeName}) seharga {$room->formattedPrice()}/bln. Apakah unit masih tersedia?";
-                $waBookingUrl = "https://wa.me/{$bizPhone}?text=" . rawurlencode($waMsg);
+                $bookingUrl = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)
+                    ? url('admin/bookings/create?room_id=' . $room->id)
+                    : "https://wa.me/{$bizPhone}?text=" . rawurlencode($waMsg);
+                $targetAttr = auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true) ? '' : 'target="_blank"';
             ?>
-            <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400/70 transition-all duration-300 overflow-hidden flex flex-col justify-between group h-full"
+            <div class="catalog-card bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-400/80 transition-all duration-300 overflow-hidden flex flex-col justify-between group h-full relative hover:z-10"
                  data-room-number="<?= e($rNum) ?>"
                  data-room-name="<?= e(strtolower($typeName)) ?>"
                  data-floor="<?= $floor ?>"
@@ -270,13 +287,13 @@
                         </p>
                     </div>
 
-                    <!-- Facilities Chips (Compact & Tidy on Mobile & Desktop) -->
+                    <!-- Facilities Chips (Uniform, Compact & Tidy) -->
                     <div class="pt-2.5 sm:pt-3 border-t border-slate-100">
                         <div class="flex flex-wrap gap-1.5 items-center">
                             <?php 
-                                $displayFacs = array_slice($facList, 0, 4);
-                                $remainingCount = count($facList) - count($displayFacs);
-                                $remainingNames = $remainingCount > 0 ? implode(', ', array_slice($facList, 4)) : '';
+                                $displayFacs = array_slice($shortFacs, 0, 4);
+                                $remainingCount = count($shortFacs) - count($displayFacs);
+                                $remainingNames = $remainingCount > 0 ? implode(', ', array_slice($shortFacs, 4)) : '';
                             ?>
                             <?php foreach ($displayFacs as $fac): ?>
                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/80 whitespace-nowrap">
@@ -303,21 +320,13 @@
 
                         <div class="shrink-0">
                             <?php if ($isAvailable): ?>
-                                <?php if (auth_check() && in_array(strtolower(auth_user()['role'] ?? ''), ['owner', 'admin'], true)): ?>
-                                    <a href="<?= url('admin/bookings/create?room_id=' . $room->id) ?>" 
-                                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
-                                        <span>Booking Unit</span>
-                                        <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-                                    </a>
-                                <?php else: ?>
-                                    <a href="<?= e($waBookingUrl) ?>" target="_blank"
-                                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold px-3 sm:px-3.5 py-2 rounded-xl text-xs shadow-md shadow-emerald-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
-                                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-                                        <span>Pesan via WA</span>
-                                    </a>
-                                <?php endif; ?>
+                                <a href="<?= e($bookingUrl) ?>" <?= $targetAttr ?>
+                                   class="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow-md shadow-blue-500/20 hover:shadow-lg transition transform active:scale-95 whitespace-nowrap">
+                                    <span>Pesan Unit</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </a>
                             <?php else: ?>
-                                <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
+                                <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed whitespace-nowrap">
                                     <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i>
                                     <span>Terisi</span>
                                 </span>
